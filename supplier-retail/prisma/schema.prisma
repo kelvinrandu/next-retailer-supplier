@@ -18,6 +18,7 @@ model User {
   email         String?   @unique
   phone         String?   @unique
   isSupplier   Boolean @default(false)
+  items         Item[]
   emailVerified DateTime? @map(name: "email_verified")
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
@@ -58,4 +59,32 @@ model Session {
   @@map(name: "sessions")
 }
 
+model Item {
+  id      Int    @id @default(autoincrement())
+  name    String
+  quantity String
+  price    Int
+  min_bundle   Int
+  min_bundle_price   Int
+  max_bundle   Int
+  max_bundle_price   Int
+  userId Int
+  user   User  @relation(fields: [userId], references: [id])
+
+    @@map(name: "items")
+}
+model Order {
+  id      Int    @id @default(autoincrement())
+  receipt    String
+  totalPrice    Int
+  itemAmount   Int
+  itemId   Int
+  item  Item@relation(fields: [itemId], references: [id])
+  fromId Int
+  user   User  @relation(fields: [fromId], references: [id])
+  toId Int
+  user   User  @relation(fields: [toId], references: [id])
+
+    @@map(name: "orders")
+}
 
