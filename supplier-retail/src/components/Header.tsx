@@ -1,69 +1,79 @@
 
 import Link from 'next/link';
 import { signin, signout, useSession } from 'next-auth/client';
+import Logo from './Logo';
+import User from './User';
+import { useColorMode ,useColorModeValue} from '@chakra-ui/react';
 
-const Header = () => {
+import { Button } from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuIcon,
+  MenuCommand,
+  MenuDivider,
+} from "@chakra-ui/react";
+import { Container, Box, Flex, Spacer} from "@chakra-ui/react"
+
+const Header = (props) => {
   const [session, loading] = useSession();
+  const { colorMode, toggleColorMode } = useColorMode()
+
+  const color = useColorModeValue("white", "gray.800");
+  const bg = useColorModeValue("red.500", "red.200");
 
   return (
-    <header>
-      <nav>
-        <Link href="/">
-          <a className="logo">
-            <span style={{ color: '#f06292' }}>supplier</span>
-            <span style={{ color: '#29b6f6' }}>~</span>
-            <span style={{ color: '#8bc34a' }}>Retail</span>
-          </a>
-        </Link>
-
-        <p>
-          {!session && (
-            <a
-              href="/api/auth/signin"
-          
-            >
-              <button className="signInButton">Sign in</button>
+    <>
+    <Container  bg={bg} color={color}> 
+      <Flex  direction="row" 
+              justify="center"
+              align="center"
+              position="sticky"> 
+      <Logo/>
+      
+      <Spacer />
+        <Box>
+        {!session && (
+           <>
+            <a href="/api/auth/signin">
+              <Button>Sign in</Button>
             </a>
-          )}
-          {session && (
-            <>
-              <Link href="/profile">
-                <a>
-                  <span
-                    style={{ backgroundImage: `url(${session.user.image})` }}
-                    className="avatar"
-                  />
-                </a>
-              </Link>
-              <span className="email">{session.user.email}</span>
-              <a
-                href="/api/auth/signout"
-            
-              >
-                <button className="signOutButton">Sign out</button>
-              </a>
             </>
           )}
-        </p>
-      </nav>
+          {session && (
+             
+            <>
+            <Flex direction="row"
+                  justify="space-evenly"
+                  align="center">
+            <User />
+        <Box>
+        <a href="/api/auth/signout">
+          <Button>Sign out</Button>
+        </a>
+        </Box>  
+        <Button onClick={toggleColorMode}>
+        Toggle {colorMode === "light" ? "Dark" : "Light"}
+      </Button>
+
+            </Flex>
+            
+            </>
+          )}
+        </Box>
+    
+      
+      </Flex>
+        
+    
+   
 
       <style jsx>{`
-        header {
-          border-bottom: 1px solid #ccc;
-        }
-        nav {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          max-width: 42rem;
-          margin: 0 auto;
-          padding: 0.2rem 1.25rem;
-        }
-        .logo {
-          text-decoration: none;
-          font-size: 1.5rem;
-          font-weight: 600;
-        }
         .avatar {
           border-radius: 2rem;
           float: left;
@@ -73,34 +83,12 @@ const Header = () => {
           background-size: cover;
           border: 2px solid #ddd;
         }
-        .email {
-          margin-right: 1rem;
-          margin-left: 0.25rem;
-          font-weight: 600;
-        }
-        .signInButton,
-        .signOutButton {
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 1rem;
-          padding: 0.5rem 1rem;
-        }
-        .signInButton {
-          background-color: #1eb1fc;
-        }
-        .signInButton:hover {
-          background-color: #1b9fe2;
-        }
-        .signOutButton {
-          background-color: #333;
-        }
-        .signOutButton:hover {
-          background-color: #555;
-        }
+        
       `}</style>
-    </header>
+      </Container>
+</>
+
+    
   );
 };
 

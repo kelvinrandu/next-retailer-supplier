@@ -50,7 +50,7 @@ const SignUp: React.FC = () => {
         </a>
         </form>
       </div>
-      <style jsx>{`
+      {/* <style jsx>{`
       .page {
         background: white;
         padding: 3rem;
@@ -75,7 +75,7 @@ const SignUp: React.FC = () => {
       .back {
         margin-left: 1rem;
       }
-    `}</style>
+    `}</style> */}
     </Layout>
   )
 }
