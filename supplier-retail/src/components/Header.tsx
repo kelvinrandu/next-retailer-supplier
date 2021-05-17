@@ -17,33 +17,31 @@ const Header = (props) => {
 
   return (
     <>
-    <Container  > 
-      <Flex  direction="row" 
-              justify="center"
-              align="center"
-              > 
+    <Container maxW="xl">
+
+      <Flex  direction="row" justify="center" align="center"> 
       <Logo/>
       
       <Spacer />
         <Box>
         {!session && (
            <>
-            <a href="/api/auth/signin">
+            <Link href="/api/auth/signin">
               <Button>Sign in</Button>
-            </a>
+            </Link>
             </>
           )}
           {session && (
              
             <>
-        <Flex direction="row"
-                  justify="space-evenly"
-                  align="center">
+        <Flex direction="row" justify="space-evenly" align="center">
+
+          {/* user component */}
             <User />
           
-            <a href="/api/auth/signout">
+            <Link href="/api/auth/signout">
               <Button>Sign out</Button>
-            </a>
+            </Link>
             
             <Button onClick={toggleColorMode}>
             {colorMode === "light" ? "Dark" : "Light"}
