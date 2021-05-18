@@ -2,21 +2,26 @@ import React, { useState } from 'react'
 import Router from 'next/router'
 import {
   FormControl,
+  Radio,
+  RadioGroup,
   FormLabel,
-
   FormHelperText,
+  HStack,
 } from "@chakra-ui/react"
+
 
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [isSupplier, setisSupplier] = useState('')
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()
+
     try {
-      const body = { name, email, phone }
+      const body = { name, email, phone ,isSupplier}
       await fetch(`http://localhost:3000/api/user`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -55,15 +60,15 @@ const SignUp: React.FC = () => {
           />
             <FormControl as="fieldset">
               <FormLabel as="legend">Favorite Naruto Character</FormLabel>
-              <RadioGroup defaultValue="Itachi">
+              <RadioGroup   
+              defaultValue="false">
                 <HStack spacing="24px">
-                  <Radio value="Sasuke">Sasuke</Radio>
-                  <Radio value="Nagato">Nagato</Radio>
-                  <Radio value="Itachi">Itachi</Radio>
-                  <Radio value="Sage of the six Paths">Sage of the six Paths</Radio>
+                  <Radio name="isSupplier" onChange={e => setisSupplier(true)} value="true">supplier</Radio>
+                  <Radio name="isSupplier" onChange={e => setisSupplier(false)} value="false">retail</Radio>
+      
                 </HStack>
               </RadioGroup>
-              <FormHelperText>Select only if you're a fan.</FormHelperText>
+             
             </FormControl>
           <input
             disabled={!name || !email || !phone}
