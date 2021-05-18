@@ -5,9 +5,13 @@ import {
   Radio,
   RadioGroup,
   FormLabel,
-  FormHelperText,
   HStack,
+
 } from "@chakra-ui/react"
+import { Box, Center, Heading} from "@chakra-ui/layout";
+import { Button } from "@chakra-ui/button";
+
+
 
 
 
@@ -35,53 +39,81 @@ const SignUp: React.FC = () => {
 
   return (
  
-      <div className="page">
-        <form
-          onSubmit={submitData}>
-          <h1>Signup user</h1>
-          <input
-            autoFocus
-            onChange={e => setName(e.target.value)}
-            placeholder="Name"
-            type="text"
-            value={name}
-          />
-          <input
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Email address"
-            type="text"
-            value={email}
-          />
-          <input
-            onChange={e => setPhone(e.target.value)}
-            placeholder="Phone"
-            type="text"
-            value={phone}
-          />
-            <FormControl as="fieldset">
-              <FormLabel as="legend">Favorite Naruto Character</FormLabel>
-              <RadioGroup   
-              defaultValue="false">
-                <HStack spacing="24px">
-                  <Radio name="isSupplier" onChange={e => setisSupplier(true)} value="true">supplier</Radio>
-                  <Radio name="isSupplier" onChange={e => setisSupplier(false)} value="false">retail</Radio>
-      
-                </HStack>
-              </RadioGroup>
-             
-            </FormControl>
-          <input
-            disabled={!name || !email || !phone}
-            type="submit"
-            value="Signup"
-          />
-          <a className="back" href="#" onClick={() => Router.push('/')}>
-            or Cancel
-        </a>
-        </form>
-      </div>
-  
- 
+        <Center height="100vh">  
+                <Box 
+                p={8} 
+                my={"15"}  
+                maxWidth="500px" 
+                borderWidth={1} 
+                borderRadius={8} 
+                boxShadow="lg">
+                    <Box textAlign="center">
+                            <Heading>Register</Heading>
+                    </Box>
+                    <Box my={4} textAlign="left">
+                        <form onSubmit={submitData}>
+                            <FormControl isRequired>
+                                <FormLabel>Store Name</FormLabel>
+                                <input
+                                    autoFocus
+                                    onChange={e => setName(e.target.value)}
+                                    placeholder="Name"
+                                    type="text"
+                                    value={name}
+                                />
+                            </FormControl> 
+                            <FormControl isRequired mt={6}>
+                                <FormLabel>Email</FormLabel>
+                                <input
+                                    onChange={e => setEmail(e.target.value)}
+                                    placeholder="Email address"
+                                    type="text"
+                                    value={email}
+                                />
+                            </FormControl>     
+                            <FormControl isRequired mt={6}>
+                                <FormLabel>Phone</FormLabel>
+                                <input
+                                    onChange={e => setPhone(e.target.value)}
+                                    placeholder="Phone"
+                                    type="text"
+                                    value={phone}
+                                />
+                            </FormControl>   
+                             <FormControl as="fieldset">
+                            <FormLabel as="legend">Sign me up as</FormLabel>
+                            <RadioGroup   
+                            defaultValue="false">
+                                <HStack spacing="24px">
+                                <Radio name="isSupplier" onChange={e => setisSupplier(true)} value="true">supplier</Radio>
+                                <Radio name="isSupplier" onChange={e => setisSupplier(false)} value="false">retail</Radio>
+                    
+                                </HStack>
+                            </RadioGroup>
+                            
+                            </FormControl> 
+                            <Button
+                            disabled={!name || !email || !phone}
+                                type="submit" 
+                                variantColor="teal" 
+                                variant="outline" 
+                                width="full" mt={4}>
+                                Register
+                            </Button>
+
+                    
+                        </form>
+                        </Box>
+                            <Box textAlign="center">
+                                <div className="bg-gray-100">
+                                    <div className="bg-gray-100 container mx-auto px-6 pt-10 pb-6" >
+                                                
+                                                © codesmithsAfrica. All rights reserved
+                                    </div>
+                                </div>
+                            </Box>
+                    </Box>
+            </Center>
    
   )
 }
