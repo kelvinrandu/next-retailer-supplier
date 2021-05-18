@@ -4,9 +4,6 @@ import Layout from '../components/Layout';
 import Navbar from '../components/SupplierList';
 
 
-
-
-
  const Index: React.FC = (props:any) => {
   return (
     <Layout>
