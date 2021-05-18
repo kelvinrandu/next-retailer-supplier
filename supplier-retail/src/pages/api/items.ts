@@ -7,6 +7,7 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
         select: {
           id:true,
           name:true,
+          price:true,
           user: {
               select:{
               name:true,

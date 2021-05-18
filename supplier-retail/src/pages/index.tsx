@@ -1,14 +1,28 @@
 import Head from 'next/head'
 import React from 'react'
 import Layout from '../components/Layout';
-import Navbar from '../components/SupplierList';
+import ItemList from '../components/ItemList';
 
 
- const Index: React.FC = (props:any) => {
+
+export async function getStaticProps() {
+  const res = await fetch('http://localhost:3000/api/items')
+  const items = await res.json()
+  console.log(items)
+  
+  return {
+    props : { items}
+  }
+  
+}
+
+
+ const Index: React.FC = (props) => {
   return (
     <Layout>
-      <Navbar/>
-      supplier
+      
+       <ItemList items={props.items}/>
+
     </Layout>
       
   
