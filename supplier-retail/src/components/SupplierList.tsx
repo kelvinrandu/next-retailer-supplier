@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Navbar() {
+export default function SupplierList() {
     return (
         <div>
-            hello there
+            list of suppliers.
         </div>
     )
 }
