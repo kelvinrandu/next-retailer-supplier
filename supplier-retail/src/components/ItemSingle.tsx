@@ -10,8 +10,7 @@ export default function ItemSingle(props) {
 
   const [itemDetail, setItemDetail ] = useState(false);
   function ItemDetailHandler(){
-    console.log('itemdetails')
-    setItemDetail(true);
+    setItemDetail(!itemDetail);
   }
 
 
@@ -32,8 +31,8 @@ export default function ItemSingle(props) {
           variant="outline" 
           alignSelf="right" 
           float="right"
-          onClick={ItemDetailHandler}>
-           view
+          onClick={()=>ItemDetailHandler()}>
+           {itemDetail ? 'close' : 'view' }
         </Button>
         </HStack>
       </Box>

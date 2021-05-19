@@ -3,11 +3,15 @@ import Link from 'next/link';
 import { signin, signout, useSession } from 'next-auth/client';
 import Logo from './Logo';
 import User from './User';
-import { useColorMode ,useColorModeValue} from '@chakra-ui/react';
-
-import { Button } from "@chakra-ui/react";
-
-import { Container, Box, Flex, Spacer} from "@chakra-ui/react"
+import { 
+  Container,
+  Box,
+  Flex, 
+  Spacer,
+  useColorMode ,
+  useColorModeValue,
+  Button,
+  } from "@chakra-ui/react"
 
 const Header = (props) => {
   const [session, loading] = useSession();
