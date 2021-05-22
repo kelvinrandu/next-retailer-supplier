@@ -6,13 +6,13 @@ import {
   RadioGroup,
   FormLabel,
   HStack,
-
 } from "@chakra-ui/react"
-import { Box, Center, Heading} from "@chakra-ui/layout";
+import { 
+    Box, 
+    Center, 
+    Heading
+} from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
-
-
-
 
 
 const SignUp: React.FC = () => {

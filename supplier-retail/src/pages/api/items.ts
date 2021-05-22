@@ -20,6 +20,5 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
       })
 
       res.json(items)
-      console.log(items)
     
 }

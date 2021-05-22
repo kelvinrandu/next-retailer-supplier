@@ -5,7 +5,7 @@ import Header from '../components/Header';
 const Layout = ({ children }) => (
   <>
     <Head>
-      <title>Next Auth App</title>
+      <title>supplier retail</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 

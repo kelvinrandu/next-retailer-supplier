@@ -15,6 +15,7 @@ model User {
   name          String?
   email         String?   @unique
   phone         String?   @unique
+  image          String?
   isSupplier    Boolean   @default(false)
   items         Item[]
   to            Order[]   @relation("to")

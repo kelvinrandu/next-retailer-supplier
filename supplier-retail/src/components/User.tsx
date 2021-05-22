@@ -28,16 +28,3 @@ export default function User() {
     )
 }
 
-
-{/* <style jsx>{`
-.avatar {
-  border-radius: 2rem;
-  float: left;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: white;
-  background-size: cover;
-  border: 2px solid #ddd;
-}
-
-`}</style> */}
