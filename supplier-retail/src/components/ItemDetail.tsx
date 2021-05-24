@@ -1,8 +1,5 @@
 import React , { useState }from 'react';
-import { 
-    Heading
- 
-} from "@chakra-ui/layout"
+import {   Heading } from "@chakra-ui/layout"
 import Router from 'next/router'
 
 const ItemDetail: React.FC = (props) => {
@@ -47,6 +44,7 @@ const ItemDetail: React.FC = (props) => {
                 />  */}
 
                 <input
+               
                   disabled={!amount}
                   type="submit"
                   value="order"
