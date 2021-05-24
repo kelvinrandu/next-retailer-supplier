@@ -19,7 +19,7 @@ const SignUp: React.FC = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [isSupplier, setisSupplier] = useState('')
+  const [isSupplier, setisSupplier] = useState()
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()

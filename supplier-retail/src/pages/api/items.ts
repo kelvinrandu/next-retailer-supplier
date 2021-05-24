@@ -12,6 +12,7 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
               select:{
               name:true,
               phone:true,
+              email:true,
               }
           }
            

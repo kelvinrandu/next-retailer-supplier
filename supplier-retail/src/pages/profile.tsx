@@ -25,7 +25,7 @@ const Profile = () => {
         <>
       <Center py={6}>
 
-<Box
+      <Box
         maxW={'270px'}
         w={'full'}
         bg={useColorModeValue('white', 'gray.800')}

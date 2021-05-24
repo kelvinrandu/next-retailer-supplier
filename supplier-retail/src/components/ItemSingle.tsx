@@ -11,6 +11,7 @@ export type ItemProps = {
   user: {
     name: string;
     phone : number;
+    email: string;
   }
 
 }
@@ -28,10 +29,10 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
     return (
         <>
         <Box 
-                    _hover={{
-                      transform: 'translateY(-3px)',
-                      boxShadow: 'lg',
-                    }}
+          _hover={{
+            transform: 'transl(-3px)',
+            boxShadow: 'lg',
+             }}
           p={5} 
           shadow="md" 
           borderWidth="1px" 
@@ -52,7 +53,7 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
         </Button>
         </HStack>
       </Box>
-     {itemDetail &&  <ItemDetail user ={props.item.user}/>}
+     {itemDetail &&  <ItemDetail item = {props.item} user ={props.item.user}/>}
       </>
     )
 }

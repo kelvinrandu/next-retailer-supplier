@@ -5,7 +5,7 @@ import {Box } from '@chakra-ui/react'
 export default function Logo() {
     return (
        
-        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" padding="0.5rem" margin="0.5rem">     
+      <Box borderWidth="1px" borderRadius="lg" overflow="hidden" padding="0.5rem" margin="0.5rem">     
       <Link href="/">
           <>
             <span style={{ color: '#f06292' }}>supplier</span>
@@ -16,6 +16,7 @@ export default function Logo() {
         </Box>
       
     )
+    
 }
 
 
