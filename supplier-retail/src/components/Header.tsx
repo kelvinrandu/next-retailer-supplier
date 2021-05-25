@@ -10,7 +10,13 @@ import {
   Spacer,
   useColorMode ,
   Button,
-  } from "@chakra-ui/react"
+  Center
+  } from "@chakra-ui/react";
+  import { 
+    MoonIcon,
+    SunIcon
+
+  } from '@chakra-ui/icons'
 
 const Header = (props) => {
   const [session, loading] = useSession();
@@ -21,11 +27,10 @@ const Header = (props) => {
 
   return (
     <>
-    <Container maxW="xl">
+    <Container maxW="xl" >
 
-      <Flex  direction="row" justify="center" align="center"> 
+      <Flex  direction="row" justify="center" align="center" wrap="wrap"> 
       <Logo/>
-      
       <Spacer />
         <Box>
         {!session && (
@@ -38,7 +43,7 @@ const Header = (props) => {
           {session && (
              
             <>
-        <Flex direction="row" justify="space-evenly" align="center">
+        <Flex direction="row" justify="space-between" align="center">
 
           {/* user component */}
             <User />
@@ -47,8 +52,8 @@ const Header = (props) => {
               <Button>Sign out</Button>
             </Link>
             
-            <Button onClick={toggleColorMode}>
-            {colorMode === "light" ? "Dark" : "Light"}
+            <Button onClick={toggleColorMode} margin={3}>
+            {colorMode === "light" ? <MoonIcon/> : <SunIcon/>}
             </Button>
         </Flex>
             </>

@@ -5,7 +5,9 @@ import { ItemProps } from "../components/ItemSingle"
 import { useSession } from 'next-auth/client';
 import {
   Center,
-  Text
+  Text,
+  Spinner,
+  Box
 
 } from '@chakra-ui/react';
 
@@ -30,13 +32,28 @@ type Props = {
 
   const [session, loading] = useSession();
    const {items }=props
-   if (loading) return <div>loading...</div>;
+   if (loading) return <div>
+<Center h="100vh">
+<Spinner
+  thickness="4px"
+  speed="0.65s"
+  emptyColor="gray.200"
+  color="blue.500"
+  size="xl"
+/>
+</Center>
+   </div>;
 
   return (
     <Layout>
         {!session && (
            <>
-           <Center py={6}><Text mt={4}>login to view</Text></Center>
+           <Center h="100vh"><Box borderWidth="6px" borderRadius="lg" color="gray.500"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="xs"
+            textTransform="uppercase"
+            ml="2"><Text>login to view</Text></Box></Center>
           
             </>
           )}

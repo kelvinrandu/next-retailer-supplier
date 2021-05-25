@@ -53,19 +53,18 @@ const options = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
-  session: {
-    // Use JSON Web Tokens for session instead of database sessions.
-    // This option can be used with or without a database for users/accounts.
-    // Note: `jwt` is automatically set to `true` if no database is specified.
-    jwt: true,
-
-    // Seconds - How long until an idle session expires and is no longer valid.
-    // maxAge: 30 * 24 * 60 * 60, // 30 days
-
-    // Seconds - Throttle how frequently to write to database to extend a session.
-    // Use it to limit write operations. Set to 0 to always update the database.
-    // Note: This option is ignored if using JSON Web Tokens
-    // updateAge: 24 * 60 * 60, // 24 hours
+  session: async (session, user) => {
+    // Assign user data from JWT to session user
+    session.user = user.data
+    return Promise.resolve(session)
+  },
+  jwt: async (token, user, account, profile, isNewUser) => {
+    // The user argument is only passed the first time this callback is called on a new session, after the user signs in
+    if (user) {
+      // Add a new prop on token for user data
+      token.data = user
+    }
+    return Promise.resolve(token)
   },
   debug: process.env.NODE_ENV === 'development',
   secret: process.env.AUTH_SECRET,
@@ -74,6 +73,7 @@ const options = {
     secret: process.env.JWT_SECRET,
 
   }
+  
   
   
 
