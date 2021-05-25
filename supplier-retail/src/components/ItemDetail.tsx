@@ -2,6 +2,7 @@ import React , { useState }from 'react';
 import {   Heading } from "@chakra-ui/layout"
 import { useSession } from 'next-auth/client';
 import Router from 'next/router'
+import { Button,useColorModeValue} from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle"
 
 
@@ -37,6 +38,7 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try {
+          alert('your order has been sent')
           const totalPrice =getTotal(price,amount)
           const receipt = getReceipt()
           const body = { totalPrice,receipt,amount,itemId,toEmail,fromEmail }
@@ -63,6 +65,7 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
                 <input
                   autoFocus
                   onChange={e => setAmount(e.target.value)}
+                  // color={useColorModeValue('white', 'black')}
                   placeholder="Number"
                   type="number"
                   value={amount}

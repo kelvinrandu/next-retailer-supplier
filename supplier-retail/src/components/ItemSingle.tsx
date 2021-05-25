@@ -1,9 +1,8 @@
 import React from 'react';
 import {useState}from 'react'
 import { Box, Stack,Heading,Text,Flex, HStack } from "@chakra-ui/layout"
-import { Button } from "@chakra-ui/react";
+import { Button} from "@chakra-ui/react";
 import ItemDetail from './ItemDetail';
-
 
 export type ItemProps = {
   id: number;
@@ -26,14 +25,13 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
     setItemDetail(!itemDetail);
   }
 
-
     return (
         <>
         <Box 
           _hover={{
-            transform: 'transl(-3px)',
+            transform: 'translateY(-3px)',
             boxShadow: 'lg',
-             }}
+          }}
           p={5} 
           shadow="md" 
           borderWidth="1px" 

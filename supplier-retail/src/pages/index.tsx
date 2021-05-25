@@ -5,9 +5,9 @@ import { ItemProps } from "../components/ItemSingle"
 import { useSession } from 'next-auth/client';
 import {
   Center,
-  Text,
-} from '@chakra-ui/react';
+  Text
 
+} from '@chakra-ui/react';
 
 
 export async function getStaticProps() {
@@ -27,6 +27,7 @@ type Props = {
 } 
 
  const Index: React.FC<Props> = (props) => {
+
   const [session, loading] = useSession();
    const {items }=props
    if (loading) return <div>loading...</div>;
@@ -40,7 +41,9 @@ type Props = {
             </>
           )}
           {session && (
+            
        <ItemList items={items}/>
+
        )}
 
     </Layout>     
