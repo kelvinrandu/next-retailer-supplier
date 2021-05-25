@@ -1,19 +1,44 @@
 import React , { useState }from 'react';
 import {   Heading } from "@chakra-ui/layout"
+import { useSession } from 'next-auth/client';
 import Router from 'next/router'
+import { ItemProps } from "../components/ItemSingle"
 
-const ItemDetail: React.FC = (props) => {
-    const [amount, setAmount] = useState('')
-    const [toEmail, setToEmail] = useState('')
-    const [fromEmail, setFromEmail] = useState('')
-    const [itemId, setItemId] = useState('')
+
+
+const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
+  const [session, loading] = useSession();
+  const {item }= props
+  
+    const [amount, setAmount] = useState(0)
+    const toEmail = item.user.email
+    const fromEmail = session.user.email
+    const price = props.item.price
+    const itemId = item.id
     const [receipt, setReceipt] = useState('')
-    const [totalPrice, setTotalPrice] = useState('')
+    const [totalPrice, setTotalPrice] = useState(0)
 
+    function getTotal(price,amount){
+      const total = price*amount
+      setTotalPrice(total)
+      
+      return total
+
+    }
+
+    function getReceipt(){
+      const  randomString =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); 
+      setReceipt(randomString)
+      return  randomString
+
+    }
+   
 
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try {
+          const totalPrice =getTotal(price,amount)
+          const receipt = getReceipt()
           const body = { totalPrice,receipt,amount,itemId,toEmail,fromEmail }
           await fetch(`http://localhost:3000/api/order`, {
             method: 'POST',
@@ -29,8 +54,8 @@ const ItemDetail: React.FC = (props) => {
     return (
         <>
         <Heading>
-         {props.user.phone}
-        
+         {props.item.user.phone}
+   
         </Heading>
                 <form
                 onSubmit={submitData}>
@@ -42,36 +67,13 @@ const ItemDetail: React.FC = (props) => {
                   type="number"
                   value={amount}
                 />
-                 <input
-                  onChange={e => setFromEmail(e.target.value)}
-                  placeholder="fromEmail"
-                  type="text"
-                  value={fromEmail}
-                /> 
-                <input
-                  onChange={e => setToEmail(e.target.value)}
-                  placeholder="toemail"
-                  type="text"
-                  value={toEmail}
-                /> 
-                <input
+     
+                {/* <input
                   onChange={e => setReceipt(e.target.value)}
                   placeholder="receipt"
                   type="text"
                   value={receipt}
-                /> 
-                                <input
-                  onChange={e => setItemId(e.target.value)}
-                  placeholder="item id"
-                  type="number"
-                  value={itemId}
-                /> 
-                <input
-                  onChange={e => setTotalPrice(e.target.value)}
-                  placeholder="total price"
-                  type="number"
-                  value={totalPrice}
-                /> 
+                />  */}
 
                 <input
                

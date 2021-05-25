@@ -12,14 +12,10 @@ import {
 
 export async function getStaticProps() {
 
-
-
   const res = await fetch('http://localhost:3000/api/items')
   
   const items = await res.json()
   
-
-
   return {
     props : { items}
   }

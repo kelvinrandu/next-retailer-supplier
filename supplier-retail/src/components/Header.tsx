@@ -9,7 +9,6 @@ import {
   Flex, 
   Spacer,
   useColorMode ,
-  useColorModeValue,
   Button,
   } from "@chakra-ui/react"
 

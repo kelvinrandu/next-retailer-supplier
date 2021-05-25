@@ -4,6 +4,7 @@ import { Box, Stack,Heading,Text,Flex, HStack } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/react";
 import ItemDetail from './ItemDetail';
 
+
 export type ItemProps = {
   id: number;
   name: string;
@@ -53,7 +54,7 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
         </Button>
         </HStack>
       </Box>
-     {itemDetail &&  <ItemDetail item = {props.item} user ={props.item.user}/>}
+     {itemDetail &&  <ItemDetail item = {props.item} />}
       </>
     )
 }
