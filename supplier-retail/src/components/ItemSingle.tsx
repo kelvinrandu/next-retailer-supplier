@@ -54,7 +54,7 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
         <Text > Ksh{props.item.price}  </Text>
 
         <Spacer />
-        <Text > {props.item.user.name}  </Text>
+        <Text > {props.item.name}  </Text>
         <Spacer />
         <Button  
           colorScheme="teal" 
