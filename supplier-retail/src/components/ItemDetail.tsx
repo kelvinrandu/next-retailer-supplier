@@ -2,7 +2,7 @@ import React , { useState }from 'react';
 import {   Heading } from "@chakra-ui/layout"
 import { useSession } from 'next-auth/client';
 import Router from 'next/router'
-import { Button,useColorModeValue} from "@chakra-ui/react";
+import { Input} from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle"
 
 
@@ -62,11 +62,11 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
                 <form
                 onSubmit={submitData}>
               
-                <input
+                <Input
                   autoFocus
                   onChange={e => setAmount(e.target.value)}
                   // color={useColorModeValue('white', 'black')}
-                  placeholder="Number"
+                  placeholder="quantity"
                   type="number"
                   value={amount}
                 />
@@ -78,12 +78,12 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
                   value={receipt}
                 />  */}
 
-                <input
+                {/* <input
                
                   disabled={!amount}
                   type="submit"
                   value="order"
-                />
+                /> */}
             
               </form>
               </>
