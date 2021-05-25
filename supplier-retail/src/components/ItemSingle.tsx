@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState}from 'react'
-import { Box, Stack,Heading,Text,Flex, HStack } from "@chakra-ui/layout"
+import { Box, Stack,Heading,Text,Flex, HStack ,Spacer} from "@chakra-ui/layout"
 import { Button} from "@chakra-ui/react";
 import ItemDetail from './ItemDetail';
 
@@ -35,13 +35,27 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
           p={5} 
           shadow="md" 
           borderWidth="1px" 
-          w="30%" > 
+          margin={3}
+          borderRadius={5}
+          // d="flex"
+         w= {[300, 400, 560]}
+         > 
+         <Flex 
+         justify='center'
+         align='center'
+         wrap='wrap'
+         grow={1}
+         >
 
-        <HStack>
+        {/* <HStack w='100%'> */}
         <Heading fontSize="xl">{props.item.name}</Heading>
-        <Text mt={4}>@</Text> 
-        <Text mt={4}> Ksh{props.item.price} by {props.item.user.name}  </Text>
-  
+        <Spacer />
+        <Text >@</Text> 
+        <Text > Ksh{props.item.price}  </Text>
+
+        <Spacer />
+        <Text > {props.item.user.name}  </Text>
+        <Spacer />
         <Button  
           colorScheme="teal" 
           variant="outline" 
@@ -50,8 +64,10 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
           onClick={()=>ItemDetailHandler()}>
            {itemDetail ? 'close' : 'view' }
         </Button>
-        </HStack>
+        {/* </HStack> */}
+        </Flex>
       </Box>
+      
      {itemDetail &&  <ItemDetail item = {props.item} />}
       </>
     )
