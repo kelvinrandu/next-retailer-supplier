@@ -16,6 +16,9 @@ export async function getStaticProps() {
 
 
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`)
+  if (res.status !== 200) {
+    throw new Error("Failed to fetch")
+  }
   
   const items = await res.json()
   
