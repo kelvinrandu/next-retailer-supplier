@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../lib/prisma'
 
 // POST /api/user
-// Required fields in body: name, email, phone
+// Required fields in body: name, email, phone, isSupplier
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const result = await prisma.user.create({
     data: {

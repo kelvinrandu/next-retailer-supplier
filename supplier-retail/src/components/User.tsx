@@ -18,8 +18,14 @@ export default function User() {
                 <span>{session.user.email}</span>
               </Link> */}
               {/* {session.user.image} */}
-              <Box borderWidth="1px" borderRadius="lg" overflow="hidden" padding="0.5rem" margin="0.5rem">
-              {session.user.email}
+              {session.user.isSupplier ? 'supplier': 'retail'}
+              <Box 
+                borderWidth="1px" 
+                borderRadius="lg" 
+                overflow="hidden" 
+                padding="0.5rem" 
+                margin="0.5rem">
+              {session.user.email} 
               </Box>
               
               

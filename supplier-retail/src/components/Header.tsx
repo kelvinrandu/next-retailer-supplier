@@ -9,8 +9,7 @@ import {
   Flex, 
   Spacer,
   useColorMode ,
-  Button,
-  Center
+  Button
   } from "@chakra-ui/react";
   import { 
     MoonIcon,
@@ -45,12 +44,15 @@ const Header = (props) => {
             <>
         <Flex direction="row" justify="space-between" align="center">
 
+
           {/* user component */}
             <User />
+            
           
             <Link href="/api/auth/signout">
               <Button>Sign out</Button>
             </Link>
+            
             
             <Button onClick={toggleColorMode} margin={3}>
             {colorMode === "light" ? <MoonIcon/> : <SunIcon/>}

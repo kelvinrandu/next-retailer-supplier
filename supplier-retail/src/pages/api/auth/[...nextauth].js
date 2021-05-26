@@ -3,6 +3,7 @@ import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import Adapters from 'next-auth/adapters'
 import prisma from '../../../../lib/prisma'
+import getUserByEmail from './getUserByRole' 
 // import { PrismaClient } from '@prisma/client'
 
 // const prisma = new PrismaClient()
@@ -53,19 +54,25 @@ const options = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
-  session: async (session, user) => {
-    // Assign user data from JWT to session user
-    session.user = user.data
-    return Promise.resolve(session)
-  },
-  jwt: async (token, user, account, profile, isNewUser) => {
-    // The user argument is only passed the first time this callback is called on a new session, after the user signs in
-    if (user) {
-      // Add a new prop on token for user data
-      token.data = user
+  callbacks: {
+    jwt: async (token, user, account, profile, isNewUser) => {
+        //  "user" parameter is the object received from "authorize"
+        //  "token" is being send below to "session" callback...
+        //  ...so we set "user" param of "token" to object from "authorize"...
+        //  ...and return it...
+        user && (token.user = user);
+        return Promise.resolve(token)   // ...here
+    },
+    session: async (session, user, sessionToken) => {
+        //  "session" is current session object
+        //  below we set "user" param of "session" to value received from "jwt" callback
+        user = await getUserByEmail(session.user.email)
+      
+        session.user = user;
+        console.log('here..', session)
+        return Promise.resolve(session)
     }
-    return Promise.resolve(token)
-  },
+},
   debug: process.env.NODE_ENV === 'development',
   secret: process.env.AUTH_SECRET,
    adapter: Adapters.Prisma.Adapter({ prisma }),

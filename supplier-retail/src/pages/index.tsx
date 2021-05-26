@@ -32,17 +32,19 @@ type Props = {
 
   const [session, loading] = useSession();
    const {items }=props
-   if (loading) return <div>
-<Center h="100vh">
-<Spinner
-  thickness="4px"
-  speed="0.65s"
-  emptyColor="gray.200"
-  color="blue.500"
-  size="xl"
-/>
-</Center>
-   </div>;
+   if (loading)
+    return (
+           <div>
+              <Center h="100vh">
+                  <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="xl"
+                  />
+              </Center>
+          </div>)
 
   return (
     <Layout>
