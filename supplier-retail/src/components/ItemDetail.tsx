@@ -71,9 +71,7 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
                   placeholder="quantity"
                   type="number"
                   value={amount}
-                />
-     
-
+                />    
 
                 {/* <input
                
