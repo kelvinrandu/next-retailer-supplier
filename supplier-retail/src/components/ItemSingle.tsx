@@ -35,7 +35,7 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
           p={5} 
           shadow="md" 
           borderWidth="1px" 
-          margin={3}
+          margin={2}
           borderRadius={5}
           // d="flex"
          w= {[300, 400, 560]}
@@ -49,12 +49,11 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
 
         {/* <HStack w='100%'> */}
         <Heading fontSize="xl">{props.item.name}</Heading>
+
+
         <Spacer />
         <Text >@</Text> 
         <Text > Ksh{props.item.price}  </Text>
-
-        <Spacer />
-        <Text > {props.item.name}  </Text>
         <Spacer />
         <Button  
           colorScheme="teal" 

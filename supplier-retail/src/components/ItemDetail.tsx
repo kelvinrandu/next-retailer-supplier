@@ -12,24 +12,25 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
   const {item }= props
   
     const [amount, setAmount] = useState(0)
-    const toEmail = item.user.email
-    const fromEmail = session.user.email
-    const price = props.item.price
-    const itemId = item.id
-    const [receipt, setReceipt] = useState('')
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [toEmail] = useState(item.user.email) 
+    const [fromEmail] = useState(session.user.email)
+    const [price] = useState(item.price)
+    const [itemId ] = useState(item.id)
+    const [receipt, setReceipt] = useState(getReceipt())
+    const [totalPrice, setTotalPrice] = useState(1)
 
     function getTotal(price,amount){
       const total = price*amount
-      setTotalPrice(total)
-      
-      return total
+      setTotalPrice(price*amount)
+            
+      return  price*amount
 
     }
 
     function getReceipt(){
       const  randomString =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); 
-      setReceipt(randomString)
+     
+      
       return  randomString
 
     }
@@ -38,15 +39,17 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try {
-          alert('your order has been sent')
+          
+       
           const totalPrice =getTotal(price,amount)
-          const receipt = getReceipt()
+          // getReceipt()
           const body = { totalPrice,receipt,amount,itemId,toEmail,fromEmail }
           await fetch(`http://localhost:3000/api/order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
           })
+          alert('your order has been sent')
           await Router.push('/')
         } catch (error) {
           console.error(error)
@@ -56,7 +59,7 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
     return (
         <>
         <Heading>
-         {props.item.user.phone}
+         {item.user.phone}
    
         </Heading>
                 <form
@@ -65,18 +68,12 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
                 <Input
                   autoFocus
                   onChange={e => setAmount(e.target.value)}
-                  // color={useColorModeValue('white', 'black')}
                   placeholder="quantity"
                   type="number"
                   value={amount}
                 />
      
-                {/* <input
-                  onChange={e => setReceipt(e.target.value)}
-                  placeholder="receipt"
-                  type="text"
-                  value={receipt}
-                />  */}
+
 
                 {/* <input
                
