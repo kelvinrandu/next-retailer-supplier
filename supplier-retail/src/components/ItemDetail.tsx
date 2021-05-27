@@ -39,8 +39,7 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try {
-          
-       
+           
           const totalPrice =getTotal(price,amount)
           // getReceipt()
           const body = { totalPrice,receipt,amount,itemId,toEmail,fromEmail }

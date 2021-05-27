@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
-import { signin, signout, useSession } from 'next-auth/client';
+import {  useSession } from 'next-auth/client';
 import {Box} from '@chakra-ui/react';
 
 export default function User() {
@@ -27,8 +27,7 @@ export default function User() {
                 margin="0.5rem">
               {session.user.email} 
               </Box>
-              
-              
+   
             
         </>
     )

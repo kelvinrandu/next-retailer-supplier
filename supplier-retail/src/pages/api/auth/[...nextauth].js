@@ -24,21 +24,19 @@ const options = {
         password: {  label: "Password", type: "password" }
       },
      async authorize(credentials, req) {
-      const user = await prisma.user.findFirst({
-        where: {
-            email: credentials.email,
-            
+
+         
+        const user = async(credentials, req) => {
+          let userlogin= await getUserByEmail(credentials.email)
+          // You need to provide your own logic here that takes the credentials
+          // submitted and returns either a object representing a user or value
+          // that is false/null if the credentials are invalid.
+          // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+          // You can also use the request object to obtain additional parameters 
+          // (i.e., the request IP address)   
+          // return null
+          return userlogin
         }
-    });
-        // const user = (credentials, req) => {
-        //   // You need to provide your own logic here that takes the credentials
-        //   // submitted and returns either a object representing a user or value
-        //   // that is false/null if the credentials are invalid.
-        //   // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        //   // You can also use the request object to obtain additional parameters 
-        //   // (i.e., the request IP address)   
-        //   return null
-        // }
         if (user) {
           // Any user object returned here will be saved in the JSON Web Token
           return user
@@ -64,12 +62,12 @@ const options = {
         return Promise.resolve(token)   // ...here
     },
     session: async (session, user, sessionToken) => {
+        
         //  "session" is current session object
         //  below we set "user" param of "session" to value received from "jwt" callback
-        user = await getUserByEmail(session.user.email)
+        const userFromDatabase = await getUserByEmail(session.user.email)
       
-        session.user = user;
-        console.log('here..', session)
+        session.user = userFromDatabase ;
         return Promise.resolve(session)
     }
 },
@@ -79,7 +77,10 @@ const options = {
   jwt:{
     secret: process.env.JWT_SECRET,
 
-  }
+  },
+  session: {
+    jwt: true,
+  },
   
   
   
