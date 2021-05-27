@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { signin, signout, useSession } from 'next-auth/client';
+import { useSession } from 'next-auth/client';
 import Logo from './Logo';
 import User from './User';
 import { 
@@ -21,8 +21,6 @@ const Header = (props) => {
   const [session, loading] = useSession();
   const { colorMode, toggleColorMode } = useColorMode()
 
-  // const color = useColorModeValue("white", "gray.800");
-  // const bg = useColorModeValue("red.500", "red.200");
 
   return (
     <>

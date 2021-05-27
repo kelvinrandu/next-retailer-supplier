@@ -1,6 +1,11 @@
 import React from 'react';
 import {useState}from 'react'
-import { Box, Stack,Heading,Text,Flex, HStack ,Spacer} from "@chakra-ui/layout"
+import {
+   Box, 
+   Heading,
+   Text,
+   Flex ,
+   Spacer} from "@chakra-ui/layout"
 import { Button} from "@chakra-ui/react";
 import ItemDetail from './ItemDetail';
 
@@ -18,7 +23,6 @@ export type ItemProps = {
 
 const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
   
-
   const [itemDetail, setItemDetail ] = useState(false);
 
   function ItemDetailHandler(){

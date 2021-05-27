@@ -1,5 +1,4 @@
-import { Box, Stack,Heading,Text,Flex, Container, Center } from "@chakra-ui/layout"
-import { Button } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/layout"
 import ItemSingle,{ ItemProps } from "./ItemSingle"
 
 export type Props = {

@@ -1,6 +1,11 @@
 import React from 'react';
 import {useState}from 'react'
-import { Box, Stack,Heading,Text,Flex, HStack ,Spacer} from "@chakra-ui/layout"
+import { 
+  Box,
+  Heading,
+  Text,
+  Flex, 
+  Spacer} from "@chakra-ui/layout"
 import { Button} from "@chakra-ui/react";
 
 

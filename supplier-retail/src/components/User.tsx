@@ -18,7 +18,15 @@ export default function User() {
                 <span>{session.user.email}</span>
               </Link> */}
               {/* {session.user.image} */}
-              {session.user.isSupplier ? 'supplier': 'retail'}
+              {session.user.isSupplier && <>
+                <Link href="/orders">
+                <a>
+                  <span>orders</span>
+                </a>
+
+              
+              </Link>
+              </>}
               <Box 
                 borderWidth="1px" 
                 borderRadius="lg" 
