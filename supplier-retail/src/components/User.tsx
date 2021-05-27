@@ -5,6 +5,7 @@ import {Box} from '@chakra-ui/react';
 
 export default function User() {
     const [session, loading] = useSession();
+    const {user}= session;
     return (
         <>
             {/* <Link href="/profile">
@@ -18,7 +19,7 @@ export default function User() {
                 <span>{session.user.email}</span>
               </Link> */}
               {/* {session.user.image} */}
-              {session.user.isSupplier && <>
+              {user.isSupplier && <>
                 <Link href="/orders">
                 <a>
                   <span>orders</span>

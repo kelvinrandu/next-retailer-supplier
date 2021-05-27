@@ -11,13 +11,13 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
   const [session, loading] = useSession();
   const {item }= props
   
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState<number>(0)
     const [toEmail] = useState(item.user.email) 
     const [fromEmail] = useState(session.user.email)
     const [price] = useState(item.price)
     const [itemId ] = useState(item.id)
     const [receipt, setReceipt] = useState(getReceipt())
-    const [totalPrice, setTotalPrice] = useState(1)
+    const [totalPrice, setTotalPrice] = useState<number>(1)
 
     function getTotal(price,amount){
       const total = price*amount
@@ -35,7 +35,6 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
 
     }
    
-
     const submitData = async (e: React.SyntheticEvent) => {
         e.preventDefault()
         try {
@@ -66,7 +65,7 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
               
                 <Input
                   autoFocus
-                  onChange={e => setAmount(e.target.value)}
+                  onChange={e => setAmount(parseInt(e.target.value) }
                   placeholder="quantity"
                   type="number"
                   value={amount}
