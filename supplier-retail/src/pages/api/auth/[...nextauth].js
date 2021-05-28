@@ -51,6 +51,13 @@ const options = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
+  pages: {
+    // signIn: '/auth/signin',  // Displays signin buttons
+    // signOut: '/auth/signout', // Displays form with sign out button
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // Used for check email page
+    newUser: '/first',// If set, new users will be directed here on first sign in
+  },
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
         //  "user" parameter is the object received from "authorize"
@@ -80,6 +87,8 @@ const options = {
   session: {
     jwt: true,
   },
+
+
   
 
 };
