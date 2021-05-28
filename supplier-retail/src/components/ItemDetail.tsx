@@ -65,7 +65,7 @@ const ItemDetail: React.FC <{item: ItemProps}>= (props) => {
               
                 <Input
                   autoFocus
-                  onChange={e => setAmount(parseInt(e.target.value) }
+                  onChange={e => setAmount(parseInt(e.target.value) )}
                   placeholder="quantity"
                   type="number"
                   value={amount}

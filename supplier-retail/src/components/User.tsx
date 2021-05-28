@@ -8,17 +8,7 @@ export default function User() {
     const {user}= session;
     return (
         <>
-            {/* <Link href="/profile">
-                <a>
-                  <span
-                    style={{ backgroundImage: `url(${session.user.image})` }}
-                    className="avatar"
-                  />
-                </a>
-
-                <span>{session.user.email}</span>
-              </Link> */}
-              {/* {session.user.image} */}
+  
               {user.isSupplier && <>
                 <Link href="/orders">
                 <a>
