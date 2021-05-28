@@ -8,7 +8,7 @@ export default function User() {
     const {user}= session;
     return (
         <>
-  
+             /* @ts-ignore */ 
               {user.isSupplier && <>
                 <Link href="/orders">
                 <a>

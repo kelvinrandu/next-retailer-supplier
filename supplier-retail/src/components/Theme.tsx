@@ -12,6 +12,7 @@ const config = {
 }
 
 // 3. extend the theme
+/* @ts-ignore */ 
 const theme = extendTheme({ config })
 
 
