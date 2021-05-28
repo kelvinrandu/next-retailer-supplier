@@ -9,7 +9,7 @@ declare module "next-auth" {
       /** The user's postal address. */
       name: string
       email: string
-      img: string
+      image: string
       isSupplier: boolean
     }
   }
