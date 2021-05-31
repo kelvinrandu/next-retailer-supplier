@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import Router from 'next/router'
 import {
   FormControl,
-  Radio,
-  RadioGroup,
   FormLabel,
-  HStack,
+
 } from "@chakra-ui/react"
 import { 
     Box, 
@@ -13,14 +11,14 @@ import {
     Heading
 } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
-import { useSession } from 'next-auth/client';
+
 
 
 const First: React.FC = () => {
 
-  const [session, loading] = useSession();
-  const [isSupplier, setisSupplier] = useState(false)
-  const [email, setEmail] = useState(session.user.email)
+
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
 
 
   const submitData = async (e: React.SyntheticEvent) => {
@@ -34,7 +32,7 @@ const First: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
-      await Router.push('/')
+    
     } catch (error) {
       console.error(error)
     }
@@ -51,30 +49,35 @@ const First: React.FC = () => {
                 borderRadius={8} 
                 boxShadow="lg">
                     <Box textAlign="center">
-                            <Heading>Register</Heading>
+                            <Heading>Login</Heading>
                     </Box>
                     <Box my={4} textAlign="left">
                         <form onSubmit={submitData}>
-        
-                             <FormControl as="fieldset">
-                            <FormLabel as="legend">Sign me up as</FormLabel>
-                            <RadioGroup   
-                            defaultValue="false">
-                                <HStack spacing="24px">
-                                <Radio name="isSupplier" onChange={e => setisSupplier(true)} value="true">supplier</Radio>
-                                <Radio name="isSupplier" onChange={e => setisSupplier(false)} value="false">retail</Radio>
-                    
-                                </HStack>
-                            </RadioGroup>
-                            
-                            </FormControl> 
+                        <FormControl isRequired mt={6}>
+                                <FormLabel>Email</FormLabel>
+                                <input
+                                    onChange={e => setEmail(e.target.value)}
+                                    placeholder="email"
+                                    type="text"
+                                    value={email}
+                                />
+                            </FormControl>  
+                            <FormControl isRequired mt={6}>
+                                <FormLabel>Password</FormLabel>
+                                <input
+                                    onChange={e => setPassword(e.target.value)}
+                                    placeholder="Password"
+                                    type="text"
+                                    value={password}
+                                />
+                            </FormControl>  
                             <Button
                            
                                 type="submit" 
                                 variantColor="teal" 
                                 variant="outline" 
                                 width="full" mt={4}>
-                                Register
+                                Login
                             </Button>
 
                     
