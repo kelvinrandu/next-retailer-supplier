@@ -1,17 +1,34 @@
 import prisma from '../../../../lib/prisma'
-export default async function getUserByEmail( email ) {
-let user = await prisma.user.findUnique({
-    where: {
-            email: email       
-    },
-    select: {
-        id: true,
-        email: true,
-        name: true,
-        image: true,
-        isSupplier: true,
-    }
-});
+import { compare } from 'bcrypt';
 
-return user
+export default async function login( email , password) {
+    let user: object| null  = await prisma.user.findUnique({
+        where: {
+                email: email       
+        },
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            image: true,
+            isSupplier: true,
+            password:true,
+        }
+    });
+    if(!user){
+        console.log('ups no user found')
+        return false;
+
+      }
+    compare(password, user.password, function(err, result) {
+        if (!err && result) {
+
+          return true
+     
+        } else {
+            console.log("unsuccessful")
+          return false
+        }
+      });
+
 }
