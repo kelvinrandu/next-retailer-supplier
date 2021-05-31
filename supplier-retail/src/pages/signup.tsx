@@ -19,13 +19,14 @@ const SignUp: React.FC = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
   const [isSupplier, setisSupplier] = useState(false)
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
     try {
-      const body = { name, email, phone ,isSupplier}
+      const body = { name, email, phone ,password,isSupplier}
       await fetch(`http://localhost:3000/api/user`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -70,7 +71,16 @@ const SignUp: React.FC = () => {
                                     type="text"
                                     value={email}
                                 />
-                            </FormControl>     
+                            </FormControl>  
+                            <FormControl isRequired mt={6}>
+                                <FormLabel>Password</FormLabel>
+                                <input
+                                    onChange={e => setPassword(e.target.value)}
+                                    placeholder="Password"
+                                    type="text"
+                                    value={password}
+                                />
+                            </FormControl>    
                             <FormControl isRequired mt={6}>
                                 <FormLabel>Phone</FormLabel>
                                 <input
@@ -93,7 +103,7 @@ const SignUp: React.FC = () => {
                             
                             </FormControl> 
                             <Button
-                            disabled={!name || !email || !phone}
+                            disabled={!name || !email || !phone|| !password}
                                 type="submit" 
                                 variantColor="teal" 
                                 variant="outline" 
