@@ -6,6 +6,7 @@ import {
   RadioGroup,
   FormLabel,
   HStack,
+  useToast
 } from "@chakra-ui/react"
 import { 
     Box, 
@@ -19,19 +20,29 @@ const SignUp: React.FC = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
   const [isSupplier, setisSupplier] = useState(false)
+  const toast = useToast()
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
     try {
-      const body = { name, email, phone ,isSupplier}
-      await fetch(`http://localhost:3000/api/user`, {
+      const body = { name, email, phone ,password,isSupplier}
+      await fetch(`http://localhost:3000/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
       await Router.push('/')
+      toast({
+        title: "Account created.",
+        description: "We've created your account for you.",
+        status: "success",
+        position:  "top",
+        duration: 9000,
+        isClosable: true,
+      })
     } catch (error) {
       console.error(error)
     }
@@ -70,7 +81,16 @@ const SignUp: React.FC = () => {
                                     type="text"
                                     value={email}
                                 />
-                            </FormControl>     
+                            </FormControl>  
+                            <FormControl isRequired mt={6}>
+                                <FormLabel>Password</FormLabel>
+                                <input
+                                    onChange={e => setPassword(e.target.value)}
+                                    placeholder="Password"
+                                    type="text"
+                                    value={password}
+                                />
+                            </FormControl>    
                             <FormControl isRequired mt={6}>
                                 <FormLabel>Phone</FormLabel>
                                 <input
@@ -93,7 +113,7 @@ const SignUp: React.FC = () => {
                             
                             </FormControl> 
                             <Button
-                            disabled={!name || !email || !phone}
+                            disabled={!name || !email || !phone|| !password}
                                 type="submit" 
                                 variantColor="teal" 
                                 variant="outline" 

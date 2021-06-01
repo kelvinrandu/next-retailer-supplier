@@ -3,7 +3,7 @@ import prisma from '../../../../lib/prisma'
 
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-    console.log(req.body)
+   
   const { receipt, amount, itemId,fromEmail, toEmail, totalPrice,} = req.body
   const result = await prisma.order.create({
     data: {    
