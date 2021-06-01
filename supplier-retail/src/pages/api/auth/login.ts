@@ -22,13 +22,16 @@ export default async function login( email , password) {
       }
     compare(password, user.password, function(err, result) {
         if (!err && result) {
-
-          return true
+          console.log('login successful',user)
+          
+          return user
+     
      
         } else {
             console.log("unsuccessful")
           return false
         }
       });
+      return user
 
 }

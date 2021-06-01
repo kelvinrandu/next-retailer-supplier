@@ -4,6 +4,7 @@ import Providers from 'next-auth/providers'
 import Adapters from 'next-auth/adapters'
 import prisma from '../../../../lib/prisma'
 import getUserByEmail from './getUserByRole' 
+import login from './login' 
 // import { PrismaClient } from '@prisma/client'
 
 // const prisma = new PrismaClient()
@@ -13,34 +14,79 @@ const options = {
 
   // Configure one or more authentication providers
   providers: [
-
     Providers.Credentials({
+      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'Credentials',
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        username: { label: "Email", type: "text", placeholder: "jsmith" },
+        email: { label: "Username", type: "text", placeholder: "jsmith" },
         password: {  label: "Password", type: "password" }
       },
-      async authorize(credentials) {
-          const res = await fetch('http://localhost:3000/api/login', {
-              method: 'POST',
-              headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-                  'credentials': JSON.stringify(credentials)
-              }
-          })
-          const user = await res.json()
-          
-          if (user ) {
-              return user
-          } else {
-              return null
-          }
+      async authorize(credentials, req) {
+        // Add logic here to look up the user from the credentials supplied
+
+        const res = await login(credentials.email, credentials.password)
+        console.log('here',res)
+        const user = await res
+  
+        if (user) {
+          // Any object returned will be saved in `user` property of the JWT
+          return user
+        } else {
+          // If you return null or false then the credentials will be rejected
+          return null
+          // You can also Reject this callback with an Error or with a URL:
+          // throw new Error('error message') // Redirect to error page
+          // throw '/path/to/redirect'        // Redirect to a URL
+        }
       }
-  }),
+    }),
+
+    // Providers.Credentials({
+    //   name: 'Credentials',
+    //   // The credentials is used to generate a suitable form on the sign in page.
+    //   // You can specify whatever fields you are expecting to be submitted.
+    //   // e.g. domain, username, password, 2FA token, etc.
+    //   credentials: {
+    //     email: { label: "Email", type: "text", placeholder: "jsmith" },
+    //     password: {  label: "Password", type: "password" }
+    //   },
+    //   authorize: async (credentials) => {
+    //     if ('email' in credentials && 'password' in credentials) {
+    //         //returns Promise.resolve(token) or Promise.reject(<error message>);
+    //         // const res = await login(credentials.email, credentials.password)
+    //         // const user = await res.json()
+    //         //  console.log(user)
+    //          return await login(credentials.email, credentials.password);
+    //         // return await login(credentials.email, credentials.password);
+    //     } else {
+    //         //Generic error message
+    //         return Promise.reject('Invalid');
+    //     }
+    // },
+      // async authorize(credentials: ) {
+          // const res = await fetch('http://localhost:3000/api/login', {
+          //     method: 'POST',
+          //     headers: {
+          //         'Accept': 'application/json',
+          //         'Content-Type': 'application/json',
+          //         'credentials': JSON.stringify(credentials)
+                 
+          //     }
+          // })
+      //     const res = await login(credentials.username,credentials.password)
+      //     const user = await res.json()
+      //     console.log(user)
+          
+      //     if (user) {
+      //         return user
+      //     } else {
+      //         return null
+      //     }
+      // }
+  // }),
 
     Providers.GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
