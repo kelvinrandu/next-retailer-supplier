@@ -15,7 +15,7 @@ export default function User() {
         <>
 
             
-              {/* {user.isSupplier && <>
+              {user.isSupplier && <>
                 <Link href="/orders">
                 <a>
                   <span>orders</span>
@@ -23,7 +23,7 @@ export default function User() {
 
               
               </Link>
-              </>} */}
+              </>}
 
              {session && (
               <Box 

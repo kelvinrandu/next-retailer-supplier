@@ -9,7 +9,7 @@ import login from './login'
 
 // const prisma = new PrismaClient()
 const options = {
-  site: process.env.SITE || 'http://localhost:3000',
+  site: process.env.NEXTAUTH_URL || 'http://localhost:3000',
 
 
   // Configure one or more authentication providers
@@ -44,49 +44,6 @@ const options = {
       }
     }),
 
-    // Providers.Credentials({
-    //   name: 'Credentials',
-    //   // The credentials is used to generate a suitable form on the sign in page.
-    //   // You can specify whatever fields you are expecting to be submitted.
-    //   // e.g. domain, username, password, 2FA token, etc.
-    //   credentials: {
-    //     email: { label: "Email", type: "text", placeholder: "jsmith" },
-    //     password: {  label: "Password", type: "password" }
-    //   },
-    //   authorize: async (credentials) => {
-    //     if ('email' in credentials && 'password' in credentials) {
-    //         //returns Promise.resolve(token) or Promise.reject(<error message>);
-    //         // const res = await login(credentials.email, credentials.password)
-    //         // const user = await res.json()
-    //         //  console.log(user)
-    //          return await login(credentials.email, credentials.password);
-    //         // return await login(credentials.email, credentials.password);
-    //     } else {
-    //         //Generic error message
-    //         return Promise.reject('Invalid');
-    //     }
-    // },
-      // async authorize(credentials: ) {
-          // const res = await fetch('http://localhost:3000/api/login', {
-          //     method: 'POST',
-          //     headers: {
-          //         'Accept': 'application/json',
-          //         'Content-Type': 'application/json',
-          //         'credentials': JSON.stringify(credentials)
-                 
-          //     }
-          // })
-      //     const res = await login(credentials.username,credentials.password)
-      //     const user = await res.json()
-      //     console.log(user)
-          
-      //     if (user) {
-      //         return user
-      //     } else {
-      //         return null
-      //     }
-      // }
-  // }),
 
     Providers.GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -98,7 +55,7 @@ const options = {
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
-    newUser: '/first',// If set, new users will be directed here on first sign in
+    // newUser: '/first',// If set, new users will be directed here on first sign in
   },
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
