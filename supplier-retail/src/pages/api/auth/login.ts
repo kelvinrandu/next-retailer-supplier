@@ -19,12 +19,12 @@ export default async function login( email , password) {
         console.log('ups no user found')
         return false;
 
-      }
+      }/* @ts-ignore */ 
     const result =await compare(password, user.password);
     if(!result){
       return false;
     }
-    console.log(result)
-      return user
+    /* @ts-ignore */ 
+      return  { email: user.email, name: user.name ,image : user.image, isSupplier: user.isSupplier}
 
 }
