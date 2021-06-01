@@ -20,18 +20,11 @@ export default async function login( email , password) {
         return false;
 
       }
-    compare(password, user.password, function(err, result) {
-        if (!err && result) {
-          console.log('login successful',user)
-          
-          return user
-     
-     
-        } else {
-            console.log("unsuccessful")
-          return false
-        }
-      });
+    const result =await compare(password, user.password);
+    if(!result){
+      return false;
+    }
+    console.log(result)
       return user
 
 }
