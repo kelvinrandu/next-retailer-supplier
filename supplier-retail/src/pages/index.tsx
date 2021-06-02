@@ -39,6 +39,7 @@ type Props = {
 
   const [session, loading] = useSession();
    const {items }=props
+ 
 
    if (loading)
     return (
@@ -70,6 +71,7 @@ type Props = {
           {session && (
             
        <ItemList items={items}/>
+    
 
        )}
 

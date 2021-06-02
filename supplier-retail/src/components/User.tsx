@@ -17,9 +17,16 @@ export default function User() {
             
               {user.isSupplier && <>
                 <Link href="/orders">
-                <a>
-                  <span>orders</span>
+                  <Box  borderWidth="1px" 
+                borderRadius="lg" 
+                overflow="hidden" 
+                padding="0.5rem" 
+                margin="0.5rem">
+                  <a>
+                  orders
                 </a>
+                  </Box>
+             
 
               
               </Link>

@@ -38,20 +38,13 @@ const Header = (props) => {
             </>
           )}
           {session && (
-             
             <>
-        <Flex direction="row" justify="space-between" align="center">
-
-
+        <Flex direction="row" justify="center" align="center" wrap="wrap">
           {/* user component */}
             <User />
-            
-          
             <Link href="/api/auth/signout">
               <Button>Sign out</Button>
             </Link>
-            
-            
             <Button onClick={toggleColorMode} margin={3}>
             {colorMode === "light" ? <MoonIcon/> : <SunIcon/>}
             </Button>
