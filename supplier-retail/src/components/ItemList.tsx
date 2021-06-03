@@ -11,6 +11,7 @@ const ItemList: React.FC<Props> = props => {
       direction="column"
       justify="center"
       align="center"
+      pt={40}
       >
           {props.items.map(e =>(
 

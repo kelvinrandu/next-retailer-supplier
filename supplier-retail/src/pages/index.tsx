@@ -8,7 +8,6 @@ import {
   Text,
   Spinner,
   Box
-
 } from '@chakra-ui/react';
 
 
@@ -39,6 +38,8 @@ type Props = {
 
   const [session, loading] = useSession();
    const {items }=props
+ 
+
    if (loading)
     return (
            <div>
@@ -69,6 +70,7 @@ type Props = {
           {session && (
             
        <ItemList items={items}/>
+    
 
        )}
 
