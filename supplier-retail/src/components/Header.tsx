@@ -20,11 +20,18 @@ import {
 const Header = (props) => {
   const [session, loading] = useSession();
   const { colorMode, toggleColorMode } = useColorMode()
+  // const {user}= session;
+  // if (!user)
+  // return (
+  //        <div>
+  //          not signed in
+  //       </div>)
 
 
   return (
     <>
-    <Container maxW="xl" >
+    <Flex  justify="center"  >
+    <Container centerContent maxW="xl" pos="fixed" borderBottom="1px" borderColor="gray.200">
 
       <Flex  direction="row" justify="center" align="center" wrap="wrap"> 
       <Logo/>
@@ -42,6 +49,22 @@ const Header = (props) => {
         <Flex direction="row" justify="center" align="center" wrap="wrap">
           {/* user component */}
             <User />
+            {session.user.isSupplier && <>
+                <Link href="/orders">
+                <Box 
+                borderWidth="1px" 
+                borderRadius="lg" 
+                overflow="hidden" 
+                padding="0.5rem" 
+                margin="0.5rem">
+                  orders
+                </Box>
+
+              
+              </Link>
+              </>}
+            
+          
             <Link href="/api/auth/signout">
               <Button>Sign out</Button>
             </Link>
@@ -54,6 +77,7 @@ const Header = (props) => {
         </Box>
     </Flex>
       </Container>
+      </Flex>
 </>
 
     
