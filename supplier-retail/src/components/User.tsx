@@ -5,25 +5,9 @@ import {Box} from '@chakra-ui/react';
 
 export default function User() {
     const [session, loading] = useSession();
-    const {user}= session;
-    if (!user)
-    return (
-           <div>
-             not signed in
-          </div>)
+
     return (
         <>
-
-            
-              {user.isSupplier && <>
-                <Link href="/orders">
-                <a>
-                  <span>orders</span>
-                </a>
-
-              
-              </Link>
-              </>}
 
              {session && (
               <Box 

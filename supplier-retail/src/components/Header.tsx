@@ -20,6 +20,12 @@ import {
 const Header = (props) => {
   const [session, loading] = useSession();
   const { colorMode, toggleColorMode } = useColorMode()
+  const {user}= session;
+  if (!user)
+  return (
+         <div>
+           not signed in
+        </div>)
 
 
   return (
@@ -45,6 +51,15 @@ const Header = (props) => {
 
           {/* user component */}
             <User />
+            {user.isSupplier && <>
+                <Link href="/orders">
+                <a>
+                  <span>orders</span>
+                </a>
+
+              
+              </Link>
+              </>}
             
           
             <Link href="/api/auth/signout">
