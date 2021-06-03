@@ -16,7 +16,7 @@ export default function User() {
                 overflow="hidden" 
                 padding="0.5rem" 
                 margin="0.5rem">
-              {session.user.email} 
+              {session.user.name} 
               </Box>
     )}
             
