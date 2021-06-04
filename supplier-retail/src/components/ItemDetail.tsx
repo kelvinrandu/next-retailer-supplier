@@ -40,7 +40,7 @@ const ItemDetail: React.FC<{ item: ItemProps }> = (props) => {
       const totalPrice = getTotal(price, amount);
       // getReceipt()
       const body = { totalPrice, receipt, amount, itemId, toEmail, fromEmail };
-      await fetch(`${process.env.NEXTAUTH_URL}/api/order`, {
+      await fetch('/api/order', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
