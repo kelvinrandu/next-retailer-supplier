@@ -19,9 +19,6 @@ const SignUp: React.FC = () => {
   const [isSupplier, setisSupplier] = useState(false);
   const toast = useToast();
 
-
-  console.log(fetch_url)
-
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
