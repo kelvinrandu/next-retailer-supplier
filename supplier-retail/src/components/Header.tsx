@@ -31,7 +31,7 @@ const Header = (props) => {
   return (
     <>
     <Flex  justify="center"  >
-    <Container centerContent maxW="xl" pos="fixed" borderBottom="1px" borderColor="gray.200">
+    <Container centerContent maxW="xl" pos="fixed" borderBottom="1px" borderColor="gray.200" overflow="hidden" zIndex={2}>
 
       <Flex  direction="row" justify="center" align="center" wrap="wrap"> 
       <Logo/>
@@ -59,8 +59,6 @@ const Header = (props) => {
                 margin="0.5rem">
                   orders
                 </Box>
-
-              
               </Link>
               </>}
             

@@ -66,6 +66,9 @@ const options = {
         user && (token.user = user);
         return Promise.resolve(token)   // ...here
     },
+    redirect: async (url, baseUrl) => {
+      return Promise.resolve('http://localhost:3000/dashboard')
+    },
     session: async (session, user, sessionToken) => {
         
         //  "session" is current session object
