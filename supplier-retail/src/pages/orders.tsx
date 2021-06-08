@@ -72,8 +72,6 @@ const Drafts: React.FC<Props> = (props) => {
         <main>
          
               <OrderList orders={props.orders} />
-        
-          
       
         </main>
       </div>
