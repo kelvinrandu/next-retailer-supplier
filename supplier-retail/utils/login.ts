@@ -1,4 +1,4 @@
-import prisma from '../../../../lib/prisma'
+import prisma from '../lib/prisma'
 import { compare } from 'bcrypt';
 
 export default async function login( email , password) {

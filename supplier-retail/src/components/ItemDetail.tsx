@@ -46,7 +46,7 @@ const ItemDetail: React.FC<{ item: ItemProps }> = (props) => {
         body: JSON.stringify(body),
       });
 
-      await Router.push("/");
+      await Router.push("/dashboard");
       toast({
         title: "Order placed",
         description: "We've created your order for you.",
