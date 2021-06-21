@@ -71,7 +71,7 @@ const ItemSingle: React.FC<{item: ItemProps}> = (props) => {
         </Flex>
       </Box>
       
-     {itemDetail &&  <ItemDetail item = {props.item} />}
+     {itemDetail &&  <ItemDetail item = {props.item} ItemDetailHandler={ItemDetailHandler} />}
       </>
     )
 }

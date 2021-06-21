@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Router from "next/router";
+import validator from "validator";
 import {
   FormControl,
   Radio,
@@ -7,6 +8,7 @@ import {
   FormLabel,
   HStack,
   useToast,
+  useColorMode,
 } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
@@ -14,17 +16,36 @@ import { Button } from "@chakra-ui/button";
 const SignUp: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isSupplier, setisSupplier] = useState(false);
   const toast = useToast();
+  const { colorMode } = useColorMode();
+  const bgColor = {
+    light: "white",
+    dark: "#1c1c1c",
+  };
+  const color = {
+    light: "#171717",
+    dark: "#171717 ",
+  };
+  const validateEmail = (e) => {
+    var email = e.target.value;
+
+    if (validator.isEmail(email)) {
+      setEmail(e.target.value);
+    } else {
+      setEmailError("Enter valid Email!");
+    }
+  };
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     try {
       const body = { name, email, phone, password, isSupplier };
-      await fetch('api/register', {
+      await fetch("api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -61,6 +82,7 @@ const SignUp: React.FC = () => {
             <FormControl isRequired>
               <FormLabel>Store Name</FormLabel>
               <input
+                style={{ color: color[colorMode] }}
                 autoFocus
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
@@ -71,15 +93,26 @@ const SignUp: React.FC = () => {
             <FormControl isRequired mt={6}>
               <FormLabel>Email</FormLabel>
               <input
+                style={{ color: color[colorMode] }}
+                autoFocus
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
                 type="text"
                 value={email}
               />
+              <span
+                style={{
+                  fontWeight: "bold",
+                  color: "red",
+                }}
+              >
+                {emailError}
+              </span>
             </FormControl>
             <FormControl isRequired mt={6}>
               <FormLabel>Password</FormLabel>
               <input
+                style={{ color: color[colorMode] }}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 type="text"
@@ -89,6 +122,7 @@ const SignUp: React.FC = () => {
             <FormControl isRequired mt={6}>
               <FormLabel>Phone</FormLabel>
               <input
+                style={{ color: color[colorMode] }}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone"
                 type="text"

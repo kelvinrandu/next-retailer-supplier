@@ -13,9 +13,9 @@ const ItemList: React.FC<Props> = props => {
       align="center"
       pt={40}
       >
-          {props.items.map(e =>(
+          {props.items.map(e=>(
 
-          <ItemSingle item={e} />
+          <ItemSingle key={e.id} item={e} />
         
           ))}
       </Flex>
