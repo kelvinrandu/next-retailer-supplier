@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { Heading } from "@chakra-ui/layout";
 import { useSession } from "next-auth/client";
 import Router from "next/router";
-import { Input } from "@chakra-ui/react";
+import { Input,Button } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
 import { useToast } from "@chakra-ui/react";
+import { v4 as uuidv4 } from 'uuid';
 
-const ItemDetail: React.FC<{ item: ItemProps }> = (props) => {
+type Iprops={
+  item: ItemProps,
+  ItemDetailHandler: ()=>void
+
+} 
+const ItemDetail = (props:Iprops) => {
   const [session, loading] = useSession();
   const { item } = props;
 
@@ -27,26 +33,37 @@ const ItemDetail: React.FC<{ item: ItemProps }> = (props) => {
   }
 
   function getReceipt() {
-    const randomString =
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
+    const randomString = uuidv4();
 
     return randomString;
+  }
+  function flushAmount() {
+   
+    return  setAmount(0);
   }
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
+      if (!amount){
+        console.log('amount cannot be zero')
+
+      }
       const totalPrice = getTotal(price, amount);
-      // getReceipt()
+      
       const body = { totalPrice, receipt, amount, itemId, toEmail, fromEmail };
       await fetch('/api/order', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
+     
+      props.ItemDetailHandler();
 
       await Router.push("/dashboard");
+     
+
+      flushAmount();
       toast({
         title: "Order placed",
         description: "We've created your order for you.",
@@ -79,6 +96,7 @@ const ItemDetail: React.FC<{ item: ItemProps }> = (props) => {
                   value="order"
                 /> */}
       </form>
+
     </>
   );
 };
