@@ -20,12 +20,7 @@ import {
 const Header = (props) => {
   const [session, loading] = useSession();
   const { colorMode, toggleColorMode } = useColorMode()
-  // const {user}= session;
-  // if (!user)
-  // return (
-  //        <div>
-  //          not signed in
-  //       </div>)
+
 
 
   return (

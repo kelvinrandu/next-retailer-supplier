@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Link from "next/link";
 import Logo from "../components/Logo";
 import {
@@ -10,8 +10,19 @@ import {
   Container,
 } from "@chakra-ui/react";
 import Router from "next/router";
+import { useSession } from 'next-auth/client';
 
 export default function index() {
+  const [session, loading] = useSession();
+  if (session)
+  useEffect(() => { 
+    const {pathname} = Router
+    if(pathname == '/' ){
+      Router.push('/dashboard');
+    }  
+  }
+  , []);
+
   return (
     <Center h="100vh" w="100vw">
       <Container>
