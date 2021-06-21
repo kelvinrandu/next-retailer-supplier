@@ -67,7 +67,7 @@ const options = {
         return Promise.resolve(token)   // ...here
     },
     redirect: async (url, baseUrl) => {
-      return Promise.resolve('http://localhost:3000/dashboard')
+      return Promise.resolve(`${process.env.NEXTAUTH_URL}/dashboard`)
     },
     session: async (session, user, sessionToken) => {
         
