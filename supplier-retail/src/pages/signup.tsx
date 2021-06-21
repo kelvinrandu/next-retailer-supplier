@@ -29,7 +29,7 @@ const SignUp: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      await Router.push("/");
+      await Router.push("/dashboard");
       toast({
         title: "Account created.",
         description: "We've created your account for you.",

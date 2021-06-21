@@ -20,18 +20,13 @@ import {
 const Header = (props) => {
   const [session, loading] = useSession();
   const { colorMode, toggleColorMode } = useColorMode()
-  // const {user}= session;
-  // if (!user)
-  // return (
-  //        <div>
-  //          not signed in
-  //       </div>)
+
 
 
   return (
     <>
     <Flex  justify="center"  >
-    <Container centerContent maxW="xl" pos="fixed" borderBottom="1px" borderColor="gray.200">
+    <Container centerContent maxW="xl" pos="fixed" borderBottom="1px" borderColor="gray.200" overflow="hidden" zIndex={2}>
 
       <Flex  direction="row" justify="center" align="center" wrap="wrap"> 
       <Logo/>
@@ -59,8 +54,6 @@ const Header = (props) => {
                 margin="0.5rem">
                   orders
                 </Box>
-
-              
               </Link>
               </>}
             

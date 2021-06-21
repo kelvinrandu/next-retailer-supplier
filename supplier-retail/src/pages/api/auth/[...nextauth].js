@@ -3,8 +3,8 @@ import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import Adapters from 'next-auth/adapters'
 import prisma from '../../../../lib/prisma'
-import getUserByEmail from './getUserByRole' 
-import login from './login' 
+import getUserByEmail from '../../../../utils/getUserByRole' 
+import login from '../../../../utils/login' 
 // import { PrismaClient } from '@prisma/client'
 
 // const prisma = new PrismaClient()
@@ -65,6 +65,9 @@ const options = {
         //  ...and return it...
         user && (token.user = user);
         return Promise.resolve(token)   // ...here
+    },
+    redirect: async (url, baseUrl) => {
+      return Promise.resolve(`${process.env.NEXTAUTH_URL}/dashboard`)
     },
     session: async (session, user, sessionToken) => {
         
