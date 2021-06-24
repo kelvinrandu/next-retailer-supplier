@@ -21,12 +21,15 @@
     "next-auth": "^3.24.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "use-sound": "^4.0.0",
     "uuid": "^8.3.2",
     "validator": "^13.6.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.4",
+    "file-loader": "^6.2.0",
     "prisma": "^2.22.1",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "url-loader": "^4.1.1"
   }
 }
