@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
 import { useSession, getSession } from 'next-auth/client'
@@ -41,6 +41,8 @@ type Props = {
     items: ItemProps[]
   } 
 const items: React.FC<Props> = (props) => {
+
+
     return (
         <Layout>
             <Center mt={70}>
@@ -53,7 +55,7 @@ const items: React.FC<Props> = (props) => {
       
           ))}
           </Box>
-          <AddItem/>
+          <AddItem />
           </HStack>
           </Center>
        </Layout>

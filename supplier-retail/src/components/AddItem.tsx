@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   Container,
   Box,
@@ -21,11 +21,28 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import { useSession } from "next-auth/client";
 
-const AddItem = () => {
+
+const AddItem = (props) => {
+  const nameref = React.useRef()
+    const [session, loading] = useSession();
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const firstField = React.useRef()
-    const secondField = React.useRef()
+    const [price,setPrice] = useState(0);
+    const [name,setName] = useState('');
+    const [quantity,setQuantity] = useState(0);
+    const [user,setUser] = useState(session?.user.email);
+    const submitData = async (e: React.SyntheticEvent) => {
+      e.preventDefault();
+      try {
+        const body = { name, quantity, price};
+        console.log(body)
+       
+  
+      } catch (error) {
+        console.error(error);
+      }
+    };
   return (
     <Flex as="div" justify="center">
       <VStack>
@@ -35,9 +52,10 @@ const AddItem = () => {
         <Drawer
           isOpen={isOpen}
           placement="right"
-          initialFocusRef={firstField}
+          initialFocusRef={nameref}
           onClose={onClose}
         >
+           <form onSubmit={submitData}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
@@ -47,23 +65,34 @@ const AddItem = () => {
   
             <DrawerBody>
               <Stack spacing="24px">
+               
                 <Box>
                   <FormLabel htmlFor="username">Name</FormLabel>
                   <Input
-                    ref={firstField}
-                    id="username"
+                    value={name}
+                    ref={nameref}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="Please enter user name"
                   />
                 </Box>
   
                 <Box>
-                <FormLabel htmlFor="username">Quantity</FormLabel>
+                <FormLabel htmlFor="username">Price</FormLabel>
                   <Input
-                    ref={secondField}
-                    id="second"
+                    value={price}
+                    onChange={(e) => setPrice(parseInt(e.target.value))}
                     placeholder="Please enter user name"
                   />
                 </Box>
+                <Box>
+                <FormLabel htmlFor="username">Quantity</FormLabel>
+                  <Input
+                   value={quantity}
+                   onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    placeholder="Please enter user name"
+                  />
+                </Box>
+                
               </Stack>
             </DrawerBody>
   
@@ -71,9 +100,10 @@ const AddItem = () => {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="blue">Submit</Button>
+              <Button type="submit"colorScheme="blue">Submit</Button>
             </DrawerFooter>
           </DrawerContent>
+          </form>
         </Drawer>
       </VStack>
     </Flex>
