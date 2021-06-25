@@ -64,12 +64,13 @@ model Session {
 model Item {
   id               Int     @id @default(autoincrement())
   name             String
-  quantity         String
+  quantity         Int?
   price            Int
-  min_bundle       Int
-  min_bundle_price Int
-  max_bundle       Int
-  max_bundle_price Int
+  min_bundle       Int?
+  min_bundle_price Int?
+  max_bundle       Int?
+  max_bundle_price Int?
+  published        Boolean   @default(true)
   userId           Int
   user             User    @relation(fields: [userId], references: [id])
   orders           Order[]

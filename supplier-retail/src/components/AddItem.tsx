@@ -1,10 +1,8 @@
 import React,{useState} from "react";
 import {
-  Container,
   Box,
   Flex,
   useDisclosure,
-  Spacer,
   Stack,
   VStack,
   FormControl,
@@ -32,11 +30,20 @@ const AddItem = (props) => {
     const [name,setName] = useState('');
     const [quantity,setQuantity] = useState(0);
     const [user,setUser] = useState(session?.user.email);
+
     const submitData = async (e: React.SyntheticEvent) => {
       e.preventDefault();
       try {
-        const body = { name, quantity, price};
+        setUser(session.user.email)
+        const body = { name, quantity, price,user};
+        await fetch('/api/item', {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
         console.log(body)
+        
+      
        
   
       } catch (error) {
@@ -80,13 +87,22 @@ const AddItem = (props) => {
                 <FormLabel htmlFor="username">Price</FormLabel>
                   <Input
                     value={price}
-                    onChange={(e) => setPrice(parseInt(e.target.value))}
+                    onChange={(e) => setPrice(parseInt(e.target.value)|| 0)}
                     placeholder="Please enter user name"
                   />
                 </Box>
                 <Box>
                 <FormLabel htmlFor="username">Quantity</FormLabel>
                   <Input
+                   value={quantity}
+                   onChange={(e) => setQuantity(parseInt(e.target.value)|| 0)}
+                    placeholder="Please enter user name"
+                  />
+                </Box>
+                <Box>
+                <FormLabel htmlFor="username">user</FormLabel>
+                  <Input
+                  hidden
                    value={quantity}
                    onChange={(e) => setQuantity(parseInt(e.target.value))}
                     placeholder="Please enter user name"
