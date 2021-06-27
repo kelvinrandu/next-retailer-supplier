@@ -23,20 +23,7 @@ const Links = [
  
 ];
 
-const NavLink = ({ children }: { children: React.ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={"#"}
-  >
-    {children}
-  </Link>
-);
+
 const Header = (props) => {
   const [session, loading] = useSession();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,6 +53,9 @@ const Header = (props) => {
             <Logo />
 
             <Spacer />
+            <Button display={{ base: "flex", md: "none" }}onClick={toggleColorMode} margin={3}>
+                      {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                    </Button>
             <Box display={{ base: "none", md: "flex" }}>
               {!session && (
                 <>
