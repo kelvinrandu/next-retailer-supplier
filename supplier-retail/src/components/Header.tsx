@@ -7,13 +7,39 @@ import {
   Box,
   Flex,
   Spacer,
+  IconButton,
+  useDisclosure,
   useColorMode,
+  Stack,
   Button,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
+const Links = [
+  { path: "/orders", exact: true, name: "orders" },
+  { path: "/items", exact: true, name: "items"},
+  { path: "/api/auth/signout",  name: "signout" },
+ 
+];
+
+const NavLink = ({ children }: { children: React.ReactNode }) => (
+  <Link
+    px={2}
+    py={1}
+    rounded={"md"}
+    _hover={{
+      textDecoration: "none",
+      bg: useColorModeValue("gray.200", "gray.700"),
+    }}
+    href={"#"}
+  >
+    {children}
+  </Link>
+);
 const Header = (props) => {
   const [session, loading] = useSession();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -29,9 +55,18 @@ const Header = (props) => {
           zIndex={2}
         >
           <Flex direction="row" justify="center" align="center" wrap="wrap">
+            <IconButton
+              size={"md"}
+              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+              aria-label={"Open Menu"}
+              display={{ md: "none" }}
+              onClick={isOpen ? onClose : onOpen}
+            />
+
             <Logo />
+
             <Spacer />
-            <Box>
+            <Box display={{ base: "none", md: "flex" }}>
               {!session && (
                 <>
                   <Link href="/api/auth/signin">
@@ -76,6 +111,24 @@ const Header = (props) => {
               )}
             </Box>
           </Flex>
+          {isOpen ? (
+            <Box pb={4} display={{ md: "none" }}>
+              <Stack as={"nav"} spacing={4}>
+              {!session && (
+                 <Link  href="/api/auth/signin" >signin</Link>
+      
+      )}
+       {session && (
+         <>
+                {Links.map((link) => (
+
+                  <Link  href={link.path} key={link.name}>{link.name}</Link>
+                ))}
+                </>
+                )}
+              </Stack>
+            </Box>
+          ) : null}
         </Container>
       </Flex>
     </>
