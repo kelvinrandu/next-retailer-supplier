@@ -94,15 +94,7 @@ const AddItem = (props) => {
                       placeholder="Please enter user name"
                     />
                   </Box>
-                  <Box>
-                    <FormLabel htmlFor="username">user</FormLabel>
-                    <Input
-                      hidden
-                      value={quantity}
-                      onChange={(e) => setQuantity(parseInt(e.target.value))}
-                      placeholder="Please enter user name"
-                    />
-                  </Box>
+  
                 </Stack>
               </DrawerBody>
 
