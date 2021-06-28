@@ -5,7 +5,6 @@ import {Box } from '@chakra-ui/react'
 export default function Logo() {
     return (
        
-      // <Box borderWidth="1px" w='25vw' borderRadius="lg" overflow="hidden" padding="0.5rem" margin="0.5rem">     
      
           <>
            <Link href="/dashboard">

@@ -25,7 +25,9 @@ export default function index() {
 
   return (
     <Center h="100vh" w="100vw">
+      
       <Container>
+ 
         <Flex align="center" justify="space-between">
           <Container>
             <Box>

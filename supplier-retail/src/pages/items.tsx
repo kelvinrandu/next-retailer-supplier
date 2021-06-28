@@ -9,6 +9,7 @@ import {
 HStack,
 Center,
 Box,
+Button,
   } from "@chakra-ui/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
@@ -51,7 +52,7 @@ const items: React.FC<Props> = (props) => {
                 
      {props.items.map(e =>(
           
-         <p> {e.name}</p>
+         <> {e.name}<Button>Sign in</Button></>
       
           ))}
           </Box>
