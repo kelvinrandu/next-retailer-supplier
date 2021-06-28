@@ -54,7 +54,15 @@ const items: React.FC<Props> = (props) => {
 
   }
 
-
+  if (!session)
+  return (
+         <div>
+           <Layout>
+            <Center h="100vh">
+  login
+            </Center>
+            </Layout>
+        </div>)
   if (loading)
   return (
          <div>
