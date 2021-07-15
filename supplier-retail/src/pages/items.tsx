@@ -6,15 +6,7 @@ import prisma from "../../lib/prisma";
 import { ItemProps } from "../components/ItemSingle";
 import AddItem from "../components/AddItem";
 import EditItem from "../components/EditItem";
-import {
-  HStack,
-  Center,
-  Box,
-
-  Spinner,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
+import { HStack, Center, Box, Spinner, Flex, Text } from "@chakra-ui/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -48,7 +40,7 @@ const items: React.FC<Props> = (props) => {
   const [price, setPrice] = useState(0);
 
   const handleSubmit = () => {
-    console.log('here');
+    console.log("here");
   };
 
   if (!session)
@@ -97,22 +89,23 @@ const items: React.FC<Props> = (props) => {
         <HStack>
           <Box
             as="div"
+            mt={10}
             alignItems="center"
             justifyContent="center"
             display="Flex"
             flexDirection="column"
           >
+            <AddItem />
+
             {props.items.map((item) => (
               <>
                 {" "}
-                <Flex w={50}>
-                  <EditItem item ={item}/>
-
+                <Flex>
+                  <EditItem item={item} />
                 </Flex>
               </>
             ))}
           </Box>
-          <AddItem />
         </HStack>
       </Center>
     </Layout>

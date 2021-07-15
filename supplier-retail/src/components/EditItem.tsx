@@ -38,7 +38,13 @@ const EditItem = (props) => {
 
   return (
     <div>
-      <Box p={5} borderRadius="10px" shadow="md" borderWidth="1px">
+      <Box
+        p={5}
+        borderRadius="10px"
+        shadow="md"
+        width="300px"
+        borderWidth="1px"
+      >
         <Heading fontSize="xl"> {props.item.name}</Heading>
         <Button onClick={onOpen}>Edit</Button>
       </Box>
@@ -73,7 +79,7 @@ const EditItem = (props) => {
                 Close
               </Button>
               <Button type="submit" variant="ghost">
-                Secondary Action
+                Edit
               </Button>
             </ModalFooter>
           </form>

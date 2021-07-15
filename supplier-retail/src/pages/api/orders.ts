@@ -15,6 +15,10 @@ export default async function getOrders(req: NextApiRequest, res: NextApiRespons
       where: {
         to: { email: session?.user?.email },
       }, 
+      orderBy:{
+        id: 'desc' ,
+
+      },
      
         select: {
           id:true,
