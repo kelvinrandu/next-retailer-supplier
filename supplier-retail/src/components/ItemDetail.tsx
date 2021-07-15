@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Heading } from "@chakra-ui/layout";
 import { useSession } from "next-auth/client";
 import Router from "next/router";
-import { Input,Button } from "@chakra-ui/react";
+import { Input,Button,Text } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
 import { useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from 'uuid';
@@ -12,7 +12,7 @@ type Iprops={
   ItemDetailHandler: ()=>void
 
 } 
-const ItemDetail = (props:Iprops) => {
+const ItemDetail: React.FC<Iprops> = (props) => {
   const [session, loading] = useSession();
   const { item } = props;
 
@@ -79,7 +79,7 @@ const ItemDetail = (props:Iprops) => {
 
   return (
     <>
-      <Heading>{item.user.phone}</Heading>
+      <Text>{item?.user.name} {item?.user.phone} {item?.user.email}</Text>
       <form onSubmit={submitData}>
         <Input
           autoFocus

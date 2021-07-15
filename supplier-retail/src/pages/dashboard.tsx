@@ -30,7 +30,6 @@ export async function getStaticProps() {
   }
   
 }
-
 type Props = {
   items: ItemProps[]
 } 

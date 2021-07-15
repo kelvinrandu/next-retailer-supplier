@@ -77,7 +77,7 @@ const OrderSingle: React.FC<{order: OrderProps}> = (props) => {
         </Flex>
       </Box>
       
-     {orderDetail && <> {order.from.name}:{order.from.phone}</>}
+     {orderDetail && <> {order?.from.name}:{order?.from.phone}{order?.from.email}</>}
       </>
     )
 }
