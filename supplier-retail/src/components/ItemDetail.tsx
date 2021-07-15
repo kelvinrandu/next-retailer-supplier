@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { Heading } from "@chakra-ui/layout";
 import { useSession } from "next-auth/client";
 import Router from "next/router";
-import { Input,Button,Text } from "@chakra-ui/react";
+import { Input, Button, Text } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
 import { useToast } from "@chakra-ui/react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
-type Iprops={
-  item: ItemProps,
-  ItemDetailHandler: ()=>void
-
-} 
+type Iprops = {
+  item: ItemProps;
+  ItemDetailHandler: () => void;
+};
 const ItemDetail: React.FC<Iprops> = (props) => {
   const [session, loading] = useSession();
   const { item } = props;
@@ -23,7 +22,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
   const [itemId] = useState(item.id);
   const [receipt, setReceipt] = useState(getReceipt());
   const [totalPrice, setTotalPrice] = useState<number>(1);
-  const toast = useToast()
+  const toast = useToast();
 
   function getTotal(price, amount) {
     const total = price * amount;
@@ -38,40 +37,37 @@ const ItemDetail: React.FC<Iprops> = (props) => {
     return randomString;
   }
   function flushAmount() {
-   
-    return  setAmount(0);
+    return setAmount(0);
   }
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      if (!amount){
-        console.log('amount cannot be zero')
-
+      if (!amount) {
+        console.log("amount cannot be zero");
       }
       const totalPrice = getTotal(price, amount);
-      
+
       const body = { totalPrice, receipt, amount, itemId, toEmail, fromEmail };
-      await fetch('/api/order', {
+      await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-     
+
       props.ItemDetailHandler();
 
       await Router.push("/dashboard");
-     
 
       flushAmount();
       toast({
         title: "Order placed",
         description: "We've created your order for you.",
         status: "success",
-        position:  "top",
+        position: "top",
         duration: 9000,
         isClosable: true,
-      })
+      });
     } catch (error) {
       console.error(error);
     }
@@ -79,7 +75,9 @@ const ItemDetail: React.FC<Iprops> = (props) => {
 
   return (
     <>
-      <Text>{item?.user.name} {item?.user.phone} {item?.user.email}</Text>
+      <Text>
+        {item?.user.name} {item?.user.phone} {item?.user.email}
+      </Text>
       <form onSubmit={submitData}>
         <Input
           autoFocus
@@ -96,7 +94,6 @@ const ItemDetail: React.FC<Iprops> = (props) => {
                   value="order"
                 /> */}
       </form>
-
     </>
   );
 };

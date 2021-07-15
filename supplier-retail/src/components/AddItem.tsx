@@ -94,7 +94,6 @@ const AddItem = (props) => {
                       placeholder="Please enter user name"
                     />
                   </Box>
-  
                 </Stack>
               </DrawerBody>
 

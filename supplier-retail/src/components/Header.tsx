@@ -12,17 +12,14 @@ import {
   useColorMode,
   Stack,
   Button,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 const Links = [
   { path: "/orders", exact: true, name: "orders" },
-  { path: "/items", exact: true, name: "items"},
-  { path: "/api/auth/signout",  name: "signout" },
- 
+  { path: "/items", exact: true, name: "items" },
+  { path: "/api/auth/signout", name: "signout" },
 ];
-
 
 const Header = (props) => {
   const [session, loading] = useSession();
@@ -53,9 +50,13 @@ const Header = (props) => {
             <Logo />
 
             <Spacer />
-            <Button display={{ base: "flex", md: "none" }}onClick={toggleColorMode} margin={3}>
-                      {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                    </Button>
+            <Button
+              display={{ base: "flex", md: "none" }}
+              onClick={toggleColorMode}
+              margin={3}
+            >
+              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            </Button>
             <Box display={{ base: "none", md: "flex" }}>
               {!session && (
                 <>
@@ -77,7 +78,7 @@ const Header = (props) => {
                     {session.user.isSupplier && (
                       <>
                         <Link href="/orders">
-                          <Box
+                        <Box
                             borderWidth="1px"
                             borderRadius="lg"
                             overflow="hidden"
@@ -85,6 +86,17 @@ const Header = (props) => {
                             margin="0.5rem"
                           >
                             orders
+                          </Box>
+                        </Link>
+                        <Link href="/items">
+                          <Box
+                            borderWidth="1px"
+                            borderRadius="lg"
+                            overflow="hidden"
+                            padding="0.5rem"
+                            margin="0.5rem"
+                          >
+                            items
                           </Box>
                         </Link>
                       </>
@@ -104,17 +116,15 @@ const Header = (props) => {
           {isOpen ? (
             <Box pb={4} display={{ md: "none" }}>
               <Stack as={"nav"} spacing={4}>
-              {!session && (
-                 <Link  href="/api/auth/signin" >signin</Link>
-      
-      )}
-       {session && (
-         <>
-                {Links.map((link) => (
-
-                  <Link  href={link.path} key={link.name}>{link.name}</Link>
-                ))}
-                </>
+                {!session && <Link href="/api/auth/signin">signin</Link>}
+                {session && (
+                  <>
+                    {Links.map((link) => (
+                      <Link href={link.path} key={link.name}>
+                        {link.name}
+                      </Link>
+                    ))}
+                  </>
                 )}
               </Stack>
             </Box>
