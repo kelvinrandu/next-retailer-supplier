@@ -11,6 +11,7 @@ const OrderList: React.FC<Props> = props => {
       <Flex      
       direction="column"
       justify="center"
+      pt={20}
       align="center"
       >
           {props.orders.map(e =>(
