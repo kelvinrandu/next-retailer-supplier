@@ -1,9 +1,13 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Layout from "../components/Layout";
 import ItemList from "../components/ItemList";
 import { ItemProps } from "../components/ItemSingle";
 import { useSession } from "next-auth/client";
 import { Center, Text, Spinner, Box } from "@chakra-ui/react";
+import Fade from "react-reveal/Fade";
+import Router from "next/router";
+
+
 
 export async function getStaticProps() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`);
@@ -25,6 +29,7 @@ type Props = {
 const Dashboard: React.FC<Props> = (props) => {
   const [session, loading] = useSession();
   const { items } = props;
+
 
   if (loading)
     return (
@@ -61,7 +66,7 @@ const Dashboard: React.FC<Props> = (props) => {
           </Center>
         </>
       )}
-      {session && <ItemList items={items} />}
+      {session &&  <Fade bottom><ItemList items={items} /></Fade>}
     </Layout>
   );
 };

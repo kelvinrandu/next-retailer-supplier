@@ -14,6 +14,7 @@ import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Link from "next/link";
 
 
 const schema = yup.object().shape({
@@ -180,6 +181,10 @@ const user = { name, email, phone, password, isSupplier };
               Register
             </Button>
           </form>
+          <Link href="/signin">
+          or signin
+          </Link>
+          
         </Box>
         <Box textAlign="center">
           <div className="bg-gray-100">
