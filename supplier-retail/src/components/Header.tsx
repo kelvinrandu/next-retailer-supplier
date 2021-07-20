@@ -18,7 +18,6 @@ import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 const Links = [
   { path: "/orders", exact: true, name: "orders" },
   { path: "/items", exact: true, name: "items" },
-  { path: "/api/auth/signout", name: "signout" },
 ];
 
 const Header = (props) => {
@@ -102,7 +101,7 @@ const Header = (props) => {
                       </>
                     )}
 
-                    <Button onClick={signOut}>Sign out</Button>
+                    <Button onClick={()=>signOut()}>Sign out</Button>
 
                     <Button onClick={toggleColorMode} margin={3}>
                       {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
@@ -123,7 +122,7 @@ const Header = (props) => {
                         {link.name}
                       </Link>
                     ))}
-                    <Button onClick={signOut}>Sign out</Button>
+                    <Button onClick={()=>signOut()}>Sign out</Button>
                   </>
                 )}
               </Stack>

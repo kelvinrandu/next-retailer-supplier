@@ -1,20 +1,47 @@
-import React from 'react'
-import {
-  FormControl,
-  Radio,
-  RadioGroup,
-  FormLabel,
-  HStack,
-  useToast,
-  useColorMode,
-  Text,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { FormControl, FormLabel, Text, useToast } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
-import { getCsrfToken } from "next-auth/client";
+import { getCsrfToken, signIn } from "next-auth/client";
 import Link from "next/link";
+import Router from "next/router";
 
 const signin = ({ csrfToken }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const toast = useToast();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const response = await signIn("credentials", {
+      redirect: false,
+      email: email,
+      password: password,
+    });
+   
+    if (response.error){
+
+        return toast({
+          title: "Incorrect credentails.",
+          status: "error",
+          position: "top",
+          duration: 9000,
+          isClosable: true,
+        });
+    }else{
+        return await Router.push("/dashboard");
+    }
+    // if (response.error) {
+    //   toast({
+    //     title: "Incorrect credentails.",
+    //     status: "error",
+    //     position: "top",
+    //     duration: 9000,
+    //     isClosable: true,
+    //   });
+    //   return
+    // }
+  };
   return (
     <div>
       <Center height="100vh">
@@ -30,11 +57,16 @@ const signin = ({ csrfToken }) => {
             <Heading>Login</Heading>
           </Box>
           <Box my={4} textAlign="left">
-            <form method="post" action="/api/auth/callback/credentials">
+            <form onSubmit={onSubmit}>
               <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <FormControl isRequired mt={6}>
                 <FormLabel>Email</FormLabel>
-                <input name="email" type="text" />
+                <input
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                />
                 <span
                   style={{
                     fontWeight: "bold",
@@ -44,7 +76,12 @@ const signin = ({ csrfToken }) => {
               </FormControl>
               <FormControl isRequired mt={6}>
                 <FormLabel>Password</FormLabel>
-                <input name="password" type="password" />
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  type="password"
+                />
                 <span
                   style={{
                     fontWeight: "bold",
@@ -64,7 +101,9 @@ const signin = ({ csrfToken }) => {
               </Button>
             </form>
             <Link href="/signup">
-              <Text align="center" fontStyle ="italics"fontSize="sm">or sign up</Text>
+              <Text align="center" fontStyle="italics" fontSize="sm">
+                or sign up
+              </Text>
             </Link>
           </Box>
           <Box textAlign="center">
@@ -87,4 +126,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default signin
+export default signin;

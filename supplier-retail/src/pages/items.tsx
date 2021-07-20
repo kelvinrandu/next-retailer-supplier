@@ -36,12 +36,7 @@ type Props = {
 };
 const items: React.FC<Props> = (props) => {
   const [session, loading] = useSession();
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
 
-  const handleSubmit = () => {
-    console.log("here");
-  };
 
   if (!session)
     return (
