@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import validator from "validator";
+import * as yup from "yup";
 import {
   FormControl,
   Radio,
@@ -12,6 +12,15 @@ import {
 } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Link from "next/link";
+
+
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(8).max(32).required(),
+});
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState("");
@@ -22,6 +31,14 @@ const SignUp: React.FC = () => {
   const [isSupplier, setisSupplier] = useState(false);
   const toast = useToast();
   const { colorMode } = useColorMode();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const bgColor = {
     light: "white",
     dark: "#1c1c1c",
@@ -30,26 +47,19 @@ const SignUp: React.FC = () => {
     light: "#171717",
     dark: "#171717 ",
   };
-  const validateEmail = (e) => {
-    var email = e.target.value;
 
-    if (validator.isEmail(email)) {
-      setEmail(e.target.value);
-    } else {
-      setEmailError("Enter valid Email!");
-    }
-  };
 
   const submitData = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-
+    
+const user = { name, email, phone, password, isSupplier };
     try {
       const body = { name, email, phone, password, isSupplier };
-      await fetch("api/register", {
+      const user = await fetch("api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
+  
       await Router.push("/dashboard");
       toast({
         title: "Account created.",
@@ -62,6 +72,7 @@ const SignUp: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
+    return false;
   };
 
   return (
@@ -78,11 +89,13 @@ const SignUp: React.FC = () => {
           <Heading>Register</Heading>
         </Box>
         <Box my={4} textAlign="left">
-          <form onSubmit={submitData}>
+          <form
+            style={{ color: color[colorMode] }}
+            onSubmit={handleSubmit(submitData)}
+          >
             <FormControl isRequired>
               <FormLabel>Store Name</FormLabel>
               <input
-                style={{ color: color[colorMode] }}
                 autoFocus
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
@@ -93,8 +106,8 @@ const SignUp: React.FC = () => {
             <FormControl isRequired mt={6}>
               <FormLabel>Email</FormLabel>
               <input
-                style={{ color: color[colorMode] }}
                 autoFocus
+                {...register("email")}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
                 type="text"
@@ -106,23 +119,30 @@ const SignUp: React.FC = () => {
                   color: "red",
                 }}
               >
-                {emailError}
+                {errors.email?.message}
               </span>
             </FormControl>
             <FormControl isRequired mt={6}>
               <FormLabel>Password</FormLabel>
               <input
-                style={{ color: color[colorMode] }}
+                {...register("password")}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 type="text"
                 value={password}
               />
+              <span
+                style={{
+                  fontWeight: "bold",
+                  color: "red",
+                }}
+              >
+                <p>{errors.password?.message}</p>
+              </span>
             </FormControl>
             <FormControl isRequired mt={6}>
               <FormLabel>Phone</FormLabel>
               <input
-                style={{ color: color[colorMode] }}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone"
                 type="text"
@@ -153,7 +173,7 @@ const SignUp: React.FC = () => {
             <Button
               disabled={!name || !email || !phone || !password}
               type="submit"
-              variantColor="teal"
+              variantcolor="teal"
               variant="outline"
               width="full"
               mt={4}
@@ -161,6 +181,10 @@ const SignUp: React.FC = () => {
               Register
             </Button>
           </form>
+          <Link href="/signin">
+          or signin
+          </Link>
+          
         </Box>
         <Box textAlign="center">
           <div className="bg-gray-100">

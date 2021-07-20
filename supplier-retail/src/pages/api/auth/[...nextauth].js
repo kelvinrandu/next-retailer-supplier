@@ -19,7 +19,7 @@ const options = {
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
@@ -48,7 +48,7 @@ const options = {
     }),
   ],
   pages: {
-    // signIn: '/auth/signin',  // Displays signin buttons
+    signIn: 'signin',  // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
