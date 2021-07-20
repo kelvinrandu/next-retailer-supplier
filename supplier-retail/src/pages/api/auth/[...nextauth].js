@@ -26,7 +26,6 @@ const options = {
         // Add logic here to look up the user from the credentials supplied
 
         const res = await login(credentials.email, credentials.password);
-        console.log("here", res);
         const user = await res;
 
         if (user) {
@@ -34,7 +33,8 @@ const options = {
           return user;
         } else {
           // If you return null or false then the credentials will be rejected
-          return null;
+          // return null;
+          throw new Error("error message");
           // You can also Reject this callback with an Error or with a URL:
           // throw new Error('error message') // Redirect to error page
           // throw '/path/to/redirect'        // Redirect to a URL
@@ -74,6 +74,7 @@ const options = {
       session.user = userFromDatabase;
       return Promise.resolve(session);
     },
+    
   },
   debug: process.env.NODE_ENV === "development",
   secret: process.env.AUTH_SECRET,

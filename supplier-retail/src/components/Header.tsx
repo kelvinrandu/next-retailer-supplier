@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useSession } from "next-auth/client";
+import { useSession,signOut } from "next-auth/client";
 import Logo from "./Logo";
 import User from "./User";
 import {
@@ -18,7 +18,6 @@ import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 const Links = [
   { path: "/orders", exact: true, name: "orders" },
   { path: "/items", exact: true, name: "items" },
-  { path: "/api/auth/signout", name: "signout" },
 ];
 
 const Header = (props) => {
@@ -60,7 +59,7 @@ const Header = (props) => {
             <Box display={{ base: "none", md: "flex" }}>
               {!session && (
                 <>
-                  <Link href="/api/auth/signin">
+                  <Link href="/signin">
                     <Button>Sign in</Button>
                   </Link>
                 </>
@@ -78,7 +77,7 @@ const Header = (props) => {
                     {session.user.isSupplier && (
                       <>
                         <Link href="/orders">
-                        <Box
+                          <Box
                             borderWidth="1px"
                             borderRadius="lg"
                             overflow="hidden"
@@ -102,9 +101,8 @@ const Header = (props) => {
                       </>
                     )}
 
-                    <Link href="/api/auth/signout">
-                      <Button>Sign out</Button>
-                    </Link>
+                    <Button onClick={()=>signOut()}>Sign out</Button>
+
                     <Button onClick={toggleColorMode} margin={3}>
                       {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
                     </Button>
@@ -116,7 +114,7 @@ const Header = (props) => {
           {isOpen ? (
             <Box pb={4} display={{ md: "none" }}>
               <Stack as={"nav"} spacing={4}>
-                {!session && <Link href="/api/auth/signin">signin</Link>}
+                {!session && <Link href="/signin">signin</Link>}
                 {session && (
                   <>
                     {Links.map((link) => (
@@ -124,6 +122,7 @@ const Header = (props) => {
                         {link.name}
                       </Link>
                     ))}
+                    <Button onClick={()=>signOut()}>Sign out</Button>
                   </>
                 )}
               </Stack>
