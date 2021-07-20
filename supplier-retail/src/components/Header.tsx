@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/client';
 import Logo from './Logo';
 import User from './User';
+import styled from '@emotion/styled'
+
 import { 
   Container,
   Box,
@@ -17,17 +19,22 @@ import {
 
   } from '@chakra-ui/icons'
 
+
+  const StickyNav = styled(Flex)`
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  backdrop-filter: saturate(180%) blur(20px);
+  transition: height .5s, line-height .5s;
+`
+
 const Header = (props) => {
   const [session, loading] = useSession();
-  const { colorMode, toggleColorMode } = useColorMode()
-
-
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <>
-    <Flex  justify="center"  >
-    <Container centerContent maxW="xl" pos="fixed" borderBottom="1px" borderColor="gray.200" overflow="hidden" zIndex={2}>
-
+    <div style={{zIndex:10,backdropFilter:"blur(40px)",position:"fixed",width:'100vw'}}>
+    <Container centerContent maxW="xl" borderBottom="1px" borderColor="gray.200" overflow="hidden" >
       <Flex  direction="row" justify="center" align="center" wrap="wrap"> 
       <Logo/>
       <Spacer />
@@ -44,16 +51,18 @@ const Header = (props) => {
         <Flex direction="row" justify="center" align="center" wrap="wrap">
           {/* user component */}
             <User />
+
+            {/* oders link to orders page if user is supplier */}
             {session.user.isSupplier && <>
                 <Link href="/orders">
-                <Box 
+                <Button 
                 borderWidth="1px" 
                 borderRadius="lg" 
                 overflow="hidden" 
                 padding="0.5rem" 
                 margin="0.5rem">
                   orders
-                </Box>
+                </Button>
               </Link>
               </>}
             
@@ -70,8 +79,7 @@ const Header = (props) => {
         </Box>
     </Flex>
       </Container>
-      </Flex>
-</>
+</div>
 
     
   );
