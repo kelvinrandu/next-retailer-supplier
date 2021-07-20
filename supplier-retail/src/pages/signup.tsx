@@ -25,7 +25,6 @@ const schema = yup.object().shape({
 const SignUp: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isSupplier, setisSupplier] = useState(false);
@@ -69,6 +68,7 @@ const user = { name, email, phone, password, isSupplier };
         duration: 9000,
         isClosable: true,
       });
+      reset();
     } catch (error) {
       console.error(error);
     }
@@ -113,15 +113,15 @@ const user = { name, email, phone, password, isSupplier };
                 type="text"
                 value={email}
               />
-              <span
-                style={{
-                  fontWeight: "bold",
-                  color: "red",
-                }}
-              >
-                {errors.email?.message}
-              </span>
             </FormControl>
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "red",
+              }}
+            >
+              {errors.email?.message}
+            </span>
             <FormControl isRequired mt={6}>
               <FormLabel>Password</FormLabel>
               <input
@@ -131,15 +131,15 @@ const user = { name, email, phone, password, isSupplier };
                 type="text"
                 value={password}
               />
-              <span
-                style={{
-                  fontWeight: "bold",
-                  color: "red",
-                }}
-              >
-                <p>{errors.password?.message}</p>
-              </span>
             </FormControl>
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "red",
+              }}
+            >
+              <p>{errors.password?.message}</p>
+            </span>
             <FormControl isRequired mt={6}>
               <FormLabel>Phone</FormLabel>
               <input
@@ -181,10 +181,7 @@ const user = { name, email, phone, password, isSupplier };
               Register
             </Button>
           </form>
-          <Link href="/signin">
-          or signin
-          </Link>
-          
+          <Link href="/signin">or signin</Link>
         </Box>
         <Box textAlign="center">
           <div className="bg-gray-100">
