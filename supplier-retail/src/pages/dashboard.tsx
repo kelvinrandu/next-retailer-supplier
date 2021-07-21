@@ -1,11 +1,12 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import Layout from "../components/Layout";
 import ItemList from "../components/ItemList";
 import { ItemProps } from "../components/ItemSingle";
 import { useSession } from "next-auth/client";
-import { Center, Text, Spinner, Box } from "@chakra-ui/react";
+import { Center, Text, Spinner, Box ,Flex} from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
-import Router from "next/router";
+import SearchBar from "../components/SearchBar";
+
 
 
 
@@ -29,6 +30,16 @@ type Props = {
 const Dashboard: React.FC<Props> = (props) => {
   const [session, loading] = useSession();
   const { items } = props;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredItems, setFilteredItems] = useState(items);
+
+    const updateInput = async (input) => {
+      const filtered = items.filter((item) => {
+        return item.name.toLowerCase().includes(input.toLowerCase());
+      });
+      setSearchQuery(input);
+      setFilteredItems(filtered);
+    };
 
 
   if (loading)
@@ -66,7 +77,28 @@ const Dashboard: React.FC<Props> = (props) => {
           </Center>
         </>
       )}
-      {session &&  <Fade bottom><ItemList items={items} /></Fade>}
+      {session && (
+        <>
+          {" "}
+          <Fade bottom>
+            <Flex direction="column" justify="center" align="center" pt={20}>
+              <Box as={"div"}>
+                {/* <input
+              key="random1"
+              value={searchQuery}
+              placeholder={"search country"}
+              onChange={(e) => updateInput(e.target.value)}
+            /> */}
+                <SearchBar
+                  searchQuery={searchQuery}
+                  updateInput={updateInput}
+                />
+              </Box>
+              <ItemList items={filteredItems} />
+            </Flex>
+          </Fade>
+        </>
+      )}
     </Layout>
   );
 };
