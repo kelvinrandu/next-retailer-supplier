@@ -31,16 +31,7 @@ const signin = ({ csrfToken }) => {
     }else{
         return await Router.push("/dashboard");
     }
-    // if (response.error) {
-    //   toast({
-    //     title: "Incorrect credentails.",
-    //     status: "error",
-    //     position: "top",
-    //     duration: 9000,
-    //     isClosable: true,
-    //   });
-    //   return
-    // }
+
   };
   return (
     <div>
