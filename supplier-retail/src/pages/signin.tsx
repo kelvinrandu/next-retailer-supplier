@@ -10,7 +10,7 @@ const signin = ({ csrfToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
-  const bg = useColorModeValue("red.500", "red.200");
+ 
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ const signin = ({ csrfToken }) => {
             <Heading>Login</Heading>
           </Box>
           <Box my={4} textAlign="left">
-            <form bg={bg} onSubmit={onSubmit}>
+            <form  onSubmit={onSubmit}>
               <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <FormControl isRequired mt={6}>
                 <FormLabel>Email</FormLabel>
