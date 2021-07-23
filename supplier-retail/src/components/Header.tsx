@@ -26,12 +26,10 @@ const Header = (props) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <>
-      <Flex justify="center">
+    <div style={{zIndex:10,backdropFilter:"blur(40px)",position:"fixed",width:"100vw"}}>
         <Container
           centerContent
           maxW="xl"
-          pos="fixed"
           borderBottom="1px"
           borderColor="gray.200"
           overflow="hidden"
@@ -129,8 +127,7 @@ const Header = (props) => {
             </Box>
           ) : null}
         </Container>
-      </Flex>
-    </>
+    </div>
   );
 };
 
