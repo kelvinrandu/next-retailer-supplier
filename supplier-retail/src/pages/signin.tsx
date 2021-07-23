@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormControl, FormLabel, Text, useToast } from "@chakra-ui/react";
+import { FormControl,Input, FormLabel, useColorModeValue,Text, useToast } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { getCsrfToken, signIn } from "next-auth/client";
@@ -10,6 +10,7 @@ const signin = ({ csrfToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
+  const bg = useColorModeValue("red.500", "red.200");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -48,13 +49,15 @@ const signin = ({ csrfToken }) => {
             <Heading>Login</Heading>
           </Box>
           <Box my={4} textAlign="left">
-            <form onSubmit={onSubmit}>
+            <form bg={bg} onSubmit={onSubmit}>
               <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <FormControl isRequired mt={6}>
                 <FormLabel>Email</FormLabel>
-                <input
+                <Input
                   name="email"
                   value={email}
+                  variant="filled"
+                  placeholder={"Enter email"}
                   onChange={(e) => setEmail(e.target.value)}
                   type="text"
                 />
@@ -67,9 +70,11 @@ const signin = ({ csrfToken }) => {
               </FormControl>
               <FormControl isRequired mt={6}>
                 <FormLabel>Password</FormLabel>
-                <input
+                <Input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  placeholder={"Enter password"}
+                  variant="filled"
                   name="password"
                   type="password"
                 />

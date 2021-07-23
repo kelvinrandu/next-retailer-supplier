@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Heading } from "@chakra-ui/layout";
 import { useSession } from "next-auth/client";
+import { PhoneIcon, EmailIcon} from "@chakra-ui/icons";
 import Router from "next/router";
-import { Input, Button, Text } from "@chakra-ui/react";
+import { Input, Text, VStack,Flex } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
 import { useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
@@ -15,7 +15,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
   const [session, loading] = useSession();
   const { item } = props;
 
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | null>(null);
   const [toEmail] = useState(item.user.email);
   const [fromEmail] = useState(session.user.email);
   const [price] = useState(item.price);
@@ -37,7 +37,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
     return randomString;
   }
   function flushAmount() {
-    return setAmount(0);
+    return setAmount(null);
   }
 
   const submitData = async (e: React.SyntheticEvent) => {
@@ -75,14 +75,19 @@ const ItemDetail: React.FC<Iprops> = (props) => {
 
   return (
     <>
-      <Text>
-        {item?.user.name} {item?.user.phone} {item?.user.email}
-      </Text>
+      <VStack>
+        <Flex as="span">
+          <Text>
+            {item?.user.name} <PhoneIcon />
+            {item?.user.phone} <EmailIcon /> {item?.user.email}
+          </Text>
+        </Flex>
+      </VStack>
       <form onSubmit={submitData}>
         <Input
           autoFocus
           onChange={(e) => setAmount(parseInt(e.target.value))}
-          placeholder="quantity"
+          placeholder="Enter number of items"
           type="number"
           value={amount}
         />
