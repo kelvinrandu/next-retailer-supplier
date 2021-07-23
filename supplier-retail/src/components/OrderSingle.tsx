@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
+import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 
 export type OrderProps = {
@@ -67,7 +68,9 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
       {orderDetail && (
         <>
           {" "}
-          {order?.from.name}:{order?.from.phone}
+          {order?.from.name}:<PhoneIcon />
+          {order?.from.phone}
+          <EmailIcon />
           {order?.from.email}
         </>
       )}

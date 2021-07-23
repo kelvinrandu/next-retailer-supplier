@@ -91,6 +91,7 @@ model Order {
   from       User   @relation("from", fields: [fromId], references: [id])
   toId       Int
   to         User   @relation("to", fields: [toId], references: [id])
+  read        Boolean   @default(false)
     createdAt    DateTime @default(now()) @map(name: "created_at")
   updatedAt    DateTime @default(now()) @map(name: "updated_at")
 
