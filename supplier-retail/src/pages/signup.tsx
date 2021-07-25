@@ -8,6 +8,7 @@ import {
   FormLabel,
   HStack,
   useToast,
+  Input,
   useColorMode,
 } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
@@ -90,24 +91,26 @@ const user = { name, email, phone, password, isSupplier };
         </Box>
         <Box my={4} textAlign="left">
           <form
-            style={{ color: color[colorMode] }}
+
             onSubmit={handleSubmit(submitData)}
           >
             <FormControl isRequired>
               <FormLabel>Store Name</FormLabel>
-              <input
+              <Input
                 autoFocus
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
+                variant="filled"
                 type="text"
                 value={name}
               />
             </FormControl>
             <FormControl isRequired mt={6}>
               <FormLabel>Email</FormLabel>
-              <input
+              <Input
                 autoFocus
                 {...register("email")}
+                variant="filled"
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
                 type="text"
@@ -124,11 +127,12 @@ const user = { name, email, phone, password, isSupplier };
             </span>
             <FormControl isRequired mt={6}>
               <FormLabel>Password</FormLabel>
-              <input
+              <Input
                 {...register("password")}
+                variant="filled"
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                type="text"
+                type="password"
                 value={password}
               />
             </FormControl>
@@ -142,10 +146,11 @@ const user = { name, email, phone, password, isSupplier };
             </span>
             <FormControl isRequired mt={6}>
               <FormLabel>Phone</FormLabel>
-              <input
+              <Input
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone"
                 type="text"
+                variant="filled"
                 value={phone}
               />
             </FormControl>
