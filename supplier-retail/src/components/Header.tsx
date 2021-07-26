@@ -75,7 +75,7 @@ const Header = (props) => {
                     {session.user.isSupplier && (
                       <>
                         <Link href="/orders">
-                          <Box
+                          <Button
                             borderWidth="1px"
                             borderRadius="lg"
                             overflow="hidden"
@@ -83,10 +83,10 @@ const Header = (props) => {
                             margin="0.5rem"
                           >
                             orders
-                          </Box>
+                          </Button>
                         </Link>
                         <Link href="/items">
-                          <Box
+                          <Button
                             borderWidth="1px"
                             borderRadius="lg"
                             overflow="hidden"
@@ -94,7 +94,7 @@ const Header = (props) => {
                             margin="0.5rem"
                           >
                             items
-                          </Box>
+                          </Button>
                         </Link>
                       </>
                     )}

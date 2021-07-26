@@ -19,6 +19,7 @@ const signin = ({ csrfToken }) => {
       email: email,
       password: password,
     });
+    console.log(response.error)
    
     if (response.error){
 
@@ -49,7 +50,7 @@ const signin = ({ csrfToken }) => {
             <Heading>Login</Heading>
           </Box>
           <Box my={4} textAlign="left">
-            <form  onSubmit={onSubmit}>
+            <form onSubmit={onSubmit}>
               <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <FormControl isRequired mt={6}>
                 <FormLabel>Email</FormLabel>
@@ -97,7 +98,15 @@ const signin = ({ csrfToken }) => {
               </Button>
             </form>
             <Link href="/signup">
-              <Text align="center" fontStyle="italics" fontSize="sm">
+              <Text
+                _hover={{
+                  transform: "translateY(-3px)",
+              
+                }}
+                align="center"
+                fontStyle="italics"
+                fontSize="sm"
+              >
                 or sign up
               </Text>
             </Link>

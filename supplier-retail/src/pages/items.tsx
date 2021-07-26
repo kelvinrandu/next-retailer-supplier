@@ -6,7 +6,7 @@ import prisma from "../../lib/prisma";
 import { ItemProps } from "../components/ItemSingle";
 import AddItem from "../components/AddItem";
 import EditItem from "../components/EditItem";
-import { HStack, Center, Box, Spinner, Flex, Text } from "@chakra-ui/react";
+import { HStack, Center, Box, Spinner, Flex, Link } from "@chakra-ui/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -75,7 +75,7 @@ const items: React.FC<Props> = (props) => {
               textTransform="uppercase"
               ml="2"
             >
-              <Text>items</Text>
+              <Link href="/signin">signin</Link>
             </Box>
           </Center>
         </>
