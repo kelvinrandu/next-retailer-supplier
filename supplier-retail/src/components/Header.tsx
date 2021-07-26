@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/client';
 import Logo from './Logo';
 import User from './User';
-import styled from '@emotion/styled'
 
 import { 
   Container,
@@ -19,14 +18,6 @@ import {
 
   } from '@chakra-ui/icons'
 
-
-  const StickyNav = styled(Flex)`
-  position: sticky;
-  z-index: 10;
-  top: 0;
-  backdrop-filter: saturate(180%) blur(20px);
-  transition: height .5s, line-height .5s;
-`
 
 const Header = (props) => {
   const [session, loading] = useSession();
