@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import ItemList from "../components/ItemList";
 import { ItemProps } from "../components/ItemSingle";
 import { useSession } from "next-auth/client";
-import { Center, Text, Spinner, Box ,Flex} from "@chakra-ui/react";
+import { Center, Link, Spinner, Box ,Flex} from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import SearchBar from "../components/SearchBar";
 
@@ -72,7 +72,7 @@ const Dashboard: React.FC<Props> = (props) => {
               textTransform="uppercase"
               ml="2"
             >
-              <Text>dashboard</Text>
+              <Link href="/signin">signin</Link>
             </Box>
           </Center>
         </>

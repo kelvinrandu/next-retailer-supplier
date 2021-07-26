@@ -19,6 +19,7 @@ const signin = ({ csrfToken }) => {
       email: email,
       password: password,
     });
+    console.log(response.error)
    
     if (response.error){
 

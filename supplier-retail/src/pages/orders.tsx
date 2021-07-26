@@ -5,7 +5,7 @@ import { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
 import OrderList from "../components/OrderList";
 import { OrderProps } from "../components/OrderSingle";
-
+import { Link } from "@chakra-ui/react";
 import { useSession, getSession } from "next-auth/client";
 import prisma from "../../lib/prisma";
 
@@ -54,7 +54,11 @@ const Drafts: React.FC<Props> = (props) => {
     return (
       <Layout>
         <h1>Orders for me</h1>
-        <div>You need to be authenticated to view this page.</div>
+        <div>
+          <main>
+            <Link href="/signin">signin</Link>
+          </main>
+        </div>
       </Layout>
     );
   }
