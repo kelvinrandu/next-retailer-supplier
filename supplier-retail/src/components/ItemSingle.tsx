@@ -27,7 +27,7 @@ const ItemSingle: React.FC<{ item: ItemProps }> = (props) => {
       <Box
         _hover={{
           transform: "translateY(-3px)",
-          boxShadow: "lg",
+          boxShadow: "dark-lg",
         }}
         p={5}
         shadow="md"

@@ -18,7 +18,7 @@ import { MoonIcon, SunIcon} from "@chakra-ui/icons";
 
 
 export default function index() {
-  const [session, loading] = useSession();
+    const [session, loading] = useSession();
     const { colorMode, toggleColorMode } = useColorMode();
   if (session)
   useEffect(() => { 
