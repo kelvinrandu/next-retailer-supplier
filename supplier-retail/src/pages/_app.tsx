@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import { Provider } from 'next-auth/client'
 import theme from '../components/Theme'
+import "../../style/style.css";
 
 
 

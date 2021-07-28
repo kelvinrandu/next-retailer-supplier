@@ -85,15 +85,13 @@ const user = { name, email, phone, password, isSupplier };
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
+        className="glass"
       >
         <Box textAlign="center">
           <Heading>Register</Heading>
         </Box>
         <Box my={4} textAlign="left">
-          <form
-
-            onSubmit={handleSubmit(submitData)}
-          >
+          <form onSubmit={handleSubmit(submitData)}>
             <FormControl isRequired>
               <FormLabel>Store Name</FormLabel>
               <Input
