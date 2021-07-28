@@ -75,7 +75,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
 
   return (
     <>
-     <Box
+      <Box
         p={5}
         shadow="md"
         borderWidth="1px"
@@ -87,34 +87,39 @@ const ItemDetail: React.FC<Iprops> = (props) => {
         {/* <Flex justify="spaceBetween"> */}
         {/* <HStack> */}
         <Box fontWeight="700">
-        order from: 
-            <Text as="mark"
-           fontSize="20px"
-           
-              >
+          order from:
+          <Text as="mark" fontSize="20px">
             {item?.user.name} .
-            </Text>
-            </Box>
-          
-           <Box fontWeight="700">
-           <PhoneIcon/>
-            {item?.user.phone} 
-           </Box>
+          </Text>
+        </Box>
 
-           <Box fontWeight="700">
-           <EmailIcon /> {item?.user.email}
-           </Box>
-          {/* </HStack> */}
+        <Box fontWeight="700">
+          <PhoneIcon />
+          {item?.user.phone}
+        </Box>
+
+        <Box fontWeight="700">
+          <EmailIcon /> {item?.user.email}
+        </Box>
+        {/* </HStack> */}
         {/* </Flex> */}
-      <form onSubmit={submitData}>
-        <Input
-          autoFocus
-          onChange={(e) => setAmount(parseInt(e.target.value))}
-          placeholder="Enter number of items"
-          type="number"
-          value={amount}
-        />
-      </form>
+        {session.user?.isSupplier ? (
+          null
+
+        ) : (
+          <>
+        <form onSubmit={submitData}>
+          <Input
+            autoFocus
+            onChange={(e) => setAmount(parseInt(e.target.value))}
+            placeholder="Enter number of items"
+            type="number"
+            value={amount}
+          />
+        </form>
+        </>
+        )}
+
       </Box>
     </>
   );
