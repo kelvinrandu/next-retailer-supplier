@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect}from "react";
 import { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
 import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
 import { Button, Checkbox, useToast } from "@chakra-ui/react";
+import Router from "next/router";
 
 
 export type OrderProps = {
@@ -25,6 +26,7 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
   const { order } = props;
   const [orderDetail, setOrderDetail] = useState(false);
   const toast = useToast();
+      useEffect(() => {}, [order.read]);
 
 
   function OrderDetailHandler() {
@@ -34,13 +36,15 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
   const submitData = async (e: React.SyntheticEvent,id) => {
     e.preventDefault();
     try {
- 
 
       await fetch(`/api/order/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
 
       });
+       OrderDetailHandler();
+      Router.push("/orders");
+     
 
       toast({
         title: "Order processed",
