@@ -2,13 +2,15 @@ import React from "react";
 import { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
 import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
-import { Button } from "@chakra-ui/react";
+import { Button, Checkbox, useToast } from "@chakra-ui/react";
+
 
 export type OrderProps = {
   id: number;
   receipt: string;
   totalPrice: number;
   itemAmount: number;
+  read: boolean;
   from: {
     name: string;
     phone: number;
@@ -22,11 +24,37 @@ export type OrderProps = {
 const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
   const { order } = props;
   const [orderDetail, setOrderDetail] = useState(false);
+  const toast = useToast();
+
 
   function OrderDetailHandler() {
     setOrderDetail(!orderDetail);
   }
+  const MarkOrder=(id)=>{
+    console.log(id);
+  }
+  const submitData = async (e: React.SyntheticEvent,id) => {
+    e.preventDefault();
+    try {
+ 
 
+      await fetch(`/api/order/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+
+      });
+
+      toast({
+        title: "Order processed",
+        status: "success",
+        position: "top",
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <Box
@@ -72,6 +100,20 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
           {order?.from.phone}
           <EmailIcon />
           {order?.from.email}
+          {order?.read ? (
+            <Checkbox
+              colorScheme="red"
+              defaultIsChecked
+            >
+              {" "}
+              Processed order{" "}
+            </Checkbox>
+          ) : (
+            <Checkbox colorScheme="red" onChange={() => MarkOrder(order.id)}>
+              {" "}
+              Process order{" "}
+            </Checkbox>
+          )}
         </>
       )}
     </>

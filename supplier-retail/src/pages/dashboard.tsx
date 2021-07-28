@@ -82,13 +82,8 @@ const Dashboard: React.FC<Props> = (props) => {
           {" "}
           <Fade bottom>
             <Flex direction="column" justify="center" align="center" pt={20}>
-              <Box as={"div"}>
-                {/* <input
-              key="random1"
-              value={searchQuery}
-              placeholder={"search country"}
-              onChange={(e) => updateInput(e.target.value)}
-            /> */}
+              <Box mt='70px'>
+  
                 <SearchBar
                   searchQuery={searchQuery}
                   updateInput={updateInput}

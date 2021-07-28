@@ -6,7 +6,6 @@ import {
   Container,
   Box,
   Flex,
-  Spacer,
   IconButton,
   useDisclosure,
   useColorMode,
@@ -33,7 +32,7 @@ const Header = (props) => {
           borderBottom="1px"
           borderColor="gray.200"
           overflow="hidden"
-          zIndex={2}
+
         >
           <Flex direction="row" justify="center" align="center" wrap="wrap">
             <IconButton
@@ -45,8 +44,6 @@ const Header = (props) => {
             />
 
             <Logo />
-
-            <Spacer />
             <Button
               display={{ base: "flex", md: "none" }}
               onClick={toggleColorMode}

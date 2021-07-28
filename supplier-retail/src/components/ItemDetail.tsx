@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/client";
 import { PhoneIcon, EmailIcon} from "@chakra-ui/icons";
 import Router from "next/router";
-import { Input, Text, VStack,Flex } from "@chakra-ui/react";
+import { Input, Text, HStack,Flex,Box } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
 import { useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
@@ -75,14 +75,37 @@ const ItemDetail: React.FC<Iprops> = (props) => {
 
   return (
     <>
-      <VStack>
-        <Flex as="span">
-          <Text>
-            {item?.user.name} <PhoneIcon />
-            {item?.user.phone} <EmailIcon /> {item?.user.email}
-          </Text>
-        </Flex>
-      </VStack>
+     <Box
+        p={5}
+        shadow="md"
+        borderWidth="1px"
+        margin={2}
+        borderRadius={5}
+        // d="flex"
+        w={[300, 400, 560]}
+      >
+        {/* <Flex justify="spaceBetween"> */}
+        {/* <HStack> */}
+        <Box fontWeight="700">
+        order from: 
+            <Text as="mark"
+           fontSize="20px"
+           
+              >
+            {item?.user.name} .
+            </Text>
+            </Box>
+          
+           <Box fontWeight="700">
+           <PhoneIcon/>
+            {item?.user.phone} 
+           </Box>
+
+           <Box fontWeight="700">
+           <EmailIcon /> {item?.user.email}
+           </Box>
+          {/* </HStack> */}
+        {/* </Flex> */}
       <form onSubmit={submitData}>
         <Input
           autoFocus
@@ -91,14 +114,8 @@ const ItemDetail: React.FC<Iprops> = (props) => {
           type="number"
           value={amount}
         />
-
-        {/* <input
-               
-                  disabled={!amount}
-                  type="submit"
-                  value="order"
-                /> */}
       </form>
+      </Box>
     </>
   );
 };

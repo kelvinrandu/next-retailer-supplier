@@ -22,6 +22,7 @@ export default async function getOrders(req: NextApiRequest, res: NextApiRespons
      
         select: {
           id:true,
+          read:true,
           receipt:true,
           from: {
               select:{

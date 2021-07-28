@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     select: {
       id: true,
       receipt: true,
+      read:true,
       totalPrice: true,
       itemAmount: true,
       from: {
