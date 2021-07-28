@@ -82,7 +82,7 @@ const Dashboard: React.FC<Props> = (props) => {
           {" "}
           <Fade bottom>
             <Flex direction="column" justify="center" align="center" pt={20}>
-              <Box as={"div"}>
+              <Box mt='70px'>
                 {/* <input
               key="random1"
               value={searchQuery}

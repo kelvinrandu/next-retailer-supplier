@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
+import { Box, Heading, Text, Flex, Spacer} from "@chakra-ui/layout";
+import { Fade, ScaleFade, Slide, SlideFade } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/react";
 import ItemDetail from "./ItemDetail";
 
@@ -38,7 +39,6 @@ const ItemSingle: React.FC<{ item: ItemProps }> = (props) => {
         w={[300, 400, 560]}
       >
         <Flex justify="center" align="center" wrap="wrap" grow={1}>
-          {/* <HStack w='100%'> */}
           <Heading fontSize="xl">{props.item.name}</Heading>
 
           <Spacer />
@@ -54,13 +54,16 @@ const ItemSingle: React.FC<{ item: ItemProps }> = (props) => {
           >
             {itemDetail ? "close" : "view"}
           </Button>
-          {/* </HStack> */}
+
         </Flex>
       </Box>
 
       {itemDetail && (
+        // <Slide direction="top" in={itemDetail} style={{ zIndex: 10 }} >
         <ItemDetail item={props.item} ItemDetailHandler={ItemDetailHandler} />
+        // </Slide>
       )}
+      
     </>
   );
 };
