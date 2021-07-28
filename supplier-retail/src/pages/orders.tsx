@@ -48,7 +48,7 @@ type Props = {
   orders: OrderProps[];
 };
 
-const Drafts: React.FC<Props> = (props) => {
+const Orders: React.FC<Props> = (props) => {
   const [session] = useSession();
 
   if (!session) {
@@ -76,4 +76,4 @@ const Drafts: React.FC<Props> = (props) => {
   );
 };
 
-export default Drafts;
+export default Orders;

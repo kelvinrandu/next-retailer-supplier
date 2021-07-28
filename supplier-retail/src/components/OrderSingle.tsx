@@ -30,9 +30,7 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
   function OrderDetailHandler() {
     setOrderDetail(!orderDetail);
   }
-  const MarkOrder=(id)=>{
-    console.log(id);
-  }
+
   const submitData = async (e: React.SyntheticEvent,id) => {
     e.preventDefault();
     try {
@@ -73,12 +71,30 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
         <Flex justify="center" align="center" wrap="wrap" grow={1}>
           {/* <HStack w='100%'> */}
           <Heading fontSize="xl">
-            {order.itemAmount}*{props.order.item.name}
+            {order?.read ? (
+              <Text as="s">
+                {order.itemAmount}*{props.order.item.name}
+              </Text>
+            ) : (
+              <Text>
+                {order.itemAmount}*{props.order.item.name}
+              </Text>
+            )}
           </Heading>
 
           <Spacer />
-          <Text>@</Text>
-          <Text> Ksh {order.totalPrice}</Text>
+          {order?.read ? (
+            <>
+              <Text as="s">@</Text>
+              <Text as="s"> Ksh {order.totalPrice}</Text>
+            </>
+          ) : (
+            <>
+              <Text>@</Text>
+              <Text> Ksh {order.totalPrice}</Text>
+            </>
+          )}
+
           <Spacer />
           <Button
             colorScheme="teal"
@@ -101,15 +117,15 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
           <EmailIcon />
           {order?.from.email}
           {order?.read ? (
-            <Checkbox
-              colorScheme="red"
-              defaultIsChecked
-            >
+            <Checkbox colorScheme="red" isDisabled defaultIsChecked>
               {" "}
               Processed order{" "}
             </Checkbox>
           ) : (
-            <Checkbox colorScheme="red" onChange={() => MarkOrder(order.id)}>
+            <Checkbox
+              colorScheme="red"
+              onChange={(e) => submitData(e, order.id)}
+            >
               {" "}
               Process order{" "}
             </Checkbox>

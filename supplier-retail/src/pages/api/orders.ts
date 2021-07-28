@@ -14,27 +14,24 @@ export default async function getOrders(req: NextApiRequest, res: NextApiRespons
     const orders: object | null = await prisma.order.findMany({
       where: {
         to: { email: session?.user?.email },
-      }, 
-      orderBy:{
-        id: 'desc' ,
-
       },
-     
-        select: {
-          id:true,
-          read:true,
-          receipt:true,
-          from: {
-              select:{
-              name:true,
-              phone:true,
-              }
-          }
-         
-     
+      orderBy: {
+        createdAt: "asc",
+      },
+
+      select: {
+        id: true,
+        read: true,
+        receipt: true,
+        createdAt: true,
+        from: {
+          select: {
+            name: true,
+            phone: true,
+          },
         },
-       
-      })
+      },
+    });
 
       res.json(orders)
       console.log(orders)
