@@ -1,7 +1,5 @@
-import Head from 'next/head';
-import Header from '../components/Header';
-import Navigation from '../components/Navigation';
-
+import Head from "next/head";
+import Header from "../components/Header";
 
 const Layout = ({ children }) => (
   <>
@@ -10,10 +8,10 @@ const Layout = ({ children }) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <Header  /> 
-    {/* <Navigation/> */}
-    <main >{children}</main>
-
+    <Header />
+    
+    
+    <main>{children}</main>
   </>
 );
 

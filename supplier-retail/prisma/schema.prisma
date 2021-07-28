@@ -64,15 +64,18 @@ model Session {
 model Item {
   id               Int     @id @default(autoincrement())
   name             String
-  quantity         String
+  quantity         Int?
   price            Int
-  min_bundle       Int
-  min_bundle_price Int
-  max_bundle       Int
-  max_bundle_price Int
+  min_bundle       Int?
+  min_bundle_price Int?
+  max_bundle       Int?
+  max_bundle_price Int?
+  published        Boolean   @default(true)
   userId           Int
   user             User    @relation(fields: [userId], references: [id])
   orders           Order[]
+    createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @default(now()) @map(name: "updated_at")
 
   @@map(name: "items")
 }
@@ -88,6 +91,9 @@ model Order {
   from       User   @relation("from", fields: [fromId], references: [id])
   toId       Int
   to         User   @relation("to", fields: [toId], references: [id])
+  read        Boolean   @default(false)
+    createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @default(now()) @map(name: "updated_at")
 
   @@map(name: "orders")
   

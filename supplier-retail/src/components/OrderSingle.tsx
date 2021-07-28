@@ -1,13 +1,8 @@
-import React from 'react';
-import {useState}from 'react'
-import { 
-  Box,
-  Heading,
-  Text,
-  Flex, 
-  Spacer} from "@chakra-ui/layout"
-import { Button} from "@chakra-ui/react";
-
+import React from "react";
+import { useState } from "react";
+import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
+import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
+import { Button } from "@chakra-ui/react";
 
 export type OrderProps = {
   id: number;
@@ -16,70 +11,71 @@ export type OrderProps = {
   itemAmount: number;
   from: {
     name: string;
-    phone : number;
+    phone: number;
     email: string;
-  }
+  };
   item: {
     name: string;
+  };
+};
 
-  }
+const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
+  const { order } = props;
+  const [orderDetail, setOrderDetail] = useState(false);
 
-}
-
-const OrderSingle: React.FC<{order: OrderProps}> = (props) => {
-
-  const {order} = props
-  const [orderDetail, setOrderDetail ] = useState(false);
-
-  function OrderDetailHandler(){
+  function OrderDetailHandler() {
     setOrderDetail(!orderDetail);
   }
 
-    return (
-        <>
-        <Box 
-          _hover={{
-            transform: 'translateY(-3px)',
-            boxShadow: 'lg',
-          }}
-          p={5} 
-          shadow="md" 
-          borderWidth="1px" 
-          margin={2}
-          borderRadius={5}
-          // d="flex"
-         w= {[300, 400, 560]}
-         > 
-         <Flex 
-         justify='center'
-         align='center'
-         wrap='wrap'
-         grow={1}
-         >
+  return (
+    <>
+      <Box
+        _hover={{
+          transform: "translateY(-3px)",
+          boxShadow: "lg",
+        }}
+        p={5}
+        shadow="md"
+        borderWidth="1px"
+        margin={2}
+        borderRadius={5}
+        // d="flex"
+        w={[300, 400, 560]}
+      >
+        <Flex justify="center" align="center" wrap="wrap" grow={1}>
+          {/* <HStack w='100%'> */}
+          <Heading fontSize="xl">
+            {order.itemAmount}*{props.order.item.name}
+          </Heading>
 
-        {/* <HStack w='100%'> */}
-        <Heading fontSize="xl">{order.itemAmount}*{props.order.item.name}</Heading>
-
-
-        <Spacer />
-        <Text >@</Text> 
-        <Text > Ksh {order.totalPrice}</Text>
-        <Spacer />
-        <Button  
-          colorScheme="teal" 
-          variant="outline" 
-          alignSelf="right" 
-          float="right"
-          onClick={()=>OrderDetailHandler()}>
-           {orderDetail ? 'close' : 'view' }
-        </Button>
-        {/* </HStack> */}
+          <Spacer />
+          <Text>@</Text>
+          <Text> Ksh {order.totalPrice}</Text>
+          <Spacer />
+          <Button
+            colorScheme="teal"
+            variant="outline"
+            alignSelf="right"
+            float="right"
+            onClick={() => OrderDetailHandler()}
+          >
+            {orderDetail ? "close" : "view"}
+          </Button>
+          {/* </HStack> */}
         </Flex>
       </Box>
-      
-     {orderDetail && <> {order.from.name}:{order.from.phone}</>}
-      </>
-    )
-}
 
-export default OrderSingle
+      {orderDetail && (
+        <>
+          {" "}
+          {order?.from.name}:<PhoneIcon />
+          {order?.from.phone}
+          <EmailIcon />
+          {order?.from.email}
+        </>
+      )}
+    </>
+  );
+};
+
+export default OrderSingle;
