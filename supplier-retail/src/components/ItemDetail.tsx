@@ -76,41 +76,31 @@ const ItemDetail: React.FC<Iprops> = (props) => {
   return (
     <>
      <Box
-        p={5}
-        shadow="md"
-        borderWidth="1px"
+        py={10}
+        px={20}
+        // bg="green"
         margin={2}
-        borderRadius={5}
-        // d="flex"
         w={[300, 400, 560]}
       >
-        {/* <Flex justify="spaceBetween"> */}
-        {/* <HStack> */}
-        <Box fontWeight="700">
-        order from: 
-            <Text as="mark"
-           fontSize="20px"
-           
-              >
+        <Box fontWeight="700" d="flex" justify="center">
+          <Text>
+          order from:
+          </Text>{" "}<Text as="mark" color="blue.200"
+           fontSize="20px">
             {item?.user.name} .
             </Text>
-            </Box>
-          
+        </Box>
            <Box fontWeight="700">
-           <PhoneIcon/>
-            {item?.user.phone} 
+           <PhoneIcon color="blue.300"/>{" "}{item?.user.phone}
            </Box>
-
            <Box fontWeight="700">
-           <EmailIcon /> {item?.user.email}
+           <EmailIcon color="blue.200"/>{" "}{item?.user.email}
            </Box>
-          {/* </HStack> */}
-        {/* </Flex> */}
       <form onSubmit={submitData}>
         <Input
           autoFocus
           onChange={(e) => setAmount(parseInt(e.target.value))}
-          placeholder="Enter number of items"
+          placeholder="Number of items"
           type="number"
           value={amount}
         />

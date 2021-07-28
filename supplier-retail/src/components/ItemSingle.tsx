@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer} from "@chakra-ui/layout";
-import { Fade, ScaleFade, Slide, SlideFade } from "@chakra-ui/react"
-import { Button } from "@chakra-ui/react";
+import { Fade, ScaleFade, Slide, SlideFade, Collapse,Button} from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon} from "@chakra-ui/icons";
 import ItemDetail from "./ItemDetail";
 
 export type ItemProps = {
@@ -45,25 +45,26 @@ const ItemSingle: React.FC<{ item: ItemProps }> = (props) => {
           <Text>@</Text>
           <Text> Ksh{props.item.price} </Text>
           <Spacer />
-          <Button
-            colorScheme="teal"
-            variant="outline"
+          <Box
+            // colorScheme="teal"
+            // variant="outline"
+            as="button"
             alignSelf="right"
             float="right"
             onClick={() => ItemDetailHandler()}
           >
-            {itemDetail ? "close" : "view"}
-          </Button>
+            {itemDetail ? <ViewOffIcon color="red"  boxSize={6}/> : <ViewIcon  boxSize={6}/>}
+          </Box>
 
         </Flex>
+        {itemDetail && (
+        <Collapse in={itemDetail} animateOpacity  style={{ zIndex: 10,transitionDuration:"30" }}>
+        <ItemDetail item={props.item} ItemDetailHandler={ItemDetailHandler} />
+        </Collapse>
+      )}
       </Box>
 
-      {itemDetail && (
-        // <Slide direction="top" in={itemDetail} style={{ zIndex: 10 }} >
-        <ItemDetail item={props.item} ItemDetailHandler={ItemDetailHandler} />
-        // </Slide>
-      )}
-      
+     
     </>
   );
 };
