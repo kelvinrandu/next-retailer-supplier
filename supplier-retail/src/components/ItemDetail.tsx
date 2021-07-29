@@ -43,8 +43,16 @@ const ItemDetail: React.FC<Iprops> = (props) => {
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      if (!amount) {
+      if (!amount || amount <= 0 ) {
         console.log("amount cannot be zero");
+
+        return      toast({
+                description: "invalid amount",
+                status: "error",
+                position: "top",
+                duration: 9000,
+                isClosable: true,
+              });
       }
       const totalPrice = getTotal(price, amount);
 

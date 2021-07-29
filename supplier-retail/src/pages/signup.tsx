@@ -9,7 +9,6 @@ import {
   HStack,
   useToast,
   Input,
-  useColorMode,
 } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
@@ -30,7 +29,7 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState("");
   const [isSupplier, setisSupplier] = useState(false);
   const toast = useToast();
-  const { colorMode } = useColorMode();
+
   const {
     register,
     handleSubmit,
@@ -39,22 +38,14 @@ const SignUp: React.FC = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const bgColor = {
-    light: "white",
-    dark: "#1c1c1c",
-  };
-  const color = {
-    light: "#171717",
-    dark: "#171717 ",
-  };
+
 
 
   const submitData = async (e: React.SyntheticEvent) => {
     
-const user = { name, email, phone, password, isSupplier };
     try {
       const body = { name, email, phone, password, isSupplier };
-      const user = await fetch("api/register", {
+      await fetch("api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -66,7 +57,7 @@ const user = { name, email, phone, password, isSupplier };
         description: "We've created your account for you.",
         status: "success",
         position: "top",
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       });
       reset();
