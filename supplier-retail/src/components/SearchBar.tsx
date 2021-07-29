@@ -1,25 +1,29 @@
 import React from "react";
-import { useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue,Input,InputGroup,InputLeftElement} from "@chakra-ui/react";
+import {TriangleDownIcon,Search2Icon,TriangleUpIcon,AtSignIcon} from "@chakra-ui/icons";
 
 const SearchBar = ({searchQuery, updateInput}) => {
     const bg = useColorModeValue("#F2F1F9", "rgb(103 101 113 / 4%)");
     const color = useColorModeValue("black", "white");
-  const BarStyling = {
-    width: "20rem",
-    color: color,
-    background: bg,
-    border: "none",
-    padding: "0.5rem",
-  };
  
   return (
-    <input
-      style={BarStyling}
+    <InputGroup>
+     <InputLeftElement
+      pointerEvents="none"
+      children={<Search2Icon color="teal" />}
+    />
+      <Input
+      placeholder="search item"
+      color="teal"
+      focusBorderColor="red"
+      size="md"
+      variant="filled"
       key="random1"
       value={searchQuery}
-      placeholder={"search item"}
       onChange={(e) => updateInput(e.target.value)}
     />
+    </InputGroup>
+    
   );
 };
 

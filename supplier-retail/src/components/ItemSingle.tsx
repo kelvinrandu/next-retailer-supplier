@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer} from "@chakra-ui/layout";
-import { Fade, ScaleFade, Slide, SlideFade, Collapse,Button} from "@chakra-ui/react";
-import { ViewIcon,TriangleDownIcon,TriangleUpIcon,AtSignIcon} from "@chakra-ui/icons";
+import {  Collapse} from "@chakra-ui/react";
+import {TriangleDownIcon,TriangleUpIcon,AtSignIcon} from "@chakra-ui/icons";
 import ItemDetail from "./ItemDetail";
 
 export type ItemProps = {
@@ -39,7 +39,7 @@ const ItemSingle: React.FC<{ item: ItemProps }> = (props) => {
         w={[300, 400, 560]}
       >
         <Flex justify="center" align="center" wrap="wrap" grow={1}>
-          <Heading fontSize="md" mr={4}>{props.item.name}</Heading>
+          <Heading fontSize="md" mr={4}>{props.item.name.toLowerCase()}</Heading>
           {/* <Spacer /> */}
           <AtSignIcon color="teal"/>
           <Text> Ksh{props.item.price} </Text>
