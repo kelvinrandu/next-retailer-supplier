@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer} from "@chakra-ui/layout";
-import { Fade, ScaleFade, Slide, SlideFade } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/react";
 import ItemDetail from "./ItemDetail";
 
@@ -59,9 +58,7 @@ const ItemSingle: React.FC<{ item: ItemProps }> = (props) => {
       </Box>
 
       {itemDetail && (
-        // <Slide direction="top" in={itemDetail} style={{ zIndex: 10 }} >
         <ItemDetail item={props.item} ItemDetailHandler={ItemDetailHandler} />
-        // </Slide>
       )}
       
     </>

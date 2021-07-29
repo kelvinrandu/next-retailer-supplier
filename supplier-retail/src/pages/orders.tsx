@@ -5,7 +5,7 @@ import { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
 import OrderList from "../components/OrderList";
 import { OrderProps } from "../components/OrderSingle";
-import { Link } from "@chakra-ui/react";
+import { Link, Box } from "@chakra-ui/react";
 import { useSession, getSession } from "next-auth/client";
 import prisma from "../../lib/prisma";
 
@@ -20,10 +20,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     where: {
       to: { email: session.user.email },
     },
+    orderBy: {
+      id: "desc",
+    },
     select: {
       id: true,
       receipt: true,
-      read:true,
+      read: true,
       totalPrice: true,
       itemAmount: true,
       from: {
@@ -51,7 +54,6 @@ type Props = {
 const Orders: React.FC<Props> = (props) => {
   const [session] = useSession();
 
-
   if (!session) {
     return (
       <Layout>
@@ -69,9 +71,16 @@ const Orders: React.FC<Props> = (props) => {
     <Layout>
       <div className="page">
         <h1>orders for me</h1>
-        <main>
+        <Box
+          as="div"
+          mt={[10, 20, 20]}
+          alignItems="center"
+          justifyContent="center"
+          display="Flex"
+          flexDirection="column"
+        >
           <OrderList orders={props.orders} />
-        </main>
+        </Box>
       </div>
     </Layout>
   );

@@ -19,6 +19,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     where: {
       user: { email: session.user.email },
     },
+    orderBy: {
+      id: "desc",
+    },
     select: {
       id: true,
       name: true,
@@ -80,29 +83,32 @@ const items: React.FC<Props> = (props) => {
           </Center>
         </>
       )}
-      <Center mt={70}>
-        <HStack>
-          <Box
-            as="div"
-            mt={10}
-            alignItems="center"
-            justifyContent="center"
-            display="Flex"
-            flexDirection="column"
-          >
-            <AddItem />
+      {session && (
+        <Center >
+          <HStack>
+            <Box
+              as="div"              
+              mt={[20,30,40]}
+              alignItems="center"
+              justifyContent="center"
+              display="Flex"
+              flexDirection="column"
+            >
+              <AddItem />
 
-            {props.items.map((item) => (
-              <>
-                {" "}
-                <Flex>
-                  <EditItem item={item} />
-                </Flex>
-              </>
-            ))}
-          </Box>
-        </HStack>
-      </Center>
+              {props.items.map((item) => (
+                <>
+                  {" "}
+                  <Flex>
+                    <EditItem item={item} />
+                  </Flex>
+                </>
+              ))}
+            </Box>
+          </HStack>
+        </Center>
+     
+      )}
     </Layout>
   );
 };

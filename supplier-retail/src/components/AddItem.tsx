@@ -5,7 +5,6 @@ import {
   useDisclosure,
   Stack,
   VStack,
-  FormControl,
   FormLabel,
   Drawer,
   DrawerOverlay,
@@ -16,7 +15,9 @@ import {
   DrawerContent,
   Input,
   Button,
+  useToast,
 } from "@chakra-ui/react";
+import Router from "next/router";
 import { AddIcon } from "@chakra-ui/icons";
 import { useSession } from "next-auth/client";
 
@@ -28,9 +29,20 @@ const AddItem = (props) => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [user, setUser] = useState(session?.user.email);
+  const toast = useToast();
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if(!price || price<= 0 || !quantity|| quantity<=0 ){
+        return toast({
+          description: "invalid price or quantity",
+          status: "error",
+          position: "top",
+          duration: 3000,
+          isClosable: true,
+        });
+    }
+
     try {
       setUser(session.user.email);
       const body = { name, quantity, price, user };
@@ -39,7 +51,16 @@ const AddItem = (props) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      console.log(body);
+      toast({
+        description: "added item successfuly",
+        status: "success",
+        position: "top",
+        duration: 3000,
+        isClosable: true,
+      });
+ 
+      onClose();
+       await Router.push("/items");
     } catch (error) {
       console.error(error);
     }

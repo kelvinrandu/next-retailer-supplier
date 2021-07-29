@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/client";
-import { PhoneIcon, EmailIcon} from "@chakra-ui/icons";
+import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
 import Router from "next/router";
-import { Input, Text, HStack,Flex,Box } from "@chakra-ui/react";
+import { Input, Text, useToast, Box } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
-import { useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 
 type Iprops = {
@@ -43,16 +42,14 @@ const ItemDetail: React.FC<Iprops> = (props) => {
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      if (!amount || amount <= 0 ) {
-        console.log("amount cannot be zero");
-
-        return      toast({
-                description: "invalid amount",
-                status: "error",
-                position: "top",
-                duration: 9000,
-                isClosable: true,
-              });
+      if (!amount || amount <= 0) {
+        return toast({
+          description: "invalid amount",
+          status: "error",
+          position: "top",
+          duration: 3000,
+          isClosable: true,
+        });
       }
       const totalPrice = getTotal(price, amount);
 
@@ -73,7 +70,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
         description: "We've created your order for you.",
         status: "success",
         position: "top",
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       });
     } catch (error) {
@@ -89,11 +86,8 @@ const ItemDetail: React.FC<Iprops> = (props) => {
         borderWidth="1px"
         margin={2}
         borderRadius={5}
-        // d="flex"
         w={[300, 400, 560]}
       >
-        {/* <Flex justify="spaceBetween"> */}
-        {/* <HStack> */}
         <Box fontWeight="700">
           order from:
           <Text as="mark" fontSize="20px">
@@ -109,25 +103,19 @@ const ItemDetail: React.FC<Iprops> = (props) => {
         <Box fontWeight="700">
           <EmailIcon /> {item?.user.email}
         </Box>
-        {/* </HStack> */}
-        {/* </Flex> */}
-        {session.user?.isSupplier ? (
-          null
-
-        ) : (
+        {session.user?.isSupplier ? null : (
           <>
-        <form onSubmit={submitData}>
-          <Input
-            autoFocus
-            onChange={(e) => setAmount(parseInt(e.target.value))}
-            placeholder="Enter number of items"
-            type="number"
-            value={amount}
-          />
-        </form>
-        </>
+            <form onSubmit={submitData}>
+              <Input
+                autoFocus
+                onChange={(e) => setAmount(parseInt(e.target.value))}
+                placeholder="Enter number of items"
+                type="number"
+                value={amount}
+              />
+            </form>
+          </>
         )}
-
       </Box>
     </>
   );
