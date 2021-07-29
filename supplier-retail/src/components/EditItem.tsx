@@ -52,7 +52,7 @@ const EditItem = (props) => {
         <ModalOverlay />
         <ModalContent>
           <form onSubmit={handleSubmit}>
-            <ModalHeader>Modal Title</ModalHeader>
+            <ModalHeader>Edit item</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <FormControl id="first-name" isRequired>

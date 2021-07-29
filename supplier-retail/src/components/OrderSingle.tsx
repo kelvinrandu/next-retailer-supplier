@@ -4,6 +4,7 @@ import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
 import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
 import { Button, Checkbox, useToast } from "@chakra-ui/react";
 import Router from "next/router";
+import OrderSingleRetail from "./OrderSingleRetail";
 
 
 export type OrderProps = {
@@ -69,6 +70,8 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
         borderWidth="1px"
         margin={2}
         borderRadius={5}
+        borderColor="red.100"
+        border="1px solid green"
         // d="flex"
         w={[300, 400, 560]}
       >
