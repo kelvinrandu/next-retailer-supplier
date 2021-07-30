@@ -5,6 +5,8 @@ import Router from "next/router";
 import { Input, Text, useToast, Box } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
 import { v4 as uuidv4 } from "uuid";
+import { jsx } from "@emotion/core";
+
 
 type Iprops = {
   item: ItemProps;
