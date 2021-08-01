@@ -16,16 +16,7 @@ const Layout = ({ children,...rest }) => {
 
       <Header />
       <Box>
-
-        <Box pl={[0, null, "18rem"]} mt="4rem">
-          <Box
-            as="section"
-            backgroundColor={colorMode === "light" ? "gray.100" : "gray.900"}
-            minHeight="calc(100vh - 4rem)"
-          >
-            <Box {...rest}>{children}</Box>
-          </Box>
-        </Box>
+<main>{children}</main>
       </Box>
     </>
   )
