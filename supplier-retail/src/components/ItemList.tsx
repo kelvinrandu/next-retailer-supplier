@@ -6,7 +6,8 @@ export type Props = {
 };
 const ItemList: React.FC<Props> = (props) => {
   return (
-    <Flex direction="column" justify="center" align="center" pt={10}>
+    <Flex 
+    direction="column" justify="center" align="center" pt={10}>
       {props.items.map((e) => (
         <ItemSingle key={e.id} item={e} />
       ))}

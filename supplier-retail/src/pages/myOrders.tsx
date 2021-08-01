@@ -20,10 +20,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     where: {
       from: { email: session.user.email },
     },
+    orderBy: {
+      id: "desc",
+    },
     select: {
       id: true,
       receipt: true,
-      read:true,
+      read: true,
       totalPrice: true,
       itemAmount: true,
       to: {
