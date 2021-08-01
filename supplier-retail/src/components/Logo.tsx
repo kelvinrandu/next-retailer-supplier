@@ -9,7 +9,7 @@ export default function Logo() {
       <Link href="/dashboard">
         <Box
           borderWidth="1.5px"
-          borderColor="#29b6f6"
+          borderColor="teal"
           borderRadius="lg"
           overflow="hidden"
           padding="0.5rem"

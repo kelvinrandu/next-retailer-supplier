@@ -17,6 +17,7 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
               name:true,
               phone:true,
               email:true,
+              isSupplier:true,
               }
           }
            

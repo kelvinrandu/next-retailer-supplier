@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Header";
-import SideNav from "../components/SideNav";
+
 import { useColorMode, Box } from "@chakra-ui/react";
 
 
@@ -16,11 +16,7 @@ const Layout = ({ children,...rest }) => {
 
       <Header />
       <Box>
-        <SideNav
-          display={["none", null, "block"]}
-        
-       
-        />
+
         <Box pl={[0, null, "18rem"]} mt="4rem">
           <Box
             as="section"
