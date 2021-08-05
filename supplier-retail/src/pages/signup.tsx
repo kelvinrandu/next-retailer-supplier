@@ -9,12 +9,14 @@ import {
   HStack,
   useToast,
   Input,
+  Text,
 } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import Links from "../components/Links";
 
 
 const schema = yup.object().shape({
@@ -175,7 +177,7 @@ const SignUp: React.FC = () => {
               Register
             </Button>
           </form>
-          <Link href="/signin">or signin</Link>
+          <Links href="/signup">or sign in</Links>
         </Box>
         <Box textAlign="center">
           <div className="bg-gray-100">

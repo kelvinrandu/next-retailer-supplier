@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { FormControl,Input, FormLabel, useColorModeValue,Text, useToast } from "@chakra-ui/react";
+import { FormControl,Input, FormLabel,Text, useToast } from "@chakra-ui/react";
 import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { getCsrfToken, signIn } from "next-auth/client";
 import Link from "next/link";
 import Router from "next/router";
+import Links from "../components/Links";
 
 
 
@@ -105,18 +106,9 @@ const signin = ({ csrfToken }) => {
                   Login
                 </Button>
               </form>
-              <Link href="/signup">
-                <Text
-                  _hover={{
-                    transform: "translateY(-3px)",
-                  }}
-                  align="center"
-                  fontStyle="italics"
-                  fontSize="sm"
-                >
-                  or sign up
-                </Text>
-              </Link>
+              <Links href="/signup">
+                  or sign up            
+              </Links>
             </Box>
             <Box textAlign="center">
               <div className="bg-gray-100">
