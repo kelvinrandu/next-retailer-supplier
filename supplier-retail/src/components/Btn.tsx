@@ -14,7 +14,7 @@ function Btn({value}) {
   borderRadius="2px"
   fontSize="14px"
   fontWeight="semibold"
-  bg="#f5f6f7"
+  // bg="#f5f6f7"
   borderColor="#ccd0d5"
   color="#4b4f56"
   _hover={{ bg: "#ebedf0" }}
