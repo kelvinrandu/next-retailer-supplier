@@ -6,7 +6,7 @@ import { useSession } from "next-auth/client";
 import { Center, Text, Spinner, Box ,Flex} from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import SearchBar from "../components/SearchBar";
-
+import Filters from "../components/Filters";
 
 
 
@@ -89,6 +89,7 @@ const Dashboard: React.FC<Props> = (props) => {
               placeholder={"search country"}
               onChange={(e) => updateInput(e.target.value)}
             /> */}
+            <Filters/>
                 <SearchBar
                   searchQuery={searchQuery}
                   updateInput={updateInput}
