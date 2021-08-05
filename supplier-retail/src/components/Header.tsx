@@ -26,7 +26,8 @@ const Header = (props) => {
 
 
   return (
-    <div
+    <Box
+    as={'div'}
       style={{
         zIndex: 10,
         backdropFilter: "blur(40px)",
@@ -147,7 +148,7 @@ const Header = (props) => {
           </Box>
         ) : null}
       </Container>
-    </div>
+    </Box>
   );
 };
 
