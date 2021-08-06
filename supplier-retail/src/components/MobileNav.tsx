@@ -35,6 +35,7 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import SearchBar from "../components/SearchBar";
+import { useUser } from "@auth0/nextjs-auth0";
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
@@ -52,6 +53,7 @@ const items: Array<ItemProps> = [
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredItems, setFilteredItems] = useState(items);
+  const { user, error, isLoading } = useUser();
 
   const updateInput = async (input) => {
     const filtered = items.filter((item) => {
@@ -60,6 +62,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     setSearchQuery(input);
     setFilteredItems(filtered);
   };
+      if (isLoading) return <div>Loading...</div>;
+      if (error) return <div>{error.message}</div>;
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -98,14 +102,24 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-                <Avatar size={"sm"} />
+                {user ? (
+                  <Avatar size={"sm"} src={user.picture} alt={user.name} />
+                ) : (
+                  <Avatar size={"sm"} />
+                )}
+
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Kelvin Randu</Text>
+                  {user ? (
+                    <Text fontSize="sm">{user.name}</Text>
+                  ) : (
+                    <Text fontSize="sm">annonymous</Text>
+                  )}
+
                   <Text fontSize="xs" color="gray.600">
                     Supplier
                   </Text>
@@ -121,6 +135,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             >
               <MenuItem>Profile</MenuItem>
               <MenuDivider />
+             
               <MenuItem>Sign out</MenuItem>
             </MenuList>
           </Menu>

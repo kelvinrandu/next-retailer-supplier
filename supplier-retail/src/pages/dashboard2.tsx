@@ -21,11 +21,7 @@ const dashboard2 = () => {
         {"Active "}
         <b>{"Items"}</b>
       </Text>
-      <div>
-        <Image src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
-        <p>{user.email}</p>
-      </div>
+
       {loading ? (
         <Flex pt={24} align="center" justify="center">
           <Spinner size="xl" label="Loading items" />
