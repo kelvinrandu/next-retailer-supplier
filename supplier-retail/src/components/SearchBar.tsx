@@ -7,7 +7,7 @@ const SearchBar = ({searchQuery, updateInput}) => {
     const color = useColorModeValue("black", "white");
  
   return (
-    <InputGroup>
+    <InputGroup w="50vw">
      <InputLeftElement
       pointerEvents="none"
       children={<Search2Icon color="teal" />}
@@ -23,7 +23,6 @@ const SearchBar = ({searchQuery, updateInput}) => {
       onChange={(e) => updateInput(e.target.value)}
     />
     </InputGroup>
-    
   );
 };
 
