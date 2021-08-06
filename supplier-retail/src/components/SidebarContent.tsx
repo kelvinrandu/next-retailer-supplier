@@ -18,6 +18,7 @@ import {
 } from "react-icons/fi";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
+import Filters from "../components/Filters";
 
 interface NavItemProps {
   icon: IconType;
@@ -67,6 +68,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           {link.name}
         </NavItem>
       ))}
+      <Filters/>
     </Box>
   );
 };

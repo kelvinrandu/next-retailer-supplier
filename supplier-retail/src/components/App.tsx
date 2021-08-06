@@ -42,7 +42,7 @@ const App = ({ children }: { children: ReactNode }) => {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="lg"
+        size="xs"
       >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
