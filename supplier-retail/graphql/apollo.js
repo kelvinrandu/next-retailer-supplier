@@ -117,10 +117,9 @@ function createApolloClient(initialState = {}) {
     return new ApolloClient({
       ssrMode: typeof window === "undefined",
       link: new HttpLink({
-        uri: "https://cyberplus.hasura.app/v1/graphql",
+        uri: process.env.NEXT_PUBLIC_GRAPHQL_HTTP_ENDPOINT,
         headers: {
-          "x-hasura-admin-secret":
-            "Ii13qTwb6XFjU3NEsfWLdaYvSJ519ZEdbeH2YQ0XUpGP53f52BWfzuU67xbrLx6t",
+          "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_SECRET,
         },
         credentials: "same-origin",
         fetch,

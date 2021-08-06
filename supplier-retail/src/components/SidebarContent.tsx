@@ -14,27 +14,25 @@ import {
   FiHome,
   FiTrendingUp,
   FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
+
 } from "react-icons/fi";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
 
-interface NavItemProps extends FlexProps {
+interface NavItemProps {
   icon: IconType;
+  path: string;
   children: ReactText;
 }
 interface LinkItemProps {
   name: string;
+  path: string;
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Orders", icon: FiTrendingUp },
-  { name: "Items", icon: FiCompass },
+  { name: "Home", path: "/dashboard", icon: FiHome },
+  { name: "Orders",path: "/orders", icon: FiTrendingUp },
+  { name: "Items", path: "/items",icon: FiCompass },
 ];
 
 interface SidebarProps extends BoxProps {
@@ -65,7 +63,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} path={link.path} icon={link.icon}>
           {link.name}
         </NavItem>
       ))}
@@ -73,9 +71,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, path }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: "none" }}>
+    <Link href={path} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"
@@ -87,7 +85,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
           bg: "cyan.400",
           color: "white",
         }}
-        {...rest}
+      
       >
         {icon && (
           <Icon

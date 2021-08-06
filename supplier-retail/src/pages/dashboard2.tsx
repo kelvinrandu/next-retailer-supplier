@@ -7,6 +7,7 @@ import App from "../components/App";
 
 const dashboard2 = () => {
     const { data, loading } = useItems();
+    console.log(useItems())
     const allItems = data ? data.items : [];
   return (
     <App>

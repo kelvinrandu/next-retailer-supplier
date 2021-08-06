@@ -5,6 +5,7 @@ import {GET_ITEMS_QUERY} from './queries';
 
 export const useItems = () => {
   const { loading, error, data } = useQuery(GET_ITEMS_QUERY);
+  console.log(useQuery(GET_ITEMS_QUERY));
 
 
   if (!loading && data) {
