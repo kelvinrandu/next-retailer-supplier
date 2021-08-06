@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   IconButton,
   Avatar,
@@ -36,6 +36,7 @@ import {
 import { IconType } from "react-icons";
 import SearchBar from "../components/SearchBar";
 import { useUser } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
@@ -54,6 +55,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredItems, setFilteredItems] = useState(items);
   const { user, error, isLoading } = useUser();
+  const router = useRouter();
 
   const updateInput = async (input) => {
     const filtered = items.filter((item) => {
@@ -62,8 +64,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     setSearchQuery(input);
     setFilteredItems(filtered);
   };
-      if (isLoading) return <div>Loading...</div>;
-      if (error) return <div>{error.message}</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -133,10 +135,20 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuDivider />
-             
-              <MenuItem>Sign out</MenuItem>
+              {user ? (
+                <>
+                  <MenuItem>Profile</MenuItem>
+                  <MenuDivider />
+
+                  <Link href="/api/auth/logout">
+                    <MenuItem>Sign out</MenuItem>
+                  </Link>
+                </>
+              ) : (
+                <Link href="/api/auth/login">
+                  <MenuItem>Sign in</MenuItem>
+                </Link>
+              )}
             </MenuList>
           </Menu>
         </Flex>

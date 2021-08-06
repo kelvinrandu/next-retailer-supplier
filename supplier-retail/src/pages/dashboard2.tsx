@@ -4,11 +4,14 @@ import { useItems } from "../../graphql/hooks";
 import { withApollo } from "../../graphql/apollo";
 import { useUser } from "@auth0/nextjs-auth0";
 
+
+
 import App from "../components/App";
 
 const dashboard2 = () => {
     const { data, loading } = useItems();
-    console.log(useItems())
+ 
+
     const allItems = data ? data.items : [];
     const { user, error, isLoading } = useUser();
 
