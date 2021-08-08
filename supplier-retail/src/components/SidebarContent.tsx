@@ -51,24 +51,30 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex
-        h="20"
-        alignItems="center"
-        mx="10"
-        mb={10}
-        justifyContent="space-between"
-      >
-        <Text fontSize="xl" fontFamily="monospace" fontWeight="bold">
-          supplier~retail
-        </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} path={link.path} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
-      <Filters/>
+
+        <Flex
+          h="20"
+          alignItems="center"
+          mx="10"
+          mb={10}
+          justifyContent="space-between"
+        >
+          <Text fontSize="xl" fontFamily="monospace" fontWeight="bold">
+            supplier~retail
+          </Text>
+          <CloseButton
+            display={{ base: "flex", md: "none" }}
+            onClick={onClose}
+          />
+        </Flex>
+        
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} path={link.path} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
+        <Filters />
+   
     </Box>
   );
 };

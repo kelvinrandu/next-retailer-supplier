@@ -1,45 +1,81 @@
 import gql from 'graphql-tag';
 
-export const CREATE_DEAL_MUTATION = gql`
-    mutation createDeal(
-        $alcoholType: String!
-        $description: String!
-        $locationId: uuid!
-        $daysActive: [deal_day_insert_input!]!
+export const CREATE_ITEM_MUTATION = gql`
+  mutation createItem(
+    $name: String!
+    $price: Integer!
+    $description: String!
+    $user_Id: String!
+    $category_Id: String!
+    $amount: Integer!
+  ) {
+    insert_items(
+      objects: {
+        name: $name
+        price: $price
+        amount: $amount
+        user_id: $user_id
+        category_id: $user_id
+      }
     ) {
-        insert_deals(
-            objects: {
-                alcoholType: $alcoholType
-                description: $description
-                locationId: $locationId
-                daysActive: {data: $daysActive}
-            }
-        ) {
-            returning {
-                id
-                description
-                alcoholType
-                userDeals {
-                    upvoted
-                    userId
-                    id
-                }
-                daysActive {
-                    id
-                    dayOfWeek
-                    startTime
-                    endTime
-                    allDay
-                }
-                location {
-                    id
-                    name
-                }
-            }
+      returning {
+        id
+        name
+        price
+        amount
+        user {
+          name
+          email
         }
-    }
-`;
+        category {
+          id
+          name
+          description
+        }
 
+      }
+    }
+  }
+`;
+export const CREATE_ORDERS_MUTATION = gql`
+  mutation createDeal(
+    $alcoholType: String!
+    $description: String!
+    $locationId: uuid!
+    $daysActive: [deal_day_insert_input!]!
+  ) {
+    insert_deals(
+      objects: {
+        alcoholType: $alcoholType
+        description: $description
+        locationId: $locationId
+        daysActive: { data: $daysActive }
+      }
+    ) {
+      returning {
+        id
+        description
+        alcoholType
+        userDeals {
+          upvoted
+          userId
+          id
+        }
+        daysActive {
+          id
+          dayOfWeek
+          startTime
+          endTime
+          allDay
+        }
+        location {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 export const UPDATE_USER_DEAL_MUTATION = gql`
     mutation updateUserDeal($upvoted: Boolean!, $dealId: uuid!, $userId: String!) {
         update_user_deal(where: {dealId: {_eq: $dealId}, userId: {_eq: $userId}}, _set: {upvoted: $upvoted}) {

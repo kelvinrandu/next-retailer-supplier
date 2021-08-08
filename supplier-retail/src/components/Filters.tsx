@@ -10,32 +10,36 @@ const Filters = (props) => {
 
 
     return (
-      <Stack spacing={8} mb={8} {...props}>
-        <Box>
+      <Stack spacing={8} mb={8} p="6" {...props}>
+        <Box >
           <Text mb={2} fontWeight="bold">
             {"Item Type"}
           </Text>
-          
-            {loading ? (
-              <Flex pt={24} align="center" justify="center">
-                <Spinner size="xl" label="Loading items" />
+
+          {loading ? (
+            <Flex pt={24} align="center" justify="center">
+              <Spinner
+                size="xl"
+                label="
+              Loading items"
+              />
+            </Flex>
+          ) : (
+            <>
+              <Flex  direction="column">
+                <CheckboxGroup spacing={2} variantColor="teal">
+                  {allCategories.length ? (
+                    allCategories.map((category) => (
+                      <Checkbox value={category.name}>{category.name}</Checkbox>
+                    ))
+                  ) : (
+                    <Text>no categories</Text>
+                  )}
+                </CheckboxGroup>
               </Flex>
-            ) : (
-              <>
-              <CheckboxGroup spacing={2} variantColor="teal">
-                {allCategories.length ? (
-                  allCategories.map((category) => (
-                        <Checkbox value={category.name}>{category.name}</Checkbox>
 
-                  ))
-                ) : (
-                  <Text>no categories</Text>
-                )}
-                 </CheckboxGroup>
-              </>
-            )}
-
-         
+            </>
+          )}
         </Box>
       </Stack>
     );
