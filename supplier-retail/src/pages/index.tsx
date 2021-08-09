@@ -11,16 +11,16 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import Router from "next/router";
-import { useSession } from 'next-auth/client';
+import { useUser } from "@auth0/nextjs-auth0";
 import Fade from "react-reveal/Fade";
 import Wobble from "react-reveal/Wobble";
 import { MoonIcon, SunIcon} from "@chakra-ui/icons";
 
 
 export default function index() {
-    const [session, loading] = useSession();
+    const { user, error, isLoading } = useUser();
     const { colorMode, toggleColorMode } = useColorMode();
-  if (session)
+  if (user)
   useEffect(() => { 
     const {pathname} = Router
     if(pathname == '/' ){
@@ -53,10 +53,10 @@ export default function index() {
               </Container>
               <Container>
                 <ButtonGroup isAttached variant="outline">
-                  <Link href="/signin">
+                  <Link href="/api/auth/login">
                     <Button>Sign in</Button>
                   </Link>
-                  <Link href="/signup">
+                  <Link href="/api/auth/login">
                     <Button>Sign up</Button>
                   </Link>
                 </ButtonGroup>

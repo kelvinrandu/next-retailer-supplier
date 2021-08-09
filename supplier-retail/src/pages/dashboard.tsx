@@ -1,95 +1,49 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
-import ItemList from "../components/ItemList";
-import { ItemProps } from "../components/ItemSingle";
-import { useSession } from "next-auth/client";
-import { Center, Link, Spinner, Box, Flex } from "@chakra-ui/react";
-import Fade from "react-reveal/Fade";
-import SearchBar from "../components/SearchBar";
+import React, { ReactNode, useState } from "react";
+import { Text, Flex, Spinner, Box, Image } from "@chakra-ui/react";
+import { useItems} from "../../graphql/hooks";
+import { withApollo } from "../../graphql/apollo";
+import { useUser } from "@auth0/nextjs-auth0";
 
-export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`);
-  if (res.status !== 200) {
-    // throw new Error("Failed to fetch")
-    const items = [];
-  }
+import App from "../components/App";
+import ItemSingle from "../components/ItemSingle";
 
-  const items = await res.json();
 
-  return {
-    props: { items },
-  };
-}
-type Props = {
-  items: ItemProps[];
-};
+const dashboard2 = () => {
+  const { data, loading } = useItems();
 
-const Dashboard: React.FC<Props> = (props) => {
-  const [session, loading] = useSession();
-  const { items } = props;
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredItems, setFilteredItems] = useState(items);
+  const allItems = data ? data.items : [];
+  const { user, error, isLoading } = useUser();
 
-  const updateInput = async (input) => {
-    const filtered = items.filter((item) => {
-      return item.name.toLowerCase().includes(input.toLowerCase());
-    });
-    setSearchQuery(input);
-    setFilteredItems(filtered);
-  };
-
-  if (loading)
-    return (
-      <div>
-        <Center h="100vh">
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-        </Center>
-      </div>
-    );
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
 
   return (
-    <Layout>
-      {!session && (
+    <App>
+      <Text mb={2} fontSize="sm">
+        {"Active "}
+        <b>{"Items"}</b>
+      </Text>
+
+      {loading ? (
+        <Flex pt={24} align="center" justify="center">
+          <Spinner size="xl" label="Loading items" />
+        </Flex>
+      ) : (
         <>
-          <Center h="100vh">
-            <Box
-              borderWidth="6px"
-              borderRadius="lg"
-              color="gray.500"
-              fontWeight="semibold"
-              letterSpacing="wide"
-              fontSize="xs"
-              textTransform="uppercase"
-              ml="2"
-            >
-              <Link href="/signin">signin</Link>
-            </Box>
-          </Center>
+          {allItems.length ? (
+            allItems.map((item) => <ItemSingle item ={item}/>)
+          ) : (
+            <Text>no items</Text>
+          )}
+          <Flex justify="flex-end" as="i" color="gray.500">
+            {`Showing ${allItems.length} out of ${allItems.length} items `}
+          </Flex>
         </>
       )}
-      {session && (
-        <>
-          {" "}
-          <Fade bottom>
-            <Flex direction="column" justify="center" align="center" pt={20}>
-              <Box mt="70px">
-                <SearchBar
-                  searchQuery={searchQuery}
-                  updateInput={updateInput}
-                />
-              </Box>
-              <ItemList items={filteredItems} />
-            </Flex>
-          </Fade>
-        </>
-      )}
-    </Layout>
+    </App>
   );
 };
-export default Dashboard;
+
+export default withApollo(dashboard2, {
+  ssr: false,
+});

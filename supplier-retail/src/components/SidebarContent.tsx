@@ -17,6 +17,7 @@ import {
   FiCompass,
 
 } from "react-icons/fi";
+import { useRouter } from "next/router";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
 import Filters from "../components/Filters";
@@ -80,8 +81,18 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 const NavItem = ({ icon, children, path }: NavItemProps) => {
       const { colorMode } = useColorMode();
       const hoverColor = { light: "gray.900", dark: "whiteAlpha.900" };
+        const router = useRouter();
+        const style = {
+          marginRight: 10,
+          color: router.asPath === path ? "red" : "black",
+          textDecoration: "none",
+        };
+          const handleClick = (e) => {
+    e.preventDefault()
+    router.push(path)}
+  
   return (
-    <Link href={path} style={{ textDecoration: "none" }}>
+    <Link href={path} onClick={handleClick} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"
