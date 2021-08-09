@@ -1,10 +1,12 @@
 import React, { ReactNode, useState } from "react";
 import { Text, Flex, Spinner, Box, Image } from "@chakra-ui/react";
-import { useItems, useCategories } from "../../graphql/hooks";
+import { useItems} from "../../graphql/hooks";
 import { withApollo } from "../../graphql/apollo";
 import { useUser } from "@auth0/nextjs-auth0";
 
 import App from "../components/App";
+import ItemSingle from "../components/ItemSingle";
+
 
 const dashboard2 = () => {
   const { data, loading } = useItems();
@@ -29,10 +31,13 @@ const dashboard2 = () => {
       ) : (
         <>
           {allItems.length ? (
-            allItems.map((item) => <Text key={item.id}>{item.name}</Text>)
+            allItems.map((item) => <ItemSingle item ={item}/>)
           ) : (
             <Text>no items</Text>
           )}
+          <Flex justify="flex-end" as="i" color="gray.500">
+            {`Showing ${allItems.length} out of ${allItems.length} items `}
+          </Flex>
         </>
       )}
     </App>

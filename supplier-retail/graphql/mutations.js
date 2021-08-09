@@ -4,7 +4,6 @@ export const CREATE_ITEM_MUTATION = gql`
   mutation createItem(
     $name: String!
     $price: Integer!
-    $description: String!
     $user_Id: String!
     $category_Id: String!
     $amount: Integer!

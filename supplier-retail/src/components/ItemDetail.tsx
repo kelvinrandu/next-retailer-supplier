@@ -9,6 +9,7 @@ import { GrDeliver } from 'react-icons/gr';
 import { FcShop} from 'react-icons/fc';
 import { v4 as uuidv4 } from "uuid";
 import { InputRightElement,InputGroup } from "@chakra-ui/react";
+import { useUser } from "@auth0/nextjs-auth0";
 
 
 type Iprops = {
@@ -16,12 +17,13 @@ type Iprops = {
   ItemDetailHandler: () => void;
 };
 const ItemDetail: React.FC<Iprops> = (props) => {
-  const [session, loading] = useSession();
+   const { user, error, isLoading } = useUser();
+
   const { item } = props;
 
   const [amount, setAmount] = useState<number | null>(null);
   const [toEmail] = useState(item.user.email);
-  const [fromEmail] = useState(session.user.email);
+  const [fromEmail] = useState(user.email);
   const [price] = useState(item.price);
   const [itemId] = useState(item.id);
   const [receipt, setReceipt] = useState(getReceipt());
@@ -102,9 +104,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
           </Text>
           <Text fontSize="20px" letterSpacing={3}>{" "}{item?.user.name}.</Text>
         </Box>
-           <Box fontWeight="700" fontSize="15px">
-           <PhoneIcon color="teal" mr="5px" boxSize={4}/>{" "}{item?.user.phone}
-           </Box>
+
            <Box fontWeight="700" fontSize="15px">
            <EmailIcon color="teal" mr="5px" boxSize={4}/>{" "}{item?.user.email}
            </Box>

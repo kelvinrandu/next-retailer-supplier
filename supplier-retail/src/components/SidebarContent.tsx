@@ -6,6 +6,7 @@ import {
   useColorModeValue,
   Text,
   BoxProps,
+  useColorMode,
   FlexProps,
   Link,
   Icon,
@@ -19,6 +20,7 @@ import {
 import { ReactText } from "react";
 import { IconType } from "react-icons";
 import Filters from "../components/Filters";
+import AddDealModal from "./AddItemModal";
 
 interface NavItemProps {
   icon: IconType;
@@ -51,35 +53,33 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
+      <Flex
+        h="20"
+        alignItems="center"
+        mx="10"
+        mb={10}
+        justifyContent="space-between"
+      >
+        <Text fontSize="xl" fontFamily="monospace" fontWeight="bold">
+          supplier~retail
+        </Text>
+        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+      </Flex>
 
-        <Flex
-          h="20"
-          alignItems="center"
-          mx="10"
-          mb={10}
-          justifyContent="space-between"
-        >
-          <Text fontSize="xl" fontFamily="monospace" fontWeight="bold">
-            supplier~retail
-          </Text>
-          <CloseButton
-            display={{ base: "flex", md: "none" }}
-            onClick={onClose}
-          />
-        </Flex>
-        
-        {LinkItems.map((link) => (
-          <NavItem key={link.name} path={link.path} icon={link.icon}>
-            {link.name}
-          </NavItem>
-        ))}
-        <Filters />
-   
+      {LinkItems.map((link) => (
+        <NavItem key={link.name} path={link.path} icon={link.icon}>
+          {link.name}
+        </NavItem>
+      ))}
+      <Filters />
+      <AddDealModal />
     </Box>
   );
 };
 
 const NavItem = ({ icon, children, path }: NavItemProps) => {
+      const { colorMode } = useColorMode();
+      const hoverColor = { light: "gray.900", dark: "whiteAlpha.900" };
   return (
     <Link href={path} style={{ textDecoration: "none" }}>
       <Flex
@@ -90,10 +90,9 @@ const NavItem = ({ icon, children, path }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
-          color: "white",
+          color: hoverColor[colorMode],
+          transform: "translateX(2px)",
         }}
-      
       >
         {icon && (
           <Icon
