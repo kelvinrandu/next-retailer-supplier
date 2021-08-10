@@ -1,5 +1,5 @@
 import React from "react";
-import { useColorModeValue,Input,InputGroup,InputLeftElement} from "@chakra-ui/react";
+import { useColorModeValue,Input,InputGroup,InputLeftElement,Flex} from "@chakra-ui/react";
 import {Search2Icon} from "@chakra-ui/icons";
 
 const SearchBar = ({searchQuery, updateInput}) => {
@@ -7,23 +7,30 @@ const SearchBar = ({searchQuery, updateInput}) => {
     const color = useColorModeValue("black", "white");
  
   return (
-    <InputGroup>
-      <InputLeftElement
-        pointerEvents="none"
-        children={<Search2Icon color="teal" />}
-      />
-      <Input
-        placeholder="search item"
-        color="teal"
-        focusBorderColor="red"
-        size="md"
-        variant="filled"
-        // w={[200, 200, 600]}
-        key="random1"
-        value={searchQuery}
-        onChange={(e) => updateInput(e.target.value)}
-      />
-    </InputGroup>
+    <Flex align={"center"}>
+      <InputGroup
+        display={["block", "block", "block"]}
+        width="100%"
+        ml={16}
+        mr={16}
+      >
+        <InputLeftElement
+          pointerEvents="none"
+          children={<Search2Icon color="teal" />}
+        />
+        <Input
+          placeholder="search item"
+          color="teal"
+          focusBorderColor="red"
+          size="md"
+          variant="filled"
+          w={[200, 200, 600]}
+          key="random1"
+          value={searchQuery}
+          onChange={(e) => updateInput(e.target.value)}
+        />
+      </InputGroup>
+    </Flex>
   );
 };
 
