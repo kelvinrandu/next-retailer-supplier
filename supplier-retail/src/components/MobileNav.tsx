@@ -57,13 +57,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
 
-  const updateInput = async (input) => {
-    const filtered = items.filter((item) => {
-      return item.name.toLowerCase().includes(input.toLowerCase());
-    });
-    setSearchQuery(input);
-    setFilteredItems(filtered);
-  };
+  // const updateInput = async (input) => {
+  //   const filtered = items.filter((item) => {
+  //     console.log('here')
+  //     return item.name.toLowerCase().includes(input.toLowerCase());
+  //   });
+  //   setSearchQuery(input);
+  //   setFilteredItems(filtered);
+  // };
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
   return (
@@ -88,7 +89,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
       <HStack spacing={{ base: "0", md: "6" }}>
         <Box>
-          <SearchBar searchQuery={searchQuery} updateInput={updateInput} />
+          {/* <SearchBar searchQuery={searchQuery} updateInput={updateInput} /> */}
         </Box>
         <IconButton
           size="lg"

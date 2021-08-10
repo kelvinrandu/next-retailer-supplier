@@ -9,12 +9,9 @@ const Filters = (props) => {
 
     const { data, loading } = useCategories();
     const allCategories = data ? data.categories : [];
-      const [alcoholTypeFilters, setAlcoholTypeFilters] = useState([
-        "BEER",
-        "WINE",
-        "LIQUOR",
-        "FOOD",
-      ]);
+
+      const [alcoholTypeFilters, setAlcoholTypeFilters] =
+        useState(allCategories);
       const onFilter =()=>{
         console.log('oneda')
         return 1
@@ -44,7 +41,6 @@ const Filters = (props) => {
                   onChange={onFilter}
                   spacing={2}
                   variantColor="teal"
-                  value={alcoholTypeFilters}
                 >
                   {allCategories.length ? (
                     allCategories.map((category) => (
@@ -55,22 +51,6 @@ const Filters = (props) => {
                   )}
                 </CheckboxGroup>
               </Flex>
-              <Box>
-                <Text mb={2} fontWeight="bold">
-                  {"Deal Type"}
-                </Text>
-                <CheckboxGroup
-                  onChange={onFilter}
-                  spacing={2}
-                  variantColor="teal"
-                  value={alcoholTypeFilters}
-                >
-                  <Checkbox value="BEER">Beer</Checkbox>
-                  <Checkbox value="WINE">Wine</Checkbox>
-                  <Checkbox value="LIQUOR">Liquor</Checkbox>
-                  <Checkbox value="FOOD">Food</Checkbox>
-                </CheckboxGroup>
-              </Box>
             </>
           )}
         </Box>

@@ -102,10 +102,66 @@ function AddItemModal() {
             <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Text fontWeight="bold" mb="1rem">
-                You can scroll the content behind the modal
-              </Text>
+              <form onSubmit={handleSubmit(onCreateItem)}>
+                <FormControl isRequired>
+                  <FormLabel>Store Name</FormLabel>
+                  <Input
+                    autoFocus
+                   
+                    placeholder="Name"
+                    variant="filled"
+                    type="text"
+                    
+                  />
+                </FormControl>
+                <FormControl isRequired mt={6}>
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    autoFocus
+                  
+                    variant="filled"
+                    
+                    placeholder="Email address"
+                    type="text"
+                    
+                  />
+                </FormControl>
+       
+                <FormControl isRequired mt={6}>
+                  <FormLabel>Password</FormLabel>
+                  <Input
+                   
+                    variant="filled"
+                   
+                    placeholder="Password"
+                    type="password"
+                  
+                  />
+                </FormControl>
+                
            
+                <FormControl isRequired mt={6}>
+                  <FormLabel>Phone</FormLabel>
+                  <Input
+                 
+                    placeholder="Phone"
+                    type="text"
+                    variant="filled"
+                   
+                  />
+                </FormControl>
+ 
+                <Button
+                  
+                  type="submit"
+                  variantcolor="teal"
+                  variant="outline"
+                  width="full"
+                  mt={4}
+                >
+                  Register
+                </Button>
+              </form>
             </ModalBody>
 
             <ModalFooter>

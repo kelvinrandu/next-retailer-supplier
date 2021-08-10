@@ -38,9 +38,9 @@ function useProvideSearch() {
     };
 
     return {
-        categoryTypeFilters,
-        onFilterCategoryType,
-        onSearch,
-        search
+      categoryTypeFilters,
+      onFilterCategoryType,
+      onSearch,
+      search,
     };
 }

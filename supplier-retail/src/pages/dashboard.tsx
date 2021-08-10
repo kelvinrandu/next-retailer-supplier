@@ -1,18 +1,30 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Text, Flex, Spinner, Box, Image } from "@chakra-ui/react";
-import { useItems} from "../../graphql/hooks";
+import { useItems } from "../../graphql/hooks";
 import { withApollo } from "../../graphql/apollo";
 import { useUser } from "@auth0/nextjs-auth0";
-
 import App from "../components/App";
 import ItemSingle from "../components/ItemSingle";
+import SearchBar from "../components/SearchBar";
 
-
-const dashboard2 = () => {
+const dashboard = () => {
   const { data, loading } = useItems();
-
   const allItems = data ? data.items : [];
-  const { user, error, isLoading } = useUser();
+  const [filteredItems, setFilteredItems] = useState(allItems);
+  const { error, isLoading } = useUser();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    updateInput("");
+  }, [allItems]);
+  
+  const updateInput = async (input) => {
+    const filtered = allItems.filter((item) => {
+      return item.name.toLowerCase().includes(input.toLowerCase());
+    });
+    setSearchQuery(input);
+    setFilteredItems(filtered);
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -23,6 +35,7 @@ const dashboard2 = () => {
         {"Active "}
         <b>{"Items"}</b>
       </Text>
+      <SearchBar searchQuery={searchQuery} updateInput={updateInput} />
 
       {loading ? (
         <Flex pt={24} align="center" justify="center">
@@ -30,13 +43,13 @@ const dashboard2 = () => {
         </Flex>
       ) : (
         <>
-          {allItems.length ? (
-            allItems.map((item) => <ItemSingle item ={item}/>)
+          {filteredItems.length ? (
+            filteredItems.map((item) => <ItemSingle item={item} />)
           ) : (
             <Text>no items</Text>
           )}
           <Flex justify="flex-end" as="i" color="gray.500">
-            {`Showing ${allItems.length} out of ${allItems.length} items `}
+            {`Showing ${filteredItems.length} out of ${allItems.length} items `}
           </Flex>
         </>
       )}
@@ -44,6 +57,6 @@ const dashboard2 = () => {
   );
 };
 
-export default withApollo(dashboard2, {
+export default withApollo(dashboard, {
   ssr: false,
 });

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Box,
   CloseButton,
@@ -11,12 +11,7 @@ import {
   Link,
   Icon,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-
-} from "react-icons/fi";
+import { FiHome, FiTrendingUp, FiCompass } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
@@ -35,8 +30,8 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", path: "/dashboard", icon: FiHome },
-  { name: "Orders",path: "/orders", icon: FiTrendingUp },
-  { name: "Items", path: "/items",icon: FiCompass },
+  { name: "Orders", path: "/orders", icon: FiTrendingUp },
+  { name: "Items", path: "/items", icon: FiCompass },
 ];
 
 interface SidebarProps extends BoxProps {
@@ -74,25 +69,32 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       ))}
       <Filters />
       <AddDealModal />
+       
     </Box>
   );
 };
 
 const NavItem = ({ icon, children, path }: NavItemProps) => {
-      const { colorMode } = useColorMode();
-      const hoverColor = { light: "gray.900", dark: "whiteAlpha.900" };
-        const router = useRouter();
-        const style = {
-          marginRight: 10,
-          color: router.asPath === path ? "red" : "black",
-          textDecoration: "none",
-        };
-          const handleClick = (e) => {
-    e.preventDefault()
-    router.push(path)}
-  
+  const { colorMode } = useColorMode();
+  const hoverColor = { light: "gray.900", dark: "whiteAlpha.900" };
+  const activeColor = { light: "teal.800", dark: "teal.200" };
+  const activeBg = { light: "teal.500", dark: "gray.700" };
+  const router = useRouter();
+  const style = {
+    marginRight: 10,
+    bg: activeBg[colorMode],
+    rounded: "sm",
+    borderRadius: 4,
+    color: router.asPath === path ? activeColor[colorMode] : "gray",
+    textDecoration: "none",
+  };
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.push(path);
+  };
+
   return (
-    <Link href={path} onClick={handleClick} style={{ textDecoration: "none" }}>
+    <Link href={path} onClick={handleClick} style={style}>
       <Flex
         align="center"
         p="4"
@@ -110,7 +112,7 @@ const NavItem = ({ icon, children, path }: NavItemProps) => {
             mr="4"
             fontSize="16"
             _groupHover={{
-              color: "white",
+              color: hoverColor[colorMode],
             }}
             as={icon}
           />
@@ -120,4 +122,4 @@ const NavItem = ({ icon, children, path }: NavItemProps) => {
     </Link>
   );
 };
-export default SidebarContent
+export default SidebarContent;
