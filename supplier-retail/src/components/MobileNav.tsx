@@ -81,7 +81,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
       <Text
         display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
+        fontSize="xl"
         fontFamily="monospace"
         fontWeight="bold"
       >

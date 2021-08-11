@@ -31,21 +31,25 @@ export const GET_CATEGORIES_QUERY = gql`
 `;
 
 export const GET_ORDERS_QUERY = gql`
-    query {
-        orders {
-            id
-            receipt
-            total_price
-            amount
-            to{
-              name
-            }
-            item{
-              id
-              name
-              price
-            }
-            
-        }
+  query {
+    orders {
+      id
+      receipt
+      total_price
+      amount
+      user {
+        name
+        email
+      }
+      userByTo{
+        name
+        email
+      }
+      item {
+        id
+        name
+        price
+      }
     }
+  }
 `;
