@@ -3,10 +3,10 @@ import gql from 'graphql-tag';
 export const CREATE_ITEM_MUTATION = gql`
   mutation createItem(
     $name: String!
-    $price: Integer!
-    $user_Id: String!
-    $category_Id: String!
-    $amount: Integer!
+    $price: Int!
+    $user_id: String!
+    $category_id: uuid!
+    $amount: Int!
   ) {
     insert_items(
       objects: {
@@ -14,7 +14,7 @@ export const CREATE_ITEM_MUTATION = gql`
         price: $price
         amount: $amount
         user_id: $user_id
-        category_id: $user_id
+        category_id: $category_id
       }
     ) {
       returning {
