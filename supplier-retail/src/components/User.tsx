@@ -10,6 +10,9 @@ export default function User() {
     <>
       {session && (
         <Box
+          _hover={{
+            cursor: "pointer",
+          }}
           borderWidth="1px"
           borderRadius="lg"
           overflow="hidden"

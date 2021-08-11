@@ -14,6 +14,9 @@ export default function Logo() {
           overflow="hidden"
           padding="0.5rem"
           margin="0.5rem"
+          _hover={{
+            cursor: "pointer",
+          }}
         >
           <span style={{ color: "#f06292" }}>Supplier</span>
           <span style={{ color: "#29b6f6" }}>~</span>

@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/api/auth/login.js", "src/pages/api/auth/getUserByRole.js"  ],
+, "src/pages/api/auth/login.js", "src/pages/api/auth/getUserByRole.js", "graphql/apollo.js", "src/components/AddDealModal.js", "src/components/AddItemModal.jsx", "src/components/Filters.jsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,100 +1,63 @@
-import React,{useEffect,useState} from "react";
-import Layout from "../components/Layout";
-import ItemList from "../components/ItemList";
-import { ItemProps } from "../components/ItemSingle";
-import { useSession } from "next-auth/client";
-import { Center, Link, Spinner, Box ,Flex} from "@chakra-ui/react";
-import Fade from "react-reveal/Fade";
+import React, { useEffect, useState } from "react";
+import { Text, Flex, Spinner } from "@chakra-ui/react";
+import { useItems } from "../../graphql/hooks";
+import { withApollo } from "../../graphql/apollo";
+import { useUser } from "@auth0/nextjs-auth0";
+import App from "../components/App";
+import ItemSingle from "../components/ItemSingle";
 import SearchBar from "../components/SearchBar";
 
-
-
-
-export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`);
-  if (res.status !== 200) {
-    // throw new Error("Failed to fetch")
-    const items = [];
-  }
-
-  const items = await res.json();
-
-  return {
-    props: { items },
-  };
-}
-type Props = {
-  items: ItemProps[];
-};
-
-const Dashboard: React.FC<Props> = (props) => {
-  const [session, loading] = useSession();
-  const { items } = props;
+interface Props{}
+const dashboard: React.FC<Props> = () => {
+  const { data, loading } = useItems();
+  const allItems = data ? data.items : [];
+  const [filteredItems, setFilteredItems] = useState(allItems);
+  const { error, isLoading } = useUser();
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredItems, setFilteredItems] = useState(items);
 
-    const updateInput = async (input) => {
-      const filtered = items.filter((item) => {
-        return item.name.toLowerCase().includes(input.toLowerCase());
-      });
-      setSearchQuery(input);
-      setFilteredItems(filtered);
-    };
+  useEffect(() => {
+    updateInput("");
+  }, [allItems]);
+  
+  const updateInput = async (input) => {
+    const filtered = allItems.filter((item) => {
+      return item.name.toLowerCase().includes(input.toLowerCase());
+    });
+    setSearchQuery(input);
+    setFilteredItems(filtered);
+  };
 
-
-  if (loading)
-    return (
-      <div>
-        <Center h="100vh">
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-        </Center>
-      </div>
-    );
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
 
   return (
-    <Layout>
-      {!session && (
+    <App>
+      <Text mb={2} fontSize="sm">
+        {"Active "}
+        <b>{"Items"}</b>
+      </Text>
+      <SearchBar searchQuery={searchQuery} updateInput={updateInput} />
+
+      {loading ? (
+        <Flex pt={24} align="center" justify="center">
+          <Spinner size="xl" label="Loading items" />
+        </Flex>
+      ) : (
         <>
-          <Center h="100vh">
-            <Box
-              borderWidth="6px"
-              borderRadius="lg"
-              color="gray.500"
-              fontWeight="semibold"
-              letterSpacing="wide"
-              fontSize="xs"
-              textTransform="uppercase"
-              ml="2"
-            >
-              <Link href="/signin">signin</Link>
-            </Box>
-          </Center>
+          {filteredItems.length ? (
+            filteredItems.map((item) => <ItemSingle item={item} />)
+          ) : (
+            <Text>no items</Text>
+          )}
+          <Flex justify="flex-end" as="i" color="gray.500">
+            {`Showing ${filteredItems.length} out of ${allItems.length} items `}
+          </Flex>
         </>
       )}
-      {session && (
-        <>
-          {" "}
-          <Fade bottom>
-            <Flex direction="column" justify="center" align="center" pt={20}>
-              <Box mt='70px'>
-  
-                <SearchBar
-                  searchQuery={searchQuery}
-                  updateInput={updateInput}
-                />
-              </Box>
-              <ItemList items={filteredItems} />
-            </Flex>
-          </Fade>
-        </>
-      )}
-    </Layout>
+    </App>
   );
 };
-export default Dashboard;
+
+export default withApollo(dashboard, {
+  ssr: false,
+});
