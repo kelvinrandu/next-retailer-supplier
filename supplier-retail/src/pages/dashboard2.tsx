@@ -2,13 +2,13 @@ import React, { ReactNode, useState } from "react";
 import {  Text, Flex, Spinner ,Box } from "@chakra-ui/react";
 import { useItems } from "../../graphql/hooks";
 import { withApollo } from "../../graphql/apollo";
+import AllItems from "../components/newapp/AllItems";
 
 import App from "../components/App";
 
 const dashboard2 = () => {
     const { data, loading } = useItems();
-    console.log(useItems())
-    const allItems = data ? data.items : [];
+    // const allItems = data ? data.items : [];
   return (
     <App>
       <Text mb={2} fontSize="sm">
@@ -20,13 +20,7 @@ const dashboard2 = () => {
           <Spinner size="xl" label="Loading items" />
         </Flex>
       ) : (
-        <>
-          {allItems.length ? (
-            allItems.map((item) => <Text key={item.id}>{item.name}</Text>)
-          ) : (
-            <Text>no items</Text>
-          )}
-        </>
+        <AllItems/>
       )}
     </App>
   );

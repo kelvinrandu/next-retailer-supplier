@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import ItemList from "../components/ItemList";
+import App from "../components/App";
 import { ItemProps } from "../components/ItemSingle";
 import { useSession } from "next-auth/client";
 import { Center, Link, Spinner, Box, Flex } from "@chakra-ui/react";
 import Fade from "react-reveal/Fade";
 import SearchBar from "../components/SearchBar";
+
 
 export async function getStaticProps() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`);
@@ -54,7 +56,8 @@ const Dashboard: React.FC<Props> = (props) => {
     );
 
   return (
-    <Layout>
+    <App>
+
       {!session && (
         <>
           <Center h="100vh">
@@ -77,19 +80,20 @@ const Dashboard: React.FC<Props> = (props) => {
         <>
           {" "}
           <Fade bottom>
-            <Flex direction="column" justify="center" align="center" pt={20}>
-              <Box mt="70px">
+            <Flex direction="column" justify="center" align="center" pt={10}>
+              {/* <Box mt="70px">
                 <SearchBar
                   searchQuery={searchQuery}
                   updateInput={updateInput}
                 />
-              </Box>
+              </Box> */}
               <ItemList items={filteredItems} />
             </Flex>
           </Fade>
         </>
       )}
-    </Layout>
+      </App>
+   
   );
 };
 export default Dashboard;
