@@ -38,6 +38,7 @@ import SearchBar from "../components/SearchBar";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 
+
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
