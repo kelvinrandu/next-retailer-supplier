@@ -37,6 +37,14 @@ export const GET_ORDERS_QUERY = gql`
             receipt
             total_price
             amount
+            to{
+              name
+            }
+            item{
+              id
+              name
+              price
+            }
             
         }
     }

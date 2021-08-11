@@ -37,39 +37,30 @@ export const CREATE_ITEM_MUTATION = gql`
   }
 `;
 export const CREATE_ORDERS_MUTATION = gql`
-  mutation createDeal(
-    $alcoholType: String!
-    $description: String!
-    $locationId: uuid!
-    $daysActive: [deal_day_insert_input!]!
+  mutation createOrder(
+    $amount: Int!
+    $item_id: uuid!
+    $total_price: Int!
+    $to: String!
+    $from: String!
   ) {
-    insert_deals(
+    insert_orders(
       objects: {
-        alcoholType: $alcoholType
-        description: $description
-        locationId: $locationId
-        daysActive: { data: $daysActive }
+        total_price: $total_price
+        amount: $amount
+        to: $to
+        from: $from
+        item_id: $item_id
       }
     ) {
       returning {
         id
-        description
-        alcoholType
-        userDeals {
-          upvoted
-          userId
-          id
-        }
-        daysActive {
-          id
-          dayOfWeek
-          startTime
-          endTime
-          allDay
-        }
-        location {
+        receipt
+        amount
+        item {
           id
           name
+          price
         }
       }
     }
