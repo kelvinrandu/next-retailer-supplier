@@ -29,9 +29,10 @@ interface LinkItemProps {
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", path: "/dashboard", icon: FiHome },
-  { name: "Orders", path: "/orders", icon: FiTrendingUp },
-  { name: "Items", path: "/items", icon: FiCompass },
+  { name: "Dashboard", path: "/dashboard", icon: FiHome },
+  { name: "My Orders", path: "/myOrders", icon: FiTrendingUp },
+  { name: "Orders for me", path: "/orders", icon: FiTrendingUp },
+  { name: "My Items", path: "/items", icon: FiCompass },
 ];
 
 interface SidebarProps extends BoxProps {

@@ -90,7 +90,7 @@ function AddItemModal() {
         minH="40px"
         w="60%"
       >
-        New Item
+        Add Item
       </Button>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>

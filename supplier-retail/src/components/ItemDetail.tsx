@@ -17,7 +17,7 @@ import { FcShop } from "react-icons/fc";
 import { InputRightElement, InputGroup } from "@chakra-ui/react";
 import { useUser } from "@auth0/nextjs-auth0";
 import { CREATE_ORDERS_MUTATION } from "../../graphql/mutations";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation} from "@apollo/react-hooks";
 //tobe deleted
 import { GET_ORDERS_QUERY } from "../../graphql/queries";
 
