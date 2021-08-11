@@ -16,10 +16,10 @@ import {
   Input,
   Select,
   Button,
+  useToast,
 } from "@chakra-ui/react";
-import { GET_CATEGORIES_QUERY, GET_ITEM_QUERY } from "../../graphql/queries";
+import { GET_CATEGORIES_QUERY, GET_ITEMS_QUERY } from "../../graphql/queries";
 import { CREATE_ITEM_MUTATION } from "../../graphql/mutations";
-
 import { useUser } from "@auth0/nextjs-auth0";
 
 function AddItemModal() {
@@ -31,9 +31,14 @@ function AddItemModal() {
   const [price, setPrice] = useState(null);
   const [amount, setAmount] = useState(null);
   const [category_id, setCategoryId] = useState(null);
-  const [createItem, { loading }] = useMutation(CREATE_ITEM_MUTATION);
+  const toast = useToast();
   const { data } = useQuery(GET_CATEGORIES_QUERY);
+  //refetch after mutation
+  const [createItem, { loading }] = useMutation(CREATE_ITEM_MUTATION, {
+    refetchQueries: [{ query: GET_ITEMS_QUERY }],
+  });
 
+  
   const onCreateItem = (
     { name, price, amount, category_id, user_id },
     onClose
@@ -46,33 +51,25 @@ function AddItemModal() {
         category_id: category_id,
         user_id: user_id,
       },
-      update: (cache, { data: {createItem } }) => {
-        console.log('here',cache)
-        const cachedData = cache.readQuery({
-          query: GET_ITEM_QUERY,
-        });
-
-        const newItem = data["insert_items"].returning[0];
-
-        cache.writeQuery({
-          query: GET_ITEM_QUERY,
-          data: {
-            ...cachedData,
-            items: [newItem, ...cachedData.items],
-          }
-        });
-      }
     });
 
     onClose();
+    toast({
+      title: "Item created",
+      description: "We've created your item for you.",
+      status: "success",
+      position: "top",
+      duration: 3000,
+      isClosable: true,
+    });
     flushInputs();
   };
 
-    const flushInputs = () => {
-        setName('');
-        setPrice(null);
-        setAmount(null);
-  }
+  const flushInputs = () => {
+    setName("");
+    setPrice(null);
+    setAmount(null);
+  };
 
   const onOpenDealModal = () => {
     if (!user?.sub) {
@@ -99,23 +96,23 @@ function AddItemModal() {
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Item</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <form
-              onSubmit={handleSubmit((data) =>
-                onCreateItem(
-                  {
-                    name,
-                    price: data.price,
-                    amount: data.amount,
-                    category_id: data.category_id,
-                    user_id: user?.sub,
-                  },
-                  onClose
-                )
-              )}
-            >
+          <form
+            onSubmit={handleSubmit((data) =>
+              onCreateItem(
+                {
+                  name,
+                  price: data.price,
+                  amount: data.amount,
+                  category_id: data.category_id,
+                  user_id: user?.sub,
+                },
+                onClose
+              )
+            )}
+          >
+            <ModalHeader>Add Item</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
               <FormControl isRequired>
                 <FormLabel>name</FormLabel>
                 <Input
@@ -171,26 +168,24 @@ function AddItemModal() {
                 </Select>
                 <FormErrorMessage></FormErrorMessage>
               </FormControl>
+            </ModalBody>
 
-              <Button
-                type="submit"
-                variantcolor="teal"
-                variant="outline"
-                width="full"
-                isLoading={loading}
-                mt={4}
-              >
-                Register
+            <ModalFooter>
+              <Button mr={3} onClick={onClose}>
+                Close
               </Button>
-            </form>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
+              <Button
+                isLoading={loading}
+                type="submit"
+                variantColor="teal"
+                variant="solid"
+                colorScheme="teal"
+                ml={3}
+              >
+                Create
+              </Button>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>

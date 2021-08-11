@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Logo from "../components/Logo";
 import {
@@ -14,20 +14,21 @@ import Router from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import Fade from "react-reveal/Fade";
 import Wobble from "react-reveal/Wobble";
-import { MoonIcon, SunIcon} from "@chakra-ui/icons";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 
-export default function index() {
-    const { user, error, isLoading } = useUser();
-    const { colorMode, toggleColorMode } = useColorMode();
+interface Props {}
+
+ const index: React.FC<Props> = () => {
+  const { user, error, isLoading } = useUser();
+  const { colorMode, toggleColorMode } = useColorMode();
   if (user)
-  useEffect(() => { 
-    const {pathname} = Router
-    if(pathname == '/' ){
-      Router.push('/dashboard');
-    }  
-  }
-  , []);
+    useEffect(() => {
+      const { pathname } = Router;
+      if (pathname == "/") {
+        Router.push("/dashboard");
+      }
+    }, []);
 
   return (
     <>
@@ -67,4 +68,5 @@ export default function index() {
       </Center>
     </>
   );
-}
+};
+export default index;

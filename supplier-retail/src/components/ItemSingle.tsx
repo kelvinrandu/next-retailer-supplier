@@ -11,6 +11,7 @@ export type ItemProps = {
   user: {
     name: string;
     email: string;
+    auth0_id: string;
   };
   category: {
     name: string;

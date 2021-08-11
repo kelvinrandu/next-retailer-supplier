@@ -10,6 +10,7 @@ export  const GET_ITEMS_QUERY = gql`
         name
         email
         id
+        auth0_id
       }
       category {
         id

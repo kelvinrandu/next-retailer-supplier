@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { useSession } from "next-auth/client";
-import { PhoneIcon, EmailIcon, AddIcon } from "@chakra-ui/icons";
-import Router from "next/router";
-import { Input, Text, HStack, Flex, Box, Button, Icon } from "@chakra-ui/react";
+import {  EmailIcon, AddIcon } from "@chakra-ui/icons";
+import { Input, Text, HStack, Flex,useToast, Box, Button, Icon } from "@chakra-ui/react";
 import { ItemProps } from "../components/ItemSingle";
-import { useToast } from "@chakra-ui/react";
 import { GrDeliver } from "react-icons/gr";
 import { FcShop } from "react-icons/fc";
 import { v4 as uuidv4 } from "uuid";
@@ -21,8 +18,8 @@ const ItemDetail: React.FC<Iprops> = (props) => {
   const { item } = props;
 
   const [amount, setAmount] = useState<number | null>(null);
-  const [toEmail] = useState(item.user.email);
-  const [fromEmail] = useState("");
+  const [toEmail] = useState(item.user.auth0_id);
+  const [fromEmail] = useState(user?.sub);
   const [price] = useState(item.price);
   const [itemId] = useState(item.id);
   const [receipt, setReceipt] = useState(getReceipt());
@@ -60,25 +57,26 @@ const ItemDetail: React.FC<Iprops> = (props) => {
       const totalPrice = getTotal(price, amount);
 
       const body = { totalPrice, receipt, amount, itemId, toEmail, fromEmail };
-      await fetch("/api/order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      console.log(body)
+      // await fetch("/api/order", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(body),
+      // });
 
-      props.ItemDetailHandler();
+      // props.ItemDetailHandler();
 
-      await Router.push("/dashboard");
+      // await Router.push("/dashboard");
 
-      flushAmount();
-      toast({
-        title: "Order placed",
-        description: "We've created your order for you.",
-        status: "success",
-        position: "top",
-        duration: 3000,
-        isClosable: true,
-      });
+      // flushAmount();
+      // toast({
+      //   title: "Order placed",
+      //   description: "We've created your order for you.",
+      //   status: "success",
+      //   position: "top",
+      //   duration: 3000,
+      //   isClosable: true,
+      // });
     } catch (error) {
       console.error(error);
     }
@@ -86,15 +84,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
 
   return (
     <>
-      <Box
-        py={10}
-        p={2}
-        // px={20}
-        // pl={0}
-        // pr={20}
-        // margin={2}
-        // w={[300, 450, 560]}
-      >
+      <Box py={10} p={2}>
         <Box fontWeight="700" d="flex" align="center" justify="center">
           <Text color="teal" mr="5px">
             {/* get data from user.role */}
@@ -112,26 +102,41 @@ const ItemDetail: React.FC<Iprops> = (props) => {
         <Box fontWeight="700" fontSize="15px">
           <EmailIcon color="teal" mr="5px" boxSize={4} /> {item?.user.email}
         </Box>
-        <InputGroup>
-          <form onSubmit={submitData}>
-            <Input
-              autoFocus
-              variant="outline"
-              focusBorderColor="teal"
-              color="teal"
-              width="30vw"
-              onChange={(e) => setAmount(parseInt(e.target.value))}
-              placeholder="Number of items"
-              type="number"
-              value={amount}
-            />
-            <InputRightElement>
-              <Button onClick={submitData} size="md">
-                <AddIcon color="teal" />
-              </Button>
-            </InputRightElement>
-          </form>
-        </InputGroup>
+        {item?.user.email !== user?.email && (
+          <InputGroup>
+            <form
+              // onSubmit={handleSubmit((data) =>
+              //   onCreateOrder(
+              //     {
+              //       name,
+              //       price: data.price,
+              //       amount: data.amount,
+              //       category_id: data.category_id,
+              //       user_id: user?.sub,
+              //     },
+              //     onClose
+              //   )
+              // )}
+            >
+              <Input
+                autoFocus
+                variant="outline"
+                focusBorderColor="teal"
+                color="teal"
+                width="30vw"
+                onChange={(e) => setAmount(parseInt(e.target.value))}
+                placeholder="Number of items"
+                type="number"
+                value={amount}
+              />
+              <InputRightElement>
+                <Button onClick={submitData} size="md">
+                  <AddIcon color="teal" />
+                </Button>
+              </InputRightElement>
+            </form>
+          </InputGroup>
+        )}
       </Box>
     </>
   );

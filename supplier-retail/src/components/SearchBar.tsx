@@ -24,7 +24,7 @@ const SearchBar = ({searchQuery, updateInput}) => {
           focusBorderColor="red"
           size="md"
           variant="filled"
-          w={[200, 200, 600]}
+          // w={[200, 200, 600]}
           key="random1"
           value={searchQuery}
           onChange={(e) => updateInput(e.target.value)}

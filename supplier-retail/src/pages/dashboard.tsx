@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import { Text, Flex, Spinner, Box, Image } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Text, Flex, Spinner } from "@chakra-ui/react";
 import { useItems } from "../../graphql/hooks";
 import { withApollo } from "../../graphql/apollo";
 import { useUser } from "@auth0/nextjs-auth0";
@@ -7,7 +7,8 @@ import App from "../components/App";
 import ItemSingle from "../components/ItemSingle";
 import SearchBar from "../components/SearchBar";
 
-const dashboard = () => {
+interface Props{}
+const dashboard: React.FC<Props> = () => {
   const { data, loading } = useItems();
   const allItems = data ? data.items : [];
   const [filteredItems, setFilteredItems] = useState(allItems);

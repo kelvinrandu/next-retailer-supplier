@@ -1,7 +1,7 @@
 import { Box, Text, Stack, CheckboxGroup,Flex, Spinner, Checkbox} from '@chakra-ui/react';
 import { useCategories } from "../../graphql/hooks";
 import React, { useState } from "react";
-import { useSearch } from "../utils/search";
+
 
 
 
