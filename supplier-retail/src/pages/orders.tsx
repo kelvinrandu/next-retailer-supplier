@@ -1,7 +1,7 @@
 import React from "react";
 import App from "../components/App";
 import { withApollo } from "../../graphql/apollo";
-import { GET_ORDERS_FOR_ME_QUERY } from "../../graphql/queries";
+import { GET_MY_ORDERS_QUERY } from "../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Text, Flex, Spinner } from "@chakra-ui/react";
@@ -10,7 +10,7 @@ import OrderRetail from "../components/OrderRetail"
 const orders = () => {
   const { user, error, isLoading } = useUser();
   const user_Id = user ? user.sub : [];
-  const { data, loading } = useQuery(GET_ORDERS_FOR_ME_QUERY, {
+  const { data, loading } = useQuery(GET_MY_ORDERS_QUERY, {
     variables: { user_id: user_Id },
   });
   const allOrders = data ? data.orders : [];

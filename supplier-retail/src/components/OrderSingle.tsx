@@ -15,7 +15,7 @@ export type OrderProps = {
   total_price: number;
   amount: number;
   read: boolean;
-  from: {
+  user: {
     name: string;
     phone: number;
     email: string;
@@ -118,7 +118,7 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
       {orderDetail && (
         <>
           {" "}
-          name
+          {order.user.name}
           <EmailIcon />
           email
           {order?.read ? (
