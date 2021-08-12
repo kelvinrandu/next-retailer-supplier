@@ -5,6 +5,7 @@ import { withApollo } from "../../graphql/apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Text, Flex, Spinner } from "@chakra-ui/react";
+import OrderSingle from "../components/OrderSingle";
 
 const myOrders = () => {
       const { user, error, isLoading } = useUser();
@@ -28,10 +29,7 @@ const myOrders = () => {
         ) : (
           <>
             {allOrders.length ? (
-              allOrders.map(({ id, receipt }) => (
-                <Text>
-                  {id}:{receipt}
-                </Text>
+              allOrders.map((order) => (<OrderSingle order={order}/>
               ))
             ) : (
               <Text>no items</Text>

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export  const GET_ITEMS_QUERY = gql`
   query getItems {
-    items {
+    items(where: { is_published: { _eq: true} }) {
       id
       name
       price
@@ -73,6 +73,7 @@ export const GET_MY_ORDERS_QUERY = gql`
       receipt
       total_price
       amount
+      read
       user {
         name
         email
@@ -96,6 +97,7 @@ export const GET_ORDERS_FOR_ME_QUERY = gql`
       receipt
       total_price
       amount
+      read
       user {
         name
         email

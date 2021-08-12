@@ -5,6 +5,7 @@ import { GET_ORDERS_FOR_ME_QUERY } from "../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Text, Flex, Spinner } from "@chakra-ui/react";
+import OrderRetail from "../components/OrderRetail"
 
 const orders = () => {
   const { user, error, isLoading } = useUser();
@@ -27,10 +28,8 @@ const orders = () => {
       ) : (
         <>
           {allOrders.length ? (
-            allOrders.map(({ id, receipt }) => (
-              <Text>
-                {id}:{receipt}
-              </Text>
+            allOrders.map((order) => (<OrderRetail order ={order}/>
+
             ))
           ) : (
             <Text>no items</Text>
