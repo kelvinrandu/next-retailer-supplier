@@ -11,7 +11,9 @@ import {
   Link,
   Icon,
 } from "@chakra-ui/react";
-import { FiHome, FiTrendingUp, FiCompass } from "react-icons/fi";
+import { FiHome} from "react-icons/fi";
+import { FaPaperPlane,FaDolly, FaEnvelope } from "react-icons/fa";
+
 import { useRouter } from "next/router";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
@@ -29,9 +31,10 @@ interface LinkItemProps {
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", path: "/dashboard", icon: FiHome },
-  { name: "Orders", path: "/orders", icon: FiTrendingUp },
-  { name: "Items", path: "/items", icon: FiCompass },
+  { name: "Dashboard", path: "/dashboard", icon: FiHome },
+  { name: "Inbox", path: "/myOrders", icon: FaEnvelope },
+  { name: "Outbox", path: "/orders", icon: FaPaperPlane },
+  { name: "My Items", path: "/items", icon: FaDolly },
 ];
 
 interface SidebarProps extends BoxProps {

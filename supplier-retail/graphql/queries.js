@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export  const GET_ITEMS_QUERY = gql`
   query getItems {
-    items {
+    items(where: { is_published: { _eq: true} }) {
       id
       name
       price
@@ -12,6 +12,19 @@ export  const GET_ITEMS_QUERY = gql`
         id
         auth0_id
       }
+      category {
+        id
+        name
+      }
+    }
+  }
+`;
+export const GET_MY_ITEMS_QUERY = gql`
+  query getMyItems($user_id: String!) {
+    items(where: { user_id: { _eq: $user_id} }) {
+      id
+      name
+      price
       category {
         id
         name
@@ -42,6 +55,54 @@ export const GET_ORDERS_QUERY = gql`
         email
       }
       userByTo{
+        name
+        email
+      }
+      item {
+        id
+        name
+        price
+      }
+    }
+  }
+`;
+export const GET_MY_ORDERS_QUERY = gql`
+  query ($user_id: String!) {
+    orders(where: { from: { _eq: $user_id } }) {
+      id
+      receipt
+      total_price
+      amount
+      read
+      user {
+        name
+        email
+      }
+      userByTo {
+        name
+        email
+      }
+      item {
+        id
+        name
+        price
+      }
+    }
+  }
+`;
+export const GET_ORDERS_FOR_ME_QUERY = gql`
+  query ($user_id: String!) {
+    orders(where: { to: { _eq: $user_id } }) {
+      id
+      receipt
+      total_price
+      amount
+      read
+      user {
+        name
+        email
+      }
+      userByTo {
         name
         email
       }

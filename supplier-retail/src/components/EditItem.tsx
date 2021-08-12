@@ -6,6 +6,7 @@ import {
   Button,
   useDisclosure,
   Modal,
+  useToast,
   ModalOverlay,
   ModalContent,
   ModalHeader,
@@ -21,33 +22,27 @@ const EditItem = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newName, setNewName] = useState("");
   const [newPrice, setNewPrice] = useState("");
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const response = await axios
-      .patch(`api/item/${props.item.id}`, {
-        name: newName,
-        price: parseInt(newPrice),
-      })
-      .catch((err) => {
-        console.log(" Err", err);
-      });
+  //edit mutation lies here
     onClose();
+        toast({
+          title: "Item edited",
+          description: "Item edited successfully.",
+          status: "success",
+          position: "top",
+          duration: 3000,
+          isClosable: true,
+        });
   };
 
   return (
     <div>
-      <Box
-        p={5}
-        borderRadius="10px"
-        shadow="md"
-        width="300px"
-        borderWidth="1px"
-      >
-        <Heading fontSize="xl"> {props.item.name}</Heading>
+
         <Button onClick={onOpen}>Edit</Button>
-      </Box>
+    
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
-import { GET_ITEMS_QUERY, GET_CATEGORIES_QUERY } from "./queries";
+import { GET_ITEMS_QUERY,GET_MY_ITEMS_QUERY, GET_CATEGORIES_QUERY } from "./queries";
 
 export const useItems = () => {
   const { loading, error, data } = useQuery(GET_ITEMS_QUERY);
@@ -29,6 +29,27 @@ export const useCategories = () => {
       error,
       data: {
         categories: data.categories,
+      },
+    };
+  }
+
+  return {
+    loading,
+    error,
+    data,
+  };
+};
+export const useMyItems = (userid) => {
+  const { loading, error, data } = useQuery(GET_MY_ITEMS_QUERY, {
+    variables: { userid },
+  });
+
+  if (!loading && data) {
+    return {
+      loading,
+      error,
+      data: {
+        items: data.items,
       },
     };
   }

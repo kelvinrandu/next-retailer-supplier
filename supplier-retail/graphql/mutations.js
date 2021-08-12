@@ -57,6 +57,7 @@ export const CREATE_ORDERS_MUTATION = gql`
         id
         receipt
         amount
+        read
         item {
           id
           name
@@ -66,26 +67,44 @@ export const CREATE_ORDERS_MUTATION = gql`
     }
   }
 `;
-export const UPDATE_USER_DEAL_MUTATION = gql`
-    mutation updateUserDeal($upvoted: Boolean!, $dealId: uuid!, $userId: String!) {
-        update_user_deal(where: {dealId: {_eq: $dealId}, userId: {_eq: $userId}}, _set: {upvoted: $upvoted}) {
-            returning {
-                upvoted
-                userId
-                id
-            }
+
+export const UPDATE_ORDER_MUTATION = gql`
+  mutation updateOrder($order_Id: uuid!) {
+    update_orders(
+      where: { id: { _eq: $order_Id} }
+      _set: { read: true }
+
+    ) {
+      returning {
+        id
+        receipt
+        amount
+        read
+        item {
+          id
+          name
+          price
         }
+      }
     }
+  }
 `;
 
-export const INSERT_USER_DEAL_MUTATION = gql`
-    mutation insertUserDeal($upvoted: Boolean!, $dealId: uuid!, $userId: String!) {
-        insert_user_deal(objects: {upvoted: $upvoted, dealId: $dealId, userId: $userId}) {
-            returning {
-                upvoted
-                userId
-                id
-            }
-        }
+export const UPDATE_DEAL_MUTATION = gql`
+  mutation updateDeal(
+    $upvoted: Boolean!
+    $dealId: uuid!
+    $userId: String!
+  ) {
+    update_user_deal(
+      where: { dealId: { _eq: $dealId }, userId: { _eq: $userId } }
+      _set: { upvoted: $upvoted }
+    ) {
+      returning {
+        upvoted
+        userId
+        id
+      }
     }
+  }
 `;

@@ -25,31 +25,30 @@ import {
 } from "@chakra-ui/react";
 import {
   FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
   FiMenu,
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
-import SearchBar from "../components/SearchBar";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
+
+import { FaPaperPlane, FaDolly, FaEnvelope } from "react-icons/fa";
 
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
-interface ItemProps {
+interface LinkProps {
   name: string;
+  path: string;
   icon: IconType;
 }
-const items: Array<ItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Orders", icon: FiTrendingUp },
-  { name: "Items", icon: FiCompass },
+const items: Array<LinkProps> = [
+  { name: "Dashboard", path: "/dashboard", icon: FiHome },
+  { name: "Inbox", path: "/myOrders", icon: FaEnvelope },
+  { name: "Outbox", path: "/orders", icon: FaPaperPlane },
+  { name: "My Items", path: "/items", icon: FaDolly },
 ];
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
