@@ -3,7 +3,9 @@ import { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
 import { EmailIcon } from "@chakra-ui/icons";
 import { Button, Checkbox, useToast } from "@chakra-ui/react";
-import Router from "next/router";
+import { UPDATE_ORDER_MUTATION } from "../../graphql/mutations";
+import { GET_ORDERS_QUERY } from "../../graphql/queries";
+import {  useMutation } from "@apollo/react-hooks";
 
 
 
@@ -24,36 +26,37 @@ export type OrderProps = {
 };
 
 const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
+
   const { order } = props;
   const [orderDetail, setOrderDetail] = useState(false);
   const toast = useToast();
   useEffect(() => {}, [order.read]);
+    const [updateOrder, { loading }] = useMutation(UPDATE_ORDER_MUTATION, {
+    refetchQueries: [{ query: GET_ORDERS_QUERY}],
+  });
 
   function OrderDetailHandler() {
     setOrderDetail(!orderDetail);
   }
 
-  const submitData = async (e: React.SyntheticEvent, id) => {
-    e.preventDefault();
-    try {
-      await fetch(`/api/order/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      });
-      OrderDetailHandler();
-      Router.push("/orders");
+  const onUpdateOrder = (order_Id
+  ) => {
+          updateOrder({
+            variables: {
+              order_Id, 
+            },
+          });
+              toast({
+                title: "Order processed",
+                description: "The order has been processed",
+                status: "success",
+                position: "top",
+                duration: 3000,
+                isClosable: true,
+              });
+              OrderDetailHandler();
 
-      toast({
-        title: "Order processed",
-        status: "success",
-        position: "top",
-        duration: 9000,
-        isClosable: true,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+}
   return (
     <>
       <Box
@@ -116,7 +119,6 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
         <>
           {" "}
           name
-        
           <EmailIcon />
           email
           {order?.read ? (
@@ -127,7 +129,7 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
           ) : (
             <Checkbox
               colorScheme="red"
-              onChange={(e) => submitData(e, order.id)}
+              onChange={(e) => onUpdateOrder(order?.id)}
             >
               {" "}
               Process order{" "}
