@@ -1,6 +1,6 @@
 import React from 'react'
 import App from "../components/App";
-import { GET_MY_ORDERS_QUERY } from "../../graphql/queries";
+import { GET_ORDERS_FOR_ME_QUERY } from "../../graphql/queries";
 import { withApollo } from "../../graphql/apollo";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
@@ -11,8 +11,8 @@ const myOrders = () => {
       const { user, error, isLoading } = useUser();
       const user_Id = user ? user.sub : [];
 
-      const { data, loading } = useQuery(GET_MY_ORDERS_QUERY, {
-        variables: { user_id:user_Id },
+      const { data, loading } = useQuery(GET_ORDERS_FOR_ME_QUERY, {
+        variables: { user_id: user_Id },
       });
       const allOrders = data ? data.orders : [];
         if (isLoading) return <div>Loading...</div>;
