@@ -7,13 +7,12 @@ import { GET_MY_ITEMS_QUERY } from "../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import SearchBar from "../components/SearchBar";
-import { useFormState } from "react-hook-form";
 
 const items = () => {
   const { user, error, isLoading } = useUser();
-  const user_id = "google-oauth2|106706096066760521681";
+  const user_Id = user ? user.sub : [];
   const { data, loading } = useQuery(GET_MY_ITEMS_QUERY, {
-    variables: { user_id },
+    variables: { user_id: user_Id },
   });
 
   const allItems = data ? data.items : [];
@@ -46,12 +45,16 @@ const items = () => {
       ) : (
         <>
           {filteredItems.length ? (
-            filteredItems.map(({name,price}) => <Text>{name}:{price}</Text>)
+            filteredItems.map(({ name, price }) => (
+              <Text>
+                {name}:{price}
+              </Text>
+            ))
           ) : (
             <Text>no items</Text>
           )}
           <Flex justify="flex-end" as="i" color="gray.500">
-            {`Showing ${allItems.length} out of ${allItems.length} items `}
+            {`Showing ${filteredItems.length} out of ${allItems.length} items `}
           </Flex>
         </>
       )}
