@@ -6,6 +6,8 @@ import { GET_MY_ITEMS_QUERY } from "../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import SearchBar from "../components/SearchBar";
+import MyItem from "../components/MyItem";
+
 
 const items = () => {
   const { user, error, isLoading } = useUser();
@@ -44,11 +46,7 @@ const items = () => {
       ) : (
         <>
           {filteredItems.length ? (
-            filteredItems.map(({ name, price }) => (
-              <Text>
-                {name}:{price}
-              </Text>
-            ))
+            filteredItems.map((item) => <MyItem item={item} />)
           ) : (
             <Text>no items</Text>
           )}

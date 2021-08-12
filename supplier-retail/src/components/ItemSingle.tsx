@@ -19,6 +19,7 @@ export type ItemProps = {
   };
 };
 
+
 const ItemSingle: React.FC<{ item: ItemProps }> = ({ item }) => {
   const [itemDetail, setItemDetail] = useState(false);
 
