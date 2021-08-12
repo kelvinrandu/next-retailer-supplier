@@ -8,9 +8,10 @@ import { Text, Flex, Spinner } from "@chakra-ui/react";
 
 const myOrders = () => {
       const { user, error, isLoading } = useUser();
-      const user_id = "google-oauth2|106706096066760521681";
+      const user_Id = user ? user.sub : [];
+
       const { data, loading } = useQuery(GET_MY_ORDERS_QUERY, {
-        variables: { user_id },
+        variables: { user_id:user_Id },
       });
       const allOrders = data ? data.orders : [];
         if (isLoading) return <div>Loading...</div>;
@@ -18,8 +19,7 @@ const myOrders = () => {
     return (
       <App>
         <Text mb={2} fontSize="sm">
-          {"Orders for "}
-          <b>{"Moir"}</b>
+          {"Inbox "}    
         </Text>
         {loading ? (
           <Flex pt={24} align="center" justify="center">

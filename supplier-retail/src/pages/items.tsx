@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import App from "../components/App";
 import { Text, Flex, Spinner } from "@chakra-ui/react";
 import { withApollo } from "../../graphql/apollo";
-import { useMyItems } from "../../graphql/hooks";
 import { GET_MY_ITEMS_QUERY } from "../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
