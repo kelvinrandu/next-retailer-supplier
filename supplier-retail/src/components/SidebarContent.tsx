@@ -7,7 +7,6 @@ import {
   Text,
   BoxProps,
   useColorMode,
-  FlexProps,
   Link,
   Icon,
 } from "@chakra-ui/react";
@@ -18,7 +17,7 @@ import { useRouter } from "next/router";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
 import Filters from "../components/Filters";
-import AddDealModal from "./AddItemModal";
+import AddItemModal from "./AddItemModal";
 
 interface NavItemProps {
   icon: IconType;
@@ -71,7 +70,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
       <Filters />
-      <AddDealModal />
+      <AddItemModal />
        
     </Box>
   );

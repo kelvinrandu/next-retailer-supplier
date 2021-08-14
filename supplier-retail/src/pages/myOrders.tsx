@@ -7,7 +7,8 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { Text, Flex, Spinner } from "@chakra-ui/react";
 import OrderSingle from "../components/OrderSingle";
 
-const myOrders = () => {
+interface Props{}
+const myOrders : React.FC<Props> = () => {
       const { user, error, isLoading } = useUser();
       const user_Id = user ? user.sub : [];
 
@@ -24,7 +25,7 @@ const myOrders = () => {
         </Text>
         {loading ? (
           <Flex pt={24} align="center" justify="center">
-            <Spinner size="xl" label="Loading items" />
+            <Spinner size="xl" label="Loading inbox" />
           </Flex>
         ) : (
           <>

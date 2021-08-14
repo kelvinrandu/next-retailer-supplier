@@ -7,7 +7,8 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { Text, Flex, Spinner } from "@chakra-ui/react";
 import OrderRetail from "../components/OrderRetail"
 
-const orders = () => {
+interface Props{}
+const orders: React.FC<Props> = () => {
   const { user, error, isLoading } = useUser();
   const user_Id = user ? user.sub : [];
   const { data, loading } = useQuery(GET_MY_ORDERS_QUERY, {
@@ -23,7 +24,7 @@ const orders = () => {
       </Text>
       {loading ? (
         <Flex pt={24} align="center" justify="center">
-          <Spinner size="xl" label="Loading items" />
+          <Spinner size="xl" label="Loading outbox" />
         </Flex>
       ) : (
         <>

@@ -27,7 +27,7 @@ const MyItem: React.FC<{ item: ItemProps }> = ({ item }) => {
         <AtSignIcon color="teal" />
         <Text> Ksh{item.price} </Text>
         <Spacer />
-      <EditItem item={item}/>
+        <EditItem item={item} />
       </Flex>
     </Box>
   );

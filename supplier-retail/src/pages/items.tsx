@@ -8,8 +8,8 @@ import { useUser } from "@auth0/nextjs-auth0";
 import SearchBar from "../components/SearchBar";
 import MyItem from "../components/MyItem";
 
-
-const items = () => {
+interface Props{}
+const items: React.FC<Props> = () => {
   const { user, error, isLoading } = useUser();
   const user_Id = user ? user.sub : [];
   const { data, loading } = useQuery(GET_MY_ITEMS_QUERY, {

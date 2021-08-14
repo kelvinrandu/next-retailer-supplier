@@ -7,26 +7,13 @@ import {
   useDisclosure,
 
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-} from "react-icons/fi";
-import { IconType } from "react-icons";
-
 import SidebarContent from "../components/SidebarContent";
 import MobileNav from "../components/MobileNav";
-interface ItemProps {
-  name: string;
-  icon: IconType;
-}
-const items: Array<ItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Orders", icon: FiTrendingUp },
-  { name: "Items", icon: FiCompass },
-];
+type Iprops = {
+  children: ReactNode;
+};
 
-const App = ({ children }: { children: ReactNode }) => {
+  const App: React.FC<Iprops> = ({children}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

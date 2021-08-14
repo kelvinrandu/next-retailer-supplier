@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
-  Box,
-  Heading,
   Button,
   useDisclosure,
   Modal,
@@ -17,71 +14,98 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { UPDATE_ITEM_MUTATION } from "../../graphql/mutations";
+import {  GET_ITEMS_QUERY } from "../../graphql/queries";
+import {  useMutation } from "@apollo/react-hooks";
+import { ItemProps } from "../components/ItemSingle";
 
-const EditItem = (props) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [newName, setNewName] = useState("");
-  const [newPrice, setNewPrice] = useState("");
-  const toast = useToast();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  //edit mutation lies here
-    onClose();
-        toast({
-          title: "Item edited",
-          description: "Item edited successfully.",
-          status: "success",
-          position: "top",
-          duration: 3000,
-          isClosable: true,
-        });
-  };
-
-  return (
-    <div>
-
-        <Button onClick={onOpen}>Edit</Button>
-    
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <form onSubmit={handleSubmit}>
-            <ModalHeader>Edit item</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <FormControl id="first-name" isRequired>
-                <FormLabel>name</FormLabel>
-                <Input
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  placeholder={props.item.name}
-                />
-              </FormControl>
-              <FormControl id="first-name" isRequired>
-                <FormLabel>Price</FormLabel>
-                <Input
-                  type="number"
-                  value={newPrice}
-                  onChange={(e) => setNewPrice(e.target.value)}
-                  placeholder={props.item.price}
-                />
-              </FormControl>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button type="submit" variant="ghost">
-                Edit
-              </Button>
-            </ModalFooter>
-          </form>
-        </ModalContent>
-      </Modal>
-    </div>
-  );
+type IProps = {
+  item: ItemProps;
 };
+  const EditItem: React.FC<IProps> = ({item}) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [newName, setNewName] = useState("");
+    const [newPrice, setNewPrice] = useState("");
+    const { handleSubmit, register } = useForm();
+    const toast = useToast();
+    const [updateItem, { loading }] = useMutation(UPDATE_ITEM_MUTATION, {
+      refetchQueries: [{ query: GET_ITEMS_QUERY }],
+    });
+
+    const onUpdateItem = ({ name, price ,item_id}, onClose) => {
+      updateItem({
+        variables: {
+          name: name,
+          price: price,
+          item_id:item_id
+        },
+      });
+
+      onClose();
+      toast({
+        title: "Item Updated ",
+        description: "We've have updated your item for you.",
+        status: "success",
+        position: "top",
+        duration: 3000,
+        isClosable: true,
+      });
+    };
+    return (
+      <div>
+        <Button onClick={onOpen}>Edit</Button>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <form
+              onSubmit={handleSubmit((data) =>
+                onUpdateItem(
+                  {
+                    name: newName,
+                    price: newPrice,
+                    item_id: item.id,
+                  },
+                  onClose
+                )
+              )}
+            >
+              <ModalHeader>Edit item</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <FormControl id="first-name" isRequired>
+                  <FormLabel>name</FormLabel>
+                  <Input
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    placeholder={item.name}
+                  />
+                </FormControl>
+                <FormControl id="first-name" isRequired>
+                  <FormLabel>Price</FormLabel>
+                  <Input
+                    type="number"
+                    value={newPrice}
+                    onChange={(e) => setNewPrice(e.target.value)}
+                    placeholder={item.price.toString()}
+                  />
+                </FormControl>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button variant="ghost" mr={3} onClick={onClose}>
+                  Close
+                </Button>
+                <Button type="submit" colorScheme="blue">
+                  Edit
+                </Button>
+              </ModalFooter>
+            </form>
+          </ModalContent>
+        </Modal>
+      </div>
+    );
+  };
 
 export default EditItem;

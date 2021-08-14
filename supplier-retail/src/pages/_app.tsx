@@ -5,7 +5,6 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 
 
 function MyApp({ Component, pageProps }) {
-  const { session } = pageProps;
   return (
     <ChakraProvider theme={theme}>
       <UserProvider>
