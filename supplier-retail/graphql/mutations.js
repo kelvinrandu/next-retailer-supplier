@@ -36,6 +36,31 @@ export const CREATE_ITEM_MUTATION = gql`
     }
   }
 `;
+export const UPDATE_ITEM_MUTATION = gql`
+  mutation updateItem($price: Int!, $name: String!, $item_id: uuid!) {
+    update_items(
+      where: { id: { _eq: $item_id } }
+      _set: { price: $price, name: $name }
+    ) {
+      returning {
+        id
+        name
+        price
+        amount
+        user {
+          name
+          email
+        }
+        category {
+          id
+          name
+          description
+        }
+      }
+    }
+  }
+`;
+
 export const CREATE_ORDERS_MUTATION = gql`
   mutation createOrder(
     $amount: Int!

@@ -3,19 +3,12 @@ import {
   IconButton,
   Avatar,
   Box,
-  CloseButton,
   Flex,
   HStack,
   VStack,
-  Icon,
-  Center,
   useColorModeValue,
   Link,
-  Drawer,
-  DrawerContent,
   Text,
-  useDisclosure,
-  BoxProps,
   FlexProps,
   Menu,
   MenuButton,
@@ -31,8 +24,6 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { useUser } from "@auth0/nextjs-auth0";
-import { useRouter } from "next/router";
-
 import { FaPaperPlane, FaDolly, FaEnvelope } from "react-icons/fa";
 
 
@@ -52,11 +43,7 @@ const items: Array<LinkProps> = [
 ];
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredItems, setFilteredItems] = useState(items);
   const { user, error, isLoading } = useUser();
-  const router = useRouter();
-
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;

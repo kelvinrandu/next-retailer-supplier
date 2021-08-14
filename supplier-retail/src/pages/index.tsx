@@ -16,9 +16,7 @@ import Fade from "react-reveal/Fade";
 import Wobble from "react-reveal/Wobble";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
-
 interface Props {}
-
  const index: React.FC<Props> = () => {
   const { user, error, isLoading } = useUser();
   const { colorMode, toggleColorMode } = useColorMode();
