@@ -41,7 +41,9 @@ const Filters = (props) => {
                   onChange={onFilter}
                   spacing={2}
                   variantColor="teal"
-                >
+                  defaultValue={["food", "hardware","textile","electronics"]}
+        
+                  >
                   {allCategories.length ? (
                     allCategories.map((category) => (
                       <Checkbox value={category.name}>{category.name}</Checkbox>

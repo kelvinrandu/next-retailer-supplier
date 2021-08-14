@@ -1,25 +1,65 @@
 import React, { useEffect } from "react";
-import Link from "next/link";
-import Logo from "../components/Logo";
 import {
-  Button,
-  ButtonGroup,
-  Center,
-  Flex,
   Box,
-  Container,
+  Flex,
+  Heading,
+  Text,
+  Button,
   useColorMode,
 } from "@chakra-ui/react";
-import Router from "next/router";
+import NextLink from "next/link";
 import { useUser } from "@auth0/nextjs-auth0";
-import Fade from "react-reveal/Fade";
+import Router from "next/router";
 import Wobble from "react-reveal/Wobble";
+import Jump from "react-reveal/Jump";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import Spin from "react-reveal/Spin";
 
 interface Props {}
- const index: React.FC<Props> = () => {
-  const { user, error, isLoading } = useUser();
+
+export const Container = (props) => (
+  <Box width="full" maxWidth="1280px" mx="auto" px={6} {...props} />
+);
+
+const Header = () => {
+
   const { colorMode, toggleColorMode } = useColorMode();
+    return (
+      <Box as="header" width="full" height="4rem">
+        <Box width="full" mx="auto" px={6} pr={[1, 6]} height="100%">
+          <Flex
+            size="100%"
+            p={[0, 6]}
+            pl={[0, 4]}
+            align="center"
+            justify="space-between"
+          >
+            <Box d="block" aria-label="supplier index page">
+              <Heading as="h1" size="lg" fontWeight="black">
+                Supplier~retail
+              </Heading>
+            </Box>
+            <Flex align="center">
+              <Wobble>
+                <NextLink href="/api/auth/login" passHref>
+                  <Button variant="ghost">{"Sign In"}</Button>
+                </NextLink>
+              </Wobble>
+              <Spin>
+              <Button onClick={toggleColorMode} margin={3}>
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              </Spin>
+
+            </Flex>
+          </Flex>
+        </Box>
+      </Box>
+    );
+}
+const HomePage: React.FC<Props> = () => {
+  const { user, error, isLoading } = useUser();
+
   if (user)
     useEffect(() => {
       const { pathname } = Router;
@@ -29,42 +69,33 @@ interface Props {}
     }, []);
 
   return (
-    <>
-      <Box top="0" mr={10} float="right">
-        <Wobble>
-          {" "}
-          <Button onClick={toggleColorMode} margin={3}>
-            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-          </Button>
-        </Wobble>
-      </Box>
-      <Center h="100vh" w="100vw">
+    <Box h="100vh">
+      <Header />
+      <Box as="section" pt={40} pb={24}>
         <Container>
-          <Fade bottom>
-            <Flex align="center" justify="space-between">
-              <Container>
-                <Box>
-                  <Logo />
-                </Box>
-                <Box>
-                  Supplier retail helps connect suppliers to retailers!!
-                </Box>
-              </Container>
-              <Container>
-                <ButtonGroup isAttached variant="outline">
-                  <Link href="/api/auth/login">
-                    <Button>Sign in</Button>
-                  </Link>
-                  <Link href="/api/auth/login">
-                    <Button>Sign up</Button>
-                  </Link>
-                </ButtonGroup>
-              </Container>
-            </Flex>
-          </Fade>
+          <Box maxW="xl" mx="auto" textAlign="center">
+            <Heading as="h1" size="xl" fontWeight="black">
+              post . get order . sell
+            </Heading>
+
+            <Text opacity="0.7" fontSize="lg" mt="6">
+              Supplier retail helps you connect to potential customers , just
+              post your item and await orders from interested customers.
+            </Text>
+             <Jump>
+            <Box mt="6">
+              <NextLink href="/api/auth/login" passHref>
+                <Button size="lg" as="a" colorScheme="teal">
+                  Let's Get Started
+                </Button>
+              </NextLink>
+            </Box>
+            </Jump>
+          </Box>
         </Container>
-      </Center>
-    </>
+      </Box>
+    </Box>
   );
 };
-export default index;
+
+export default HomePage;
