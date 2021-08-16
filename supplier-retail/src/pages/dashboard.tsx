@@ -45,7 +45,9 @@ const dashboard: React.FC<Props> = () => {
       ) : (
         <>
           {filteredItems.length ? (
-            filteredItems.map((item) => <ItemSingle item={item} />)
+            filteredItems.map((item) => (
+              <ItemSingle  item={item} />
+            ))
           ) : (
             <Text>no items</Text>
           )}

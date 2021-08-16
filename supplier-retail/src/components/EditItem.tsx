@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { UPDATE_ITEM_MUTATION } from "../../graphql/mutations";
-import {  GET_ITEMS_QUERY } from "../../graphql/queries";
 import {  useMutation } from "@apollo/react-hooks";
 import { ItemProps } from "../components/ItemSingle";
 
@@ -29,10 +28,13 @@ type IProps = {
     const [newPrice, setNewPrice] = useState("");
     const { handleSubmit, register } = useForm();
     const toast = useToast();
-    const [updateItem, { loading }] = useMutation(UPDATE_ITEM_MUTATION, {
-      refetchQueries: [{ query: GET_ITEMS_QUERY }],
-    });
+    const [updateItem, { loading }] = useMutation(UPDATE_ITEM_MUTATION);
 
+    const flushInputs=()=>{
+      setNewName("");
+      setNewPrice("");
+    }
+  
     const onUpdateItem = ({ name, price ,item_id}, onClose) => {
       updateItem({
         variables: {
@@ -43,6 +45,7 @@ type IProps = {
       });
 
       onClose();
+      flushInputs();
       toast({
         title: "Item Updated ",
         description: "We've have updated your item for you.",
@@ -74,7 +77,7 @@ type IProps = {
               <ModalHeader>Edit item</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <FormControl id="first-name" isRequired>
+                <FormControl id="name" isRequired>
                   <FormLabel>name</FormLabel>
                   <Input
                     value={newName}
@@ -82,7 +85,7 @@ type IProps = {
                     placeholder={item.name}
                   />
                 </FormControl>
-                <FormControl id="first-name" isRequired>
+                <FormControl id="" isRequired>
                   <FormLabel>Price</FormLabel>
                   <Input
                     type="number"

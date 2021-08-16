@@ -1,8 +1,10 @@
-import React, { ReactNode, useState } from "react";
-import { Collapse } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Collapse ,Badge} from "@chakra-ui/react";
 import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
 import { TriangleDownIcon, TriangleUpIcon, AtSignIcon } from "@chakra-ui/icons";
 import ItemDetail from "../components/ItemDetail";
+import MyItem from "./MyItem";
+import EditItem from "../components/EditItem";
 
 export type ItemProps = {
   id: number;
@@ -18,9 +20,20 @@ export type ItemProps = {
     description: string;
   };
 };
+interface Props {
+  item:ItemProps;
+  myItem?:Boolean;
+}
 
+const badgeColors = {
+  food: "teal",
+  drinks: "red",
+  hardware: "blue",
+  textile: "orange",
+  electronics: "yellow",
+};
 
-const ItemSingle: React.FC<{ item: ItemProps }> = ({ item }) => {
+const ItemSingle: React.FC<Props> = ({ item,myItem}) => {
   const [itemDetail, setItemDetail] = useState(false);
 
   function ItemDetailHandler() {
@@ -46,7 +59,15 @@ const ItemSingle: React.FC<{ item: ItemProps }> = ({ item }) => {
         {/* <Spacer /> */}
         <AtSignIcon color="teal" />
         <Text> Ksh{item.price} </Text>
+
         <Spacer />
+
+        {myItem  ? <EditItem item={item} /> : (<>
+
+        <Badge colorScheme={badgeColors[item.category.name]}>
+          {item.category.name}
+        </Badge>
+
         <Box
           as="button"
           alignSelf="right"
@@ -59,7 +80,11 @@ const ItemSingle: React.FC<{ item: ItemProps }> = ({ item }) => {
             <TriangleDownIcon color="teal" boxSize={6} />
           )}
         </Box>
+        </>
+        )}
+
       </Flex>
+
       {itemDetail && (
         <Collapse in={itemDetail} animateOpacity style={{ zIndex: 10 }}>
           <ItemDetail item={item} ItemDetailHandler={ItemDetailHandler} />
