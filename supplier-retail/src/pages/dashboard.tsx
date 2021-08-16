@@ -6,26 +6,23 @@ import { useUser } from "@auth0/nextjs-auth0";
 import App from "../components/App";
 import ItemSingle from "../components/ItemSingle";
 import SearchBar from "../components/SearchBar";
+import EmptySearch from "../components/EmptySearch";
+import { useSearch } from "../utils/search";
 
-interface Props{}
+interface Props {}
 const dashboard: React.FC<Props> = () => {
   const { data, loading } = useItems();
   const allItems = data ? data.items : [];
-  const [filteredItems, setFilteredItems] = useState(allItems);
-  const { error, isLoading } = useUser();
-  const [searchQuery, setSearchQuery] = useState("");
+  const { categoryFilter, search, onSearch } = useSearch();
+  const matchesSearch = (item) =>
+    item.name.toLowerCase().includes(search.toLowerCase());
+  const matchesAlcoholType = (item) =>
+    categoryFilter.includes(item.category.name);
+  const filteredItems = allItems
+    .filter(matchesSearch)
+    .filter(matchesAlcoholType);
 
-  useEffect(() => {
-    updateInput("");
-  }, [allItems]);
-  
-  const updateInput = async (input) => {
-    const filtered = allItems.filter((item) => {
-      return item.name.toLowerCase().includes(input.toLowerCase());
-    });
-    setSearchQuery(input);
-    setFilteredItems(filtered);
-  };
+  const { error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -36,7 +33,7 @@ const dashboard: React.FC<Props> = () => {
         {"Active "}
         <b>{"Items"}</b>
       </Text>
-      <SearchBar searchQuery={searchQuery} updateInput={updateInput} />
+      <SearchBar search={search} onSearch={onSearch} />
 
       {loading ? (
         <Flex pt={24} align="center" justify="center">
@@ -45,11 +42,9 @@ const dashboard: React.FC<Props> = () => {
       ) : (
         <>
           {filteredItems.length ? (
-            filteredItems.map((item) => (
-              <ItemSingle  item={item} />
-            ))
+            filteredItems.map((item) => <ItemSingle item={item} />)
           ) : (
-            <Text>no items</Text>
+            <EmptySearch />
           )}
           <Flex justify="flex-end" as="i" color="gray.500">
             {`Showing ${filteredItems.length} out of ${allItems.length} items `}

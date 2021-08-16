@@ -1,22 +1,40 @@
 import { Box, Text, Stack, CheckboxGroup,Flex, Spinner, Checkbox} from '@chakra-ui/react';
 import { useCategories } from "../../graphql/hooks";
 import React, { useState } from "react";
+import { useSearch } from "../utils/search";
 
 
 
 
 const Filters = (props) => {
+  const {
+    categoryFilter,
+    onFilterCategoryType,
+  } = useSearch();
 
     const { data, loading } = useCategories();
     const allCategories = data ? data.categories : [];
 
-      const [alcoholTypeFilters, setAlcoholTypeFilters] =
+      const [checked, setChecked] =
         useState(allCategories);
-      const onFilter =()=>{
-        console.log('oneda')
-        return 1
 
-      }
+      // const onFilter =(value)=>{
+      //    const currentIndex = checked.indexOf(value.name);
+      //     const newChecked = [...checked];
+
+      //     if (currentIndex === -1) {
+      //         newChecked.push(value);
+      //         } else {
+      //             newChecked.splice(currentIndex, 1);
+      //         }
+      //          setChecked(newChecked);
+
+        
+
+      //   console.log('value :',checked)
+      //   return 1
+
+      // }
 
 
     return (
@@ -38,15 +56,23 @@ const Filters = (props) => {
             <>
               <Flex direction="column">
                 <CheckboxGroup
-                  onChange={onFilter}
                   spacing={2}
                   variantColor="teal"
-                  defaultValue={["food", "hardware","textile","electronics","drinks"]}
-        
-                  >
+                  onChange={onFilterCategoryType}
+                  defaultValue={[
+                    "food",
+                    "hardware",
+                    "textile",
+                    "electronics",
+                    "drinks",
+                  ]}
+                  value={categoryFilter}
+                >
                   {allCategories.length ? (
                     allCategories.map((category) => (
-                      <Checkbox value={category.name}>{category.name}</Checkbox>
+                      <Checkbox key={category.id} value={category.name}>
+                        {category.name}
+                      </Checkbox>
                     ))
                   ) : (
                     <Text>no categories</Text>

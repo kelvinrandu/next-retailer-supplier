@@ -10,8 +10,8 @@ import {
   Link,
   Icon,
 } from "@chakra-ui/react";
-import { FiHome} from "react-icons/fi";
-import { FaPaperPlane,FaDolly, FaEnvelope } from "react-icons/fa";
+import { FiHome } from "react-icons/fi";
+import { FaPaperPlane, FaDolly, FaEnvelope } from "react-icons/fa";
 
 import { useRouter } from "next/router";
 import { ReactText } from "react";
@@ -71,7 +71,6 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       ))}
       <Filters />
       <AddItemModal />
-       
     </Box>
   );
 };

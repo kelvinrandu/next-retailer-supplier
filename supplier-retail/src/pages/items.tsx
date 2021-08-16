@@ -6,10 +6,10 @@ import { GET_MY_ITEMS_QUERY } from "../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import SearchBar from "../components/SearchBar";
-import MyItem from "../components/MyItem";
 import ItemSingle from "../components/ItemSingle";
+import { useSearch } from "../utils/search";
 
-interface Props{}
+interface Props {}
 const items: React.FC<Props> = () => {
   const { user, error, isLoading } = useUser();
   const user_Id = user ? user.sub : [];
@@ -18,19 +18,15 @@ const items: React.FC<Props> = () => {
   });
 
   const allItems = data ? data.items : [];
-  const [filteredItems, setFilteredItems] = useState(allItems);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { categoryFilter, search, onSearch } = useSearch();
+  const matchesSearch = (item) =>
+    item.name.toLowerCase().includes(search.toLowerCase());
+  const matchesAlcoholType = (item) =>
+    categoryFilter.includes(item.category.name);
+  const filteredItems = allItems
+    .filter(matchesSearch)
+    .filter(matchesAlcoholType);
 
-  useEffect(() => {
-    updateInput("");
-  }, [allItems]);
-  const updateInput = async (input) => {
-    const filtered = allItems.filter((item) => {
-      return item.name.toLowerCase().includes(input.toLowerCase());
-    });
-    setSearchQuery(input);
-    setFilteredItems(filtered);
-  };
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
   return (
@@ -39,7 +35,7 @@ const items: React.FC<Props> = () => {
         {"My "}
         <b>{"Items"}</b>
       </Text>
-      <SearchBar searchQuery={searchQuery} updateInput={updateInput} />
+      <SearchBar search={search} onSearch={onSearch} />
       {loading ? (
         <Flex pt={24} align="center" justify="center">
           <Spinner size="xl" label="Loading items" />
@@ -47,7 +43,9 @@ const items: React.FC<Props> = () => {
       ) : (
         <>
           {filteredItems.length ? (
-            filteredItems.map((item) => <ItemSingle myItem={true} item={item} />)
+            filteredItems.map((item) => (
+              <ItemSingle myItem={true} item={item} />
+            ))
           ) : (
             <Text>no items</Text>
           )}

@@ -83,7 +83,6 @@ const AddItemModal: React.FC<Props> = () => {
       <>
         <Button
           onClick={onOpenDealModal}
-          variantColor="teal"
           variant="solid"
           colorScheme="teal"
           align="center"
