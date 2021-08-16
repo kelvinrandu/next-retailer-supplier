@@ -6,7 +6,6 @@ import { GET_MY_ITEMS_QUERY } from "../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import SearchBar from "../components/SearchBar";
-import MyItem from "../components/MyItem";
 import ItemSingle from "../components/ItemSingle";
 
 interface Props{}

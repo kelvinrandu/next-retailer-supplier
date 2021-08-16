@@ -6,12 +6,24 @@ import { useUser } from "@auth0/nextjs-auth0";
 import App from "../components/App";
 import ItemSingle from "../components/ItemSingle";
 import SearchBar from "../components/SearchBar";
+import EmptySearch from "../components/EmptySearch";
+import { useSearch } from "../utils/search";
 
 interface Props{}
 const dashboard: React.FC<Props> = () => {
   const { data, loading } = useItems();
   const allItems = data ? data.items : [];
   const [filteredItems, setFilteredItems] = useState(allItems);
+
+  //filter function experiment
+  const { categoryFilter, search } = useSearch();
+  const matchesAlcoholType = (item) =>
+    categoryFilter.includes(item.category.name);
+    const filtered = allItems
+      .filter(matchesAlcoholType);
+
+  //end here
+  
   const { error, isLoading } = useUser();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -44,12 +56,10 @@ const dashboard: React.FC<Props> = () => {
         </Flex>
       ) : (
         <>
-          {filteredItems.length ? (
-            filteredItems.map((item) => (
-              <ItemSingle  item={item} />
-            ))
+          {filtered.length ? (
+            filtered.map((item) => <ItemSingle item={item} />)
           ) : (
-            <Text>no items</Text>
+            <EmptySearch />
           )}
           <Flex justify="flex-end" as="i" color="gray.500">
             {`Showing ${filteredItems.length} out of ${allItems.length} items `}

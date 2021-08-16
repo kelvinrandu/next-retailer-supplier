@@ -3,7 +3,6 @@ import { Collapse ,Badge} from "@chakra-ui/react";
 import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
 import { TriangleDownIcon, TriangleUpIcon, AtSignIcon } from "@chakra-ui/icons";
 import ItemDetail from "../components/ItemDetail";
-import MyItem from "./MyItem";
 import EditItem from "../components/EditItem";
 
 export type ItemProps = {
