@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { UPDATE_ITEM_MUTATION } from "../../graphql/mutations";
 import {  useMutation } from "@apollo/react-hooks";
 import { ItemProps } from "../components/ItemSingle";
+import { GET_ITEMS_QUERY } from "../../graphql/queries";
 
 type IProps = {
   item: ItemProps;
@@ -28,7 +29,9 @@ type IProps = {
     const [newPrice, setNewPrice] = useState("");
     const { handleSubmit, register } = useForm();
     const toast = useToast();
-    const [updateItem, { loading }] = useMutation(UPDATE_ITEM_MUTATION);
+    const [updateItem, { loading }] = useMutation(UPDATE_ITEM_MUTATION, {
+      refetchQueries: [{ query: GET_ITEMS_QUERY }],
+    });
 
     const flushInputs=()=>{
       setNewName("");
