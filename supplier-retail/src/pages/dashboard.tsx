@@ -9,35 +9,20 @@ import SearchBar from "../components/SearchBar";
 import EmptySearch from "../components/EmptySearch";
 import { useSearch } from "../utils/search";
 
-interface Props{}
+interface Props {}
 const dashboard: React.FC<Props> = () => {
   const { data, loading } = useItems();
   const allItems = data ? data.items : [];
-  const [filteredItems, setFilteredItems] = useState(allItems);
-
-  //filter function experiment
-  const { categoryFilter, search } = useSearch();
+  const { categoryFilter, search, onSearch } = useSearch();
+  const matchesSearch = (item) =>
+    item.name.toLowerCase().includes(search.toLowerCase());
   const matchesAlcoholType = (item) =>
     categoryFilter.includes(item.category.name);
-    const filtered = allItems
-      .filter(matchesAlcoholType);
+  const filteredItems = allItems
+    .filter(matchesSearch)
+    .filter(matchesAlcoholType);
 
-  //end here
-  
   const { error, isLoading } = useUser();
-  const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    updateInput("");
-  }, [allItems]);
-  
-  const updateInput = async (input) => {
-    const filtered = allItems.filter((item) => {
-      return item.name.toLowerCase().includes(input.toLowerCase());
-    });
-    setSearchQuery(input);
-    setFilteredItems(filtered);
-  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -48,7 +33,7 @@ const dashboard: React.FC<Props> = () => {
         {"Active "}
         <b>{"Items"}</b>
       </Text>
-      <SearchBar searchQuery={searchQuery} updateInput={updateInput} />
+      <SearchBar search={search} onSearch={onSearch} />
 
       {loading ? (
         <Flex pt={24} align="center" justify="center">
@@ -56,8 +41,8 @@ const dashboard: React.FC<Props> = () => {
         </Flex>
       ) : (
         <>
-          {filtered.length ? (
-            filtered.map((item) => <ItemSingle item={item} />)
+          {filteredItems.length ? (
+            filteredItems.map((item) => <ItemSingle item={item} />)
           ) : (
             <EmptySearch />
           )}
