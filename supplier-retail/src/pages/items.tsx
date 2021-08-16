@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { useUser } from "@auth0/nextjs-auth0";
 import SearchBar from "../components/SearchBar";
 import MyItem from "../components/MyItem";
+import ItemSingle from "../components/ItemSingle";
 
 interface Props{}
 const items: React.FC<Props> = () => {
@@ -46,7 +47,7 @@ const items: React.FC<Props> = () => {
       ) : (
         <>
           {filteredItems.length ? (
-            filteredItems.map((item) => <MyItem item={item} />)
+            filteredItems.map((item) => <ItemSingle myItem={true} item={item} />)
           ) : (
             <Text>no items</Text>
           )}

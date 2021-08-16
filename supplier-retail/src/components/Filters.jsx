@@ -41,7 +41,7 @@ const Filters = (props) => {
                   onChange={onFilter}
                   spacing={2}
                   variantColor="teal"
-                  defaultValue={["food", "hardware","textile","electronics"]}
+                  defaultValue={["food", "hardware","textile","electronics","drinks"]}
         
                   >
                   {allCategories.length ? (
