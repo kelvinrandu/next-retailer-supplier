@@ -3,7 +3,7 @@ link retailers to suppliers
 
 
 ## DESCRIPTION
- retailer-supplier a web application that helps connect suppliers to potential retailers built using Nextjs[Nextjs](https://nextjs.org/), graphql , Hasura [Hasura](https://hasura.io/) and  powered by a postgres database.
+ retailer-supplier a web application that helps connect suppliers to potential retailers built using [Nextjs](https://nextjs.org/), graphql ,[Hasura](https://hasura.io/) and  powered by a postgres database.
 
 ## LINK TO LIVE SITE
 https://next-retailer-supplier.vercel.app/
