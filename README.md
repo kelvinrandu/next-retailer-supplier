@@ -3,7 +3,7 @@ link retailers to suppliers
 
 
 ## DESCRIPTION
- retailer-supplier a web application that helps connect suppliers to potential retailers built using Nextjs, Prisma and  powered by a postgres database.
+ retailer-supplier a web application that helps connect suppliers to potential retailers built using Nextjs[Nextjs](https://nextjs.org/), graphql , Hasura [Hasura](https://hasura.io/) and  powered by a postgres database.
 
 ## LINK TO LIVE SITE
 https://next-retailer-supplier.vercel.app/
@@ -12,12 +12,8 @@ https://next-retailer-supplier.vercel.app/
 - clone  this repository
 - navigate to the project directory
 - install  project dependencies
-``` yarn install```
-- create a env.local file and add the following entries according to your project.
-DATABASE_URL="linktoyourdatabse"
-JWT_SECRET="ypourjwtsecret"
-AUTH_SECRET="authsecret"
-NEXTAUTH_URL="nextauthurl"
+``` yarn ```
+- create a env.local file and add the following entries from .env.example and populate according to your project settings.
 
 - run the application
 ``` $ yarn dev```
