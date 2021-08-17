@@ -15,28 +15,6 @@ const Filters = (props) => {
     const { data, loading } = useCategories();
     const allCategories = data ? data.categories : [];
 
-      const [checked, setChecked] =
-        useState(allCategories);
-
-      // const onFilter =(value)=>{
-      //    const currentIndex = checked.indexOf(value.name);
-      //     const newChecked = [...checked];
-
-      //     if (currentIndex === -1) {
-      //         newChecked.push(value);
-      //         } else {
-      //             newChecked.splice(currentIndex, 1);
-      //         }
-      //          setChecked(newChecked);
-
-        
-
-      //   console.log('value :',checked)
-      //   return 1
-
-      // }
-
-
     return (
       <Stack spacing={8} mb={8} p="6" {...props}>
         <Box>

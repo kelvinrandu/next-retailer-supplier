@@ -69,8 +69,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           {link.name}
         </NavItem>
       ))}
-      <Filters />
-      <AddItemModal />
+
+        <Filters />
+        <AddItemModal />
+    
     </Box>
   );
 };
