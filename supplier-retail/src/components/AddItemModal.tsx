@@ -16,6 +16,7 @@ import {
   Input,
   Select,
   Button,
+  Flex,
   useToast,
 } from "@chakra-ui/react";
 import { GET_CATEGORIES_QUERY, GET_ITEMS_QUERY } from "../../graphql/queries";
@@ -81,6 +82,7 @@ const AddItemModal: React.FC<Props> = () => {
 
     return (
       <>
+      <Flex p={6}>
         <Button
           onClick={onOpenDealModal}
           variant="solid"
@@ -91,6 +93,7 @@ const AddItemModal: React.FC<Props> = () => {
         >
           Add Item
         </Button>
+          </Flex>
 
         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
