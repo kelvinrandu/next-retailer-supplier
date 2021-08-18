@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   IconButton,
+  Icon,
   Avatar,
   Box,
   Flex,
@@ -17,32 +18,18 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import {
-  FiHome,
   FiMenu,
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
-import { IconType } from "react-icons";
 import { useUser } from "@auth0/nextjs-auth0";
-import { FaPaperPlane, FaDolly, FaEnvelope } from "react-icons/fa";
 
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
-interface LinkProps {
-  name: string;
-  path: string;
-  icon: IconType;
-}
-const items: Array<LinkProps> = [
-  { name: "Dashboard", path: "/dashboard", icon: FiHome },
-  { name: "Inbox", path: "/myOrders", icon: FaEnvelope },
-  { name: "Outbox", path: "/orders", icon: FaPaperPlane },
-  { name: "My Items", path: "/items", icon: FaDolly },
-];
 
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
   const { user, error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
@@ -76,12 +63,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
+          <IconButton
+            size="lg"
+            variant="ghost"
+            aria-label="open menu"
+            icon={<FiBell />}
+          />
+        
         <Flex alignItems={"center"}>
           <Menu>
             <MenuButton
