@@ -61,27 +61,28 @@ const ItemSingle: React.FC<Props> = ({ item,myItem}) => {
 
         <Spacer />
 
-        {myItem  ? <EditItem item={item} /> : (<>
+        {myItem ? (
+          <EditItem item={item} />
+        ) : (
+          <>
+            <Badge mr={5} colorScheme={badgeColors[item.category.name]}>
+              {item.category.name}
+            </Badge>
 
-        <Badge colorScheme={badgeColors[item.category.name]}>
-          {item.category.name}
-        </Badge>
-
-        <Box
-          as="button"
-          alignSelf="right"
-          float="right"
-          onClick={() => ItemDetailHandler()}
-        >
-          {itemDetail ? (
-            <TriangleUpIcon color="red" boxSize={6} />
-          ) : (
-            <TriangleDownIcon color="teal" boxSize={6} />
-          )}
-        </Box>
-        </>
+            <Box
+              as="button"
+              alignSelf="right"
+              float="right"
+              onClick={() => ItemDetailHandler()}
+            >
+              {itemDetail ? (
+                <TriangleUpIcon color="red" boxSize={6} />
+              ) : (
+                <TriangleDownIcon color="teal" boxSize={6} />
+              )}
+            </Box>
+          </>
         )}
-
       </Flex>
 
       {itemDetail && (
