@@ -9,6 +9,7 @@ import SearchBar from "../components/SearchBar";
 import ItemSingle from "../components/ItemSingle";
 import { useSearch } from "../utils/search";
 
+
 interface Props {}
 const items: React.FC<Props> = () => {
   const { user, error, isLoading } = useUser();
@@ -36,6 +37,7 @@ const items: React.FC<Props> = () => {
         <b>{"Items"}</b>
       </Text>
       <SearchBar search={search} onSearch={onSearch} />
+
       {loading ? (
         <Flex pt={24} align="center" justify="center">
           <Spinner size="xl" label="Loading items" />

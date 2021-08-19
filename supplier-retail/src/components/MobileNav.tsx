@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IconButton,
   Icon,
@@ -23,6 +23,7 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 import { useUser } from "@auth0/nextjs-auth0";
+
 
 
 interface MobileProps extends FlexProps {
@@ -63,13 +64,14 @@ const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
-          {/* <IconButton
+     
+        {/* <IconButton
             size="lg"
             variant="ghost"
             aria-label="open menu"
             icon={<FiBell />}
           /> */}
-        
+
         <Flex alignItems={"center"}>
           <Menu>
             <MenuButton

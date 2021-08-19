@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { FiHome } from "react-icons/fi";
 import { FaPaperPlane, FaDolly, FaEnvelope } from "react-icons/fa";
-
 import { useRouter } from "next/router";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
@@ -49,6 +48,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
+      overflowY="auto"
       {...rest}
     >
       <Flex
@@ -70,9 +70,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
 
-        <Filters />
-        <AddItemModal />
-    
+      <Filters />
+      <AddItemModal />
     </Box>
   );
 };
