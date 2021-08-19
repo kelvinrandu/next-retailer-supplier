@@ -111,8 +111,8 @@ const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
             >
               {user ? (
                 <>
-                  <MenuItem>Profile</MenuItem>
-                  <MenuDivider />
+                  {/* <MenuItem>Profile</MenuItem>
+                  <MenuDivider /> */}
 
                   <Link href="/api/auth/logout">
                     <MenuItem>Sign out</MenuItem>
