@@ -48,7 +48,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
-      overflowY="auto"
+      overflowY="scroll"
       {...rest}
     >
       <Flex
