@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Box, Heading, Text, Flex, Spacer } from "@chakra-ui/layout";
+import { Box, Heading, Text, Flex, Spacer, Grid} from "@chakra-ui/layout";
 import { EmailIcon } from "@chakra-ui/icons";
 import { Button, Checkbox, useToast } from "@chakra-ui/react";
 import { UPDATE_ORDER_MUTATION } from "../../graphql/mutations";
@@ -65,7 +65,6 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
         margin={2}
         borderRadius={5}
         borderColor="red.100"
-        border="1px solid green"
         // d="flex"
         w={[300, 400, 560]}
       >
@@ -108,30 +107,44 @@ const OrderSingle: React.FC<{ order: OrderProps }> = (props) => {
           </Button>
           {/* </HStack> */}
         </Flex>
-      </Box>
+        {orderDetail && (
+          <>
+            {" "}
 
-      {orderDetail && (
-        <>
-          {" "}
-          {order.user.name}
-          <EmailIcon />
-          email
-          {order?.read ? (
-            <Checkbox colorScheme="red" isDisabled defaultIsChecked>
-              {" "}
-              Processed order{" "}
-            </Checkbox>
-          ) : (
-            <Checkbox
-              colorScheme="red"
-              onChange={(e) => onUpdateOrder(order?.id)}
-            >
-              {" "}
-              Process order{" "}
-            </Checkbox>
-          )}
-        </>
-      )}
+            <Box py={10} p={2}>
+              <Box fontWeight="700" d="flex" align="center" justify="center">
+                <Text color="teal" mr="5px">
+                  {/* get data from user.role */}
+                  <Text> </Text>
+                </Text>
+                <Text fontSize="20px" letterSpacing={3}>
+                  {" "}
+                  {order.user.name}.
+                </Text>
+              </Box>
+
+              <Box fontWeight="700" fontSize="15px">
+                <EmailIcon color="teal" mr="5px" boxSize={4} />{" "}
+                {order?.user.email}
+              </Box>
+              {order?.read ? (
+                <Checkbox colorScheme="red" isDisabled defaultIsChecked>
+                  {" "}
+                  Processed order{" "}
+                </Checkbox>
+              ) : (
+                <Checkbox
+                  colorScheme="red"
+                  onChange={(e) => onUpdateOrder(order?.id)}
+                >
+                  {" "}
+                  Process order{" "}
+                </Checkbox>
+              )}
+            </Box>
+          </>
+        )}
+      </Box>
     </>
   );
 };
