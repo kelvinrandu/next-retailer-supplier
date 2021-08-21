@@ -2,6 +2,7 @@ import React from "react";
 import {
   IconButton,
   Icon,
+  AvatarBadge,
   Avatar,
   Box,
   Flex,
@@ -16,6 +17,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Badge,
 } from "@chakra-ui/react";
 import {
   FiMenu,
@@ -23,6 +25,7 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 import { useUser } from "@auth0/nextjs-auth0";
+import { BellIcon } from "@chakra-ui/icons";
 
 
 
@@ -64,13 +67,19 @@ const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
-     
-        {/* <IconButton
-            size="lg"
-            variant="ghost"
-            aria-label="open menu"
-            icon={<FiBell />}
-          /> */}
+        {/* <Avatar
+          as="button"
+          aria-label="notifications"
+          icon={<BellIcon />}
+          children={<AvatarBadge boxSize="1rem" bg="red.500" />}
+        />
+        <IconButton
+          size="lg"
+          variant="ghost"
+          aria-label="open menu"
+          icon={<FiBell />}
+        />
+        <Badge badgeContent={2}>3</Badge> */}
 
         <Flex alignItems={"center"}>
           <Menu>
