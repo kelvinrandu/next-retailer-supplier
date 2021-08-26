@@ -22,41 +22,39 @@ export const Container = (props) => (
 );
 
 const Header = () => {
-
   const { colorMode, toggleColorMode } = useColorMode();
-    return (
-      <Box as="header" width="full" height="4rem">
-        <Box width="full" mx="auto" px={6} pr={[1, 6]} height="100%">
-          <Flex
-            size="100%"
-            p={[0, 6]}
-            pl={[0, 4]}
-            align="center"
-            justify="space-between"
-          >
-            <Box d="block" aria-label="supplier index page">
-              <Heading as="h1" size="lg" fontWeight="black">
-                Supplier~retail
-              </Heading>
-            </Box>
-            <Flex align="center">
-              <Wobble>
-                <NextLink href="/api/auth/login" passHref>
-                  <Button variant="ghost">{"Sign In"}</Button>
-                </NextLink>
-              </Wobble>
-              <Spin>
+  return (
+    <Box as="header" width="full" height="4rem">
+      <Box width="full" mx="auto" px={6} pr={[1, 6]} height="100%">
+        <Flex
+          size="100%"
+          p={[0, 6]}
+          pl={[0, 4]}
+          align="center"
+          justify="space-between"
+        >
+          <Box d="block" aria-label="supplier index page">
+            <Heading as="h1" size="lg" fontWeight="black">
+              Supplier~retail
+            </Heading>
+          </Box>
+          <Flex align="center">
+            <Wobble>
+              <NextLink href="/api/auth/login" passHref>
+                <Button variant="ghost">{"Sign In"}</Button>
+              </NextLink>
+            </Wobble>
+            <Spin>
               <Button onClick={toggleColorMode} margin={3}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              </Spin>
-
-            </Flex>
+            </Spin>
           </Flex>
-        </Box>
+        </Flex>
       </Box>
-    );
-}
+    </Box>
+  );
+};
 const HomePage: React.FC<Props> = () => {
   const { user, error, isLoading } = useUser();
 
@@ -82,14 +80,14 @@ const HomePage: React.FC<Props> = () => {
               Supplier retail helps you connect to potential customers , just
               post your item and await orders from interested customers.
             </Text>
-             <Jump>
-            <Box mt="6">
-              <NextLink href="/api/auth/login" passHref>
-                <Button size="lg" as="a" colorScheme="teal">
-                  Let's Get Started
-                </Button>
-              </NextLink>
-            </Box>
+            <Jump>
+              <Box mt="6">
+                <NextLink href="/api/auth/login" passHref>
+                  <Button size="lg" as="a" colorScheme="teal">
+                    Let's Get Started
+                  </Button>
+                </NextLink>
+              </Box>
             </Jump>
           </Box>
         </Container>

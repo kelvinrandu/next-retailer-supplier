@@ -114,3 +114,27 @@ export const GET_ORDERS_FOR_ME_QUERY = gql`
     }
   }
 `;
+export const GET_UNREAD_ORDERS_FOR_ME_QUERY = gql`
+  query ($user_id: String!) {
+    orders(where: { to: { _eq: $user_id } , read: {_eq: false} }) {
+      id
+      receipt
+      total_price
+      amount
+      read
+      user {
+        name
+        email
+      }
+      userByTo {
+        name
+        email
+      }
+      item {
+        id
+        name
+        price
+      }
+    }
+  }
+`;
