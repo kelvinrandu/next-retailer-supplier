@@ -35,8 +35,8 @@ const MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
     variables: { user_id: user_Id },
   });
 
-  const allOrders = [];
-    // const allOrders = data ? data.orders : [];
+ 
+  const allOrders = data ? data.orders : [];
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -77,9 +77,7 @@ const MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-            
-                  
-                {(user && allOrders.length != 0 )? (
+                {user  ? (
                   <Avatar
                     size={"sm"}
                     src={user.picture}

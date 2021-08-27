@@ -58,13 +58,9 @@ const Header = () => {
 const HomePage: React.FC<Props> = () => {
   const { user, error, isLoading } = useUser();
 
-  if (user)
     useEffect(() => {
-      const { pathname } = Router;
-      if (pathname == "/") {
-        Router.push("/dashboard");
-      }
-    }, []);
+      if (user) Router.push("/dashboard");
+    }, [user]);
 
   return (
     <Box h="100vh">
