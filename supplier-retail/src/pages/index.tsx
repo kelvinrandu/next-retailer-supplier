@@ -35,7 +35,7 @@ const Header = () => {
         >
           <Box d="block" aria-label="supplier index page">
             <Heading as="h1" size="lg" fontWeight="black">
-              Supplier~retail
+              Alternative~Feeds
             </Heading>
           </Box>
           <Flex align="center">

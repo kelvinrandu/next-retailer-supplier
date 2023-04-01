@@ -59,7 +59,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         justifyContent="space-between"
       >
         <Text fontSize="xl" fontFamily="monospace" fontWeight="bold">
-          supplier~retail
+          alternative~feeds
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>

@@ -12,6 +12,7 @@ import { useSearch } from "../utils/search";
 interface Props {}
 const dashboard: React.FC<Props> = () => {
   const { data, loading } = useItems();
+  console.log('data -->',data)
   const allItems = data ? data.items : [];
   const { categoryFilter, search, onSearch } = useSearch();
   const matchesSearch = (item) =>
