@@ -15,13 +15,13 @@ const dashboard: React.FC<Props> = () => {
   console.log('data -->',data)
   const allItems = data ? data.items : [];
   const { categoryFilter, search, onSearch } = useSearch();
-  const matchesSearch = (item) =>
-    item.name.toLowerCase().includes(search.toLowerCase());
-  const matchesAlcoholType = (item) =>
-    categoryFilter.includes(item.category.name);
-  const filteredItems = allItems
-    .filter(matchesSearch)
-    .filter(matchesAlcoholType);
+  // const matchesSearch = (item) =>
+  //   item.name.toLowerCase().includes(search.toLowerCase());
+  // const matchesAlcoholType = (item) =>
+  //   categoryFilter.includes(item.category.name);
+  // const filteredItems = allItems
+  //   .filter(matchesSearch)
+  //   .filter(matchesAlcoholType);
 
   const { error, isLoading } = useUser();
 
@@ -42,13 +42,16 @@ const dashboard: React.FC<Props> = () => {
         </Flex>
       ) : (
         <>
-          {filteredItems.length ? (
-            filteredItems.map((item) => <ItemSingle item={item} />)
+          {/* {filteredItems.length ? (
+            filteredItems.map((item) => <ItemSingle item={item} />) */}
+          {allItems.length ? (
+            allItems.map((item) => <ItemSingle item={item} />)
           ) : (
             <EmptySearch />
           )}
           <Flex justify="flex-end" as="i" color="gray.500">
-            {`Showing ${filteredItems.length} out of ${allItems.length} items `}
+            {/* {`Showing ${filteredItems.length} out of ${allItems.length} items `} */}
+            {`Showing ${allItems.length} out of ${allItems.length} items `}
           </Flex>
         </>
       )}

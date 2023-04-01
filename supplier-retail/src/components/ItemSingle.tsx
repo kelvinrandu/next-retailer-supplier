@@ -65,8 +65,8 @@ const ItemSingle: React.FC<Props> = ({ item,myItem}) => {
           <EditItem item={item} />
         ) : (
           <>
-            <Badge mr={5} colorScheme={badgeColors[item.category.name]}>
-              {item.category.name}
+            <Badge mr={5} colorScheme={badgeColors["food"]}>
+              {item?.category.name}
             </Badge>
 
             <Box
