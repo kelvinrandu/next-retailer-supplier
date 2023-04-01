@@ -19,22 +19,24 @@ import {
   MenuList,
   Badge,
 } from "@chakra-ui/react";
-import {
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { useUser } from "@auth0/nextjs-auth0";
-import { BellIcon } from "@chakra-ui/icons";
-
-
+import { GET_UNREAD_ORDERS_FOR_ME_QUERY } from "../../graphql/queries";
+import { useQuery } from "@apollo/react-hooks";
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 
-const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
+const MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
   const { user, error, isLoading } = useUser();
+  const user_Id = user ? user.sub : [];
+  const { data, loading } = useQuery(GET_UNREAD_ORDERS_FOR_ME_QUERY, {
+    variables: { user_id: user_Id },
+  });
+
+ 
+  const allOrders = data ? data.orders : [];
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -67,20 +69,6 @@ const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
-        {/* <Avatar
-          as="button"
-          aria-label="notifications"
-          icon={<BellIcon />}
-          children={<AvatarBadge boxSize="1rem" bg="red.500" />}
-        />
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
-        <Badge badgeContent={2}>3</Badge> */}
-
         <Flex alignItems={"center"}>
           <Menu>
             <MenuButton
@@ -89,8 +77,17 @@ const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-                {user ? (
-                  <Avatar size={"sm"} src={user.picture} alt={user.name} />
+                {user  ? (
+                  <Avatar
+                    size={"sm"}
+                    src={user.picture}
+                    alt={user.name}
+                    children={
+                      <AvatarBadge boxSize="1.25em" bg="green.500">
+                        {allOrders.length != 0 ? allOrders.length : null}
+                      </AvatarBadge>
+                    }
+                  />
                 ) : (
                   <Avatar size={"sm"} />
                 )}
@@ -125,12 +122,15 @@ const  MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
                   {/* <MenuItem>Profile</MenuItem>
                   <MenuDivider /> */}
 
-                  <Link href="/api/auth/logout">
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    href="/api/auth/logout"
+                  >
                     <MenuItem>Sign out</MenuItem>
                   </Link>
                 </>
               ) : (
-                <Link href="/api/auth/login">
+                <Link style={{ textDecoration: "none" }} href="/api/auth/login">
                   <MenuItem>Sign in</MenuItem>
                 </Link>
               )}

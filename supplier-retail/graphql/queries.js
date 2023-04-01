@@ -6,16 +6,8 @@ export  const GET_ITEMS_QUERY = gql`
       id
       name
       price
-      user {
-        name
-        email
-        id
-        auth0_id
-      }
-      category {
-        id
-        name
-      }
+      user 
+      category 
     }
   }
 `;
@@ -93,6 +85,30 @@ export const GET_MY_ORDERS_QUERY = gql`
 export const GET_ORDERS_FOR_ME_QUERY = gql`
   query ($user_id: String!) {
     orders(where: { to: { _eq: $user_id } }) {
+      id
+      receipt
+      total_price
+      amount
+      read
+      user {
+        name
+        email
+      }
+      userByTo {
+        name
+        email
+      }
+      item {
+        id
+        name
+        price
+      }
+    }
+  }
+`;
+export const GET_UNREAD_ORDERS_FOR_ME_QUERY = gql`
+  query ($user_id: String!) {
+    orders(where: { to: { _eq: $user_id } , read: {_eq: false} }) {
       id
       receipt
       total_price
