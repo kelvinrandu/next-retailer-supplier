@@ -14,6 +14,7 @@ const dashboard: React.FC<Props> = () => {
   const { data, loading } = useItems();
   console.log('data -->',data)
   const allItems = data ? data.items : [];
+    console.log("data2 -->", allItems);
   const { categoryFilter, search, onSearch } = useSearch();
   // const matchesSearch = (item) =>
   //   item.name.toLowerCase().includes(search.toLowerCase());
@@ -46,6 +47,11 @@ const dashboard: React.FC<Props> = () => {
             filteredItems.map((item) => <ItemSingle item={item} />) */}
           {allItems.length ? (
             allItems.map((item) => <ItemSingle item={item} />)
+          ) : (
+            <EmptySearch />
+          )}
+          {data.length ? (
+            data?.items?.map((item) => <ItemSingle item={item} />)
           ) : (
             <EmptySearch />
           )}
