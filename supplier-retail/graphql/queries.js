@@ -6,16 +6,8 @@ export  const GET_ITEMS_QUERY = gql`
       id
       name
       price
-      user {
-        name
-        email
-        id
-        auth0_id
-      }
-      category {
-        id
-        name
-      }
+      user 
+      category 
     }
   }
 `;
