@@ -66,7 +66,7 @@ const ItemSingle: React.FC<Props> = ({ item,myItem}) => {
         ) : (
           <>
             <Badge mr={5} colorScheme={badgeColors["food"]}>
-              {item?.category.name}
+              {item?.category?.name}
             </Badge>
 
             <Box
