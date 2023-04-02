@@ -65,7 +65,7 @@ const MobileNav: React.FC<MobileProps> = ({ onOpen, ...rest }) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Supplier-retail
+        Alternative-feeds
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
