@@ -100,14 +100,14 @@ const ItemDetail: React.FC<Iprops> = (props) => {
           </Text>
           <Text fontSize="20px" letterSpacing={3}>
             {" "}
-            {item?.user?.name}.
+            {item?.user?.phone}.
           </Text>
         </Box>
 
         <Box fontWeight="700" fontSize="15px">
-          <EmailIcon color="teal" mr="5px" boxSize={4} /> {item?.user?.email}
+          <EmailIcon color="teal" mr="5px" boxSize={4} /> {item?.user?.name}
         </Box>
-        {item?.user?.email !== user?.email && (
+        {item?.user?.name !== user?.name && (
           <InputGroup>
             <form
               onSubmit={handleSubmit((data) =>
