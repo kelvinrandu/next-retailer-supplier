@@ -8,6 +8,13 @@ export  const GET_ITEMS_QUERY = gql`
       price
       user 
       category 
+      categoryByCategory{
+        name
+      }
+      userByUser{
+        name
+        phone
+      }
     }
   }
 `;
