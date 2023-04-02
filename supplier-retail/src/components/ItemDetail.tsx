@@ -30,7 +30,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
   const { item } = props;
 
   const [amount, setAmount] = useState<number | null>(null);
-  const [to_id] = useState(item.user.auth0_id);
+  const [to_id] = useState(item.userByUser.name);
   const [from_id] = useState(user?.sub);
   const [price] = useState(item.price);
   const [item_id] = useState(item.id);
@@ -100,14 +100,14 @@ const ItemDetail: React.FC<Iprops> = (props) => {
           </Text>
           <Text fontSize="20px" letterSpacing={3}>
             {" "}
-            {item?.user?.name}.
+            {item?.userByUser?.phone}.
           </Text>
         </Box>
 
         <Box fontWeight="700" fontSize="15px">
-          <EmailIcon color="teal" mr="5px" boxSize={4} /> {item?.user?.name}
+          <EmailIcon color="teal" mr="5px" boxSize={4} /> {item?.userByUser?.name}
         </Box>
-        {item?.user?.name !== user?.name && (
+        {item?.userByUser?.name !== user?.email && (
           <InputGroup>
             <form
               onSubmit={handleSubmit((data) =>

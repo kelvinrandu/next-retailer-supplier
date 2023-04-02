@@ -9,15 +9,18 @@ export type ItemProps = {
   id: number;
   name: string;
   price: number;
-  user: {
+  userByUser: {
     name: string;
-    email: string;
-    auth0_id: string;
+    phone: string;
+
   };
-  category: {
-    name: string;
-    description: string;
-  };
+  user: string;
+  category:string;
+  categoryByCategory:{
+    name:string;
+
+  }
+
 };
 interface Props {
   item:ItemProps;
@@ -66,7 +69,7 @@ const ItemSingle: React.FC<Props> = ({ item,myItem}) => {
         ) : (
           <>
             <Badge mr={5} colorScheme={badgeColors["food"]}>
-              {item?.category?.name}
+              {item?.categoryByCategory?.name}
             </Badge>
 
             <Box
