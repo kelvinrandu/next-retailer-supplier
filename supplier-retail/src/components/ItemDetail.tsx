@@ -100,7 +100,7 @@ const ItemDetail: React.FC<Iprops> = (props) => {
           </Text>
           <Text fontSize="20px" letterSpacing={3}>
             {" "}
-            {item?.user?.phone}.
+            {item?.user?.name}.
           </Text>
         </Box>
 
